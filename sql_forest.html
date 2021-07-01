@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jonathan Papworth: TMDB Movie Dataset</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="generic.html">Ipsum veroeros</a></li>
+							<li><a href="generic.html">Tempus etiam</a></li>
+							<li><a href="generic.html">Consequat dolor</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Data Exploration with SQL</h1>
+							<span class="image main"><img src="images/narrow02.jpg" alt="" /></span>
+							<h2>Report for Forest Query into Global Deforestation, 1990 to 2016</h2>
+							<p>							
+								Using SQL, I explored a data set to assess the effect of deforestation between 1990-2016, The mission mission to reduce deforestation<br \>
+								around the world and which raises awareness about this important environmental topic. at the end of the article I will share the SQL scripts.
+							</p>
+							<p><h3>1. GLOBAL SITUATION</h3>
+								According to the World Bank, the total forest area of the world was <strong>4128269.90</strong> in 1990. As of 2016, the most recent year for which data was available, 
+								that number had fallen to <strong>39958245.90</strong> a loss of <strong>1324449</strong>, or <strong>3.2%</strong>.
+								The forest area lost over this time period is slightly more than the entire land area of Peru listed for the year 2016 (which is 1279998.72 sqkm).
+							</p>
+							<p>
+								<h2>2. REGIONAL OUTLOOK</h2>
+								In 2016, the percent of the total land area of the world designated as forest was <strong>31.37</strong>. 
+								The region with the highest relative forestation was <strong>Latin America & Caribbean</strong>, with <strong>46.16%</strong>, and the region with the lowest relative forestation was 
+								<strong>Middle East & North Africa</strong>, with <strong>2.07% </strong>forestation.
+							</p>	
+							<p>
+								In 1990, the percent of the total land area of the world designated as forest was <strong>32.42</strong>.The region with the 
+								highest relative forestation was <strong>Latin America & Caribbean</strong>, with <strong>51.03%</strong>, and the region with the lowest relative forestation was 
+								<strong>Middle East & North Africa</strong>, with <strong>1.78%</strong> forestation.
+							</p>
+							Table 2.1: Percent Forest Area by Region, 1990 & 2016:
+							<table style="width:100%" >
+								<tbody>
+									<tr style="height: 43px; background: rgba(64, 78, 71, 0.849);">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Region</td>
+										<td style="width: 192.75px; height: 43px;">1990 Forest Percentage</td>
+										<td style="width: 224px; height: 43px;">2016 Forest Percentage</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Latin America &amp; Caribbean</td>
+										<td style="width: 192.75px; height: 43px;">&nbsp;51.03</td>
+										<td style="width: 224px; height: 43px;">&nbsp;46.16</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Europe &amp; Central Asia</td>
+										<td style="width: 192.75px; height: 43px;">&nbsp;37.28</td>
+										<td style="width: 224px; height: 43px;">&nbsp;38.04</td>
+									</tr>
+									<tr style="height: 23px;">
+										<td style="width: 198.25px; height: 23px;">&nbsp;North America</td>
+										<td style="width: 192.75px; height: 23px;">&nbsp;35.65</td>
+										<td style="width: 224px; height: 23px;">&nbsp;36.04</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Sub-Saharan Africa</td>
+										<td style="width: 192.75px; height: 43px;">&nbsp;30.67</td>
+										<td style="width: 224px; height: 43px;">&nbsp;28.79</td>
+									</tr>
+									<tr style="height: 43.5px;">
+										<td style="width: 198.25px; height: 43.5px;">&nbsp;East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43.5px;">&nbsp;25.78</td>
+										<td style="width: 224px; height: 43.5px;">&nbsp;26.36</td>
+									</tr>
+									<tr style="height: 23px;">
+										<td style="width: 198.25px; height: 23px;">&nbsp;South Asia</td>
+										<td style="width: 192.75px; height: 23px;">&nbsp;16.51</td>
+										<td style="width: 224px; height: 23px;">&nbsp;17.51</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Middle East &amp; North Africa</td>
+										<td style="width: 192.75px; height: 43px;">&nbsp;1.78</td>
+										<td style="width: 224px; height: 43px;">&nbsp;2.07</td>
+									</tr>
+								</tbody>
+							</table>
+							<p>
+								The only regions of the world that decreased in percent forest area from 1990 to 2016 were <strong>Latin America & Caribbean</strong> (dropped from <strong>51.03% to 46.16%</strong>) 
+								and <strong>Sub-Saharan Africa</strong> (<strong>30.67% to 28.79%</strong>). All other regions actually increased in forest area over this time period. However, 
+								the drop in forest area in the two aforementioned regions was so large, the percent forest area of the <em>world decreased</em> over this time period from <strong>32.42% to 31.37%</strong>.
+							</p>
+
+							<p>
+								<h2>3. Country Level Details</h2>
+								<h4 style="margin-left: 40px">A. Success Stories</h4>
+								There is one particularly bright spot in the data at the country level, <strong>China</strong>. This country actually increased in forest area from 1990 to 2016 by <strong>527229</strong>. 
+								It would be interesting to study what has changed in this country over this time to drive this figure in the data higher. 
+								The country with the next largest increase in forest area from 1990 to 2016 was the <strong>United States</strong>,
+								but it only saw an increase of <strong>79200</strong>, much lower than the figure for <strong>Iceland</strong>.
+							</p>
+							<p>	 
+								<strong>China and United States</strong> are of course very large countries in total land area, so when we look at the largest percent change in forest area from 1990 to 2016,
+								we aren’t surprised to find a much smaller country listed at the top. <Strong>Iceland</Strong> increased in forest area by <strong>213.66%</strong> from 1990 to 2016.
+								<h4 style="margin-left: 40px">B. LARGEST CONCERNS</h4>
+								Which countries are seeing deforestation to the largest degree?<br \>
+								We can answer this question in two ways.First, we can look at the absolute square kilometer decrease in forest area from 1990 to 2016. 
+								The following countries had the largest decrease in forest area over the time period under consideration:
+							</p>
+							Table 3.1: Top 5 Amount Decrease in Forest Area by Country, 1990 & 2016: Country Region Absolute
+							<table style="width: 80%;">
+								<tbody>
+									<tr style="height: 43px; background: rgba(64, 78, 71, 0.849);">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Country</td>
+										<td style="width: 192.75px; height: 43px;">Region</td>
+										<td style="width: 224px; height: 43px;">Absolute Forest Area Change</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Brazil</td>
+										<td style="width: 192.75px; height: 43px;">Latin America &amp; Caribbean</td>
+										<td style="width: 224px; height: 43px;">541510</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Indonesia</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 224px; height: 43px;">282194</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Myanmar</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 224px; height: 43px;">107234</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Nigeria</td>
+										<td style="width: 192.75px; height: 43px;">Sub-Saharan Arfica</td>
+										<td style="width: 224px; height: 43px;">106506</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Tanzania</td>
+										<td style="width: 192.75px; height: 43px;">Sub-Saharan Arfica</td>
+										<td style="width: 224px; height: 43px;">102320</td>
+									</tr>
+								</tbody>
+							</table>
+							The second way to consider which countries are of concern is to analyze the data by percent decrease.<br \><br \>
+							Table 3.2: Top 5 Percent Decrease in Forest Area by Country, 1990 & 2016:
+							<table style="width: 80%;">
+								<tbody>
+									<tr style="height: 43px; background: rgba(64, 78, 71, 0.849);">
+										<td style="width: 198px; height: 43px;">&nbsp;Country</td>
+										<td style="width: 192.297px; height: 43px;">Region</td>
+										<td style="width: 223.703px; height: 43px;">Pct. Forest Area Change</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198px; height: 43px;">Togo</td>
+										<td style="width: 192.297px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 223.703px; height: 43px;">-75.45</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198px; height: 43px;">Nigeria</td>
+										<td style="width: 192.297px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 223.703px; height: 43px;">-61.80</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198px; height: 43px;">Uganda</td>
+										<td style="width: 192.297px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 223.703px; height: 43px;">-59.13</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198px; height: 43px;">Mauritania</td>
+										<td style="width: 192.297px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 223.703px; height: 43px;">-46.75</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198px; height: 43px;">Honduras</td>
+										<td style="width: 192.297px; height: 43px;">Latin America</td>
+										<td style="width: 223.703px; height: 43px;">-45.03</td>
+									</tr>
+								</tbody>
+							</table>
+							<p>
+								When we consider countries that decreased in forest area percentage the most between 1990 and 2016, we find that four of the top 5 countries on the list are in the region 
+								of <strong>Sub Saharan Africa</strong>. The countries are <strong>Togo, Nigeria, Uganda, and Mauritania</strong>. The 5th country on the list is <strong>Honduras</strong>, which is in the Latin America region.
+							</p>
+							<p>
+								From the above analysis, we see that <strong>Nigeria</strong> is the only country that ranks in the top 5 both in terms of absolute square kilometer decrease in forest as well as percent decrease in
+								forest area from 1990 to 2016.Therefore, this country has a significant opportunity ahead to stop the decline and hopefully spearhead remedial efforts.
+							</p>
+							<h4 style="margin-left: 40px">C. Quartiles</h4>
+							Table 3.3: Count of Countries Grouped by Forestation Percent Quartiles, 2016:
+							<table style="width: 80%;">
+								<tbody>
+									<tr style="height: 43px; background: rgba(64, 78, 71, 0.849);">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Quartile</td>
+										<td style="width: 192.75px; height: 43px;">Number of Countries</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">0-25 1st quartile</td>
+										<td style="width: 192.75px; height: 43px;">85</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">25-50 2nd quartile</td>
+										<td style="width: 192.75px; height: 43px;">72</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">50-75 3rd quartile</td>
+										<td style="width: 192.75px; height: 43px;">38</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">75-100 4th quartile</td>
+										<td style="width: 192.75px; height: 43px;">9</td>
+									</tr>
+								</tbody>
+							</table>
+							The largest number of countries in 2016 were found in the 0-25 1st quartile.<br \><br \>
+							There were 9 countries in the top quartile in 2016. These are countries with a very high percentage of their land area designated as forest. 
+							The following is a list of countries and their respective forest land, denoted as a percentage.<br \><br \>
+							<table style="width: 80%;">
+								<tbody>
+									<tr style="height: 43px; background: rgba(64, 78, 71, 0.849);">
+										<td style="width: 198.25px; height: 43px;">&nbsp;Country</td>
+										<td style="width: 192.75px; height: 43px;">Region</td>
+										<td style="width: 192.75px; height: 43px;">Pct. Designated as Forest</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Suriname</td>
+										<td style="width: 192.75px; height: 43px;">Latin Armerica &amp; Caribbean</td>
+										<td style="width: 192.75px; height: 43px;">98.26</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Mocronesia, Fed, Sts</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43px;">91.86</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Gabon</td>
+										<td style="width: 192.75px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 192.75px; height: 43px;">
+											<p>90.04</p>
+										</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Seychelles</td>
+										<td style="width: 192.75px; height: 43px;">Sub-Saharan Africa</td>
+										<td style="width: 192.75px; height: 43px;">88.41</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Palau</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43px;">87.61</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">American Samoa</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43px;">87.50</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Guyana</td>
+										<td style="width: 192.75px; height: 43px;">Latin America &amp; Caribbean</td>
+										<td style="width: 192.75px; height: 43px;">83.90</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Lao PDR</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43px;">82.11</td>
+									</tr>
+									<tr style="height: 43px;">
+										<td style="width: 198.25px; height: 43px;">Solomon Islands</td>
+										<td style="width: 192.75px; height: 43px;">East Asia &amp; Pacific</td>
+										<td style="width: 192.75px; height: 43px;">77.86</td>
+									</tr>
+								</tbody>
+							</table>
+							<h2>5.Recomendations</h2>
+							<p>For the period of 1990 – 2016 forest area has shrunk by <strong>3.2%</strong>, <em>(1324449 kmsq)</em>, although there is a shrinkage, countries like China and United states 
+								have increased forest area over the same period. While there is this increase the total forest area is <em>still shrinking</em>,
+								countries in the region of Sub-Saharan Africa has been shrinking the fastest and should be a main focal point.<br \><br \>
+
+								To conclude; through what ever reasons be it Deforestation by humans, wild fires or climate change we need to act faster in replenishing the forest areas.
+							</p>
+							<h2>Appendix: SQL queries</h2>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
