@@ -2836,7 +2836,7 @@ input, select, textarea {
 /* Header */
 
 	#header {
-		padding: 4em 0 0.1em 0 ;
+		padding: 1.5em 0 0.1em 0 ;
 	}
 
 		#header .logo {
@@ -3369,7 +3369,7 @@ input, select, textarea {
 		height: 25px;
 		right: -9px;
 		background-color: white;
-		border: 4px solid rgba(28, 66, 92, 0.938);
+		border: 4px solid rgba(28, 66, 92, 0.904);
 		top: 15px;
 		border-radius: 50%;
 		z-index: 1;
@@ -3456,4 +3456,5 @@ input, select, textarea {
 /* Make all right containers behave like the left ones */
 	.right {
 		left: 0%;
-		}			  
+		}
+	  
