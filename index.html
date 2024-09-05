@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Your Website</title>
+    <title>Blog | Your Website</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -14,34 +14,62 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="hero">
-        <h1>Welcome to [Your Company Name]</h1>
-        <p>Your AI/ML solutions partner.</p>
-        <a href="services.html">Explore Services</a>
-    </section>
+    <main>
+        <section class="blog-posts">
+            <!-- Blog Post 1 -->
+            <article class="post-card">
+                <img src="assets/images/being-data-scientist.jpg" alt="Being a DS">
+                <div class="post-content">
+                    <span class="category">MENTORING</span>
+                    <h2><a href="blog/post1.html">BEing a Data Scientist</a></h2>
+                    <p>Authors: Thom Ives, Manpreet Budhraja, Abdul Najeeb. This may be the most needed post we ever publish in our mentoring category...</p>
+                    <small>By <strong>Thom Ives</strong>, 4 years ago</small>
+                </div>
+            </article>
 
-    <section id="features">
-        <h2>Our Key Features</h2>
-        <div class="feature">
-            <h3>Artificial Intelligence</h3>
-            <p>Cutting-edge AI solutions for your business needs.</p>
-        </div>
-        <div class="feature">
-            <h3>Machine Learning</h3>
-            <p>Leverage the power of data to improve your decision-making.</p>
-        </div>
-        <div class="feature">
-            <h3>Data Analytics</h3>
-            <p>Gain insights from your data with our analytics services.</p>
-        </div>
-    </section>
+            <!-- Blog Post 2 -->
+            <article class="post-card">
+                <img src="assets/images/normal-distribution.jpg" alt="Normal Distribution">
+                <div class="post-content">
+                    <span class="category">BASIC</span>
+                    <h2><a href="blog/post2.html">Normal Distribution: An Introductory Guide to PDF and CDF</a></h2>
+                    <p>An introductory guide to probability distribution functions and cumulative distribution functions.</p>
+                    <small>By <strong>The Authors</strong>, 4 years ago</small>
+                </div>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <div class="widget">
+                <h3>Categories</h3>
+                <select>
+                    <option>Select Category</option>
+                    <option>Mentoring</option>
+                    <option>Basic</option>
+                    <option>Advanced</option>
+                </select>
+            </div>
+            <div class="widget">
+                <h3>Archives</h3>
+                <select>
+                    <option>Select Month</option>
+                    <option>January 2024</option>
+                    <option>December 2023</option>
+                    <option>November 2023</option>
+                </select>
+            </div>
+        </aside>
+    </main>
 
     <footer>
         <p>&copy; 2024 [Your Company Name]. All rights reserved.</p>
     </footer>
+
+    <script src="assets/js/blog.js"></script>
 </body>
 </html>
