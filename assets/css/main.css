@@ -116,7 +116,7 @@ input, select, textarea {
 /* Type */
 
 	body, input, select, textarea {
-		color: #646464;
+		color: #3c3b3b;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 14pt;
 		font-weight: 400;
@@ -1870,7 +1870,7 @@ input, select, textarea {
 		background-color: transparent;
 		border: 0;
 		box-shadow: inset 0 0 0 1px rgba(160, 160, 160, 0.3);
-		color: #3c3b3b !important;
+		color: #2ebaae !important;
 		cursor: pointer;
 		display: inline-block;
 		font-family: "Raleway", Helvetica, sans-serif;
@@ -1912,7 +1912,7 @@ input, select, textarea {
 		button:after,
 		.button:before,
 		.button:after {
-			color: #aaaaaa;
+			color: #3c3b3b;
 			position: relative;
 		}
 
@@ -2009,7 +2009,7 @@ input, select, textarea {
 			}
 
 			form.search:before {
-				color: #aaaaaa;
+				color: #3c3b3b;
 				content: '\f002';
 				display: block;
 				height: 2.75em;
@@ -2070,7 +2070,7 @@ input, select, textarea {
 		input[type="tel"]:focus,
 		select:focus,
 		textarea:focus {
-			border-color: #2ebaae;
+			border-color: #3c3b3b;
 			box-shadow: inset 0 0 0 1px #2ebaae;
 		}
 
@@ -2123,7 +2123,7 @@ input, select, textarea {
 
 		select option {
 			color: #3c3b3b;
-			background: #ffffff;
+			background: #f4f4f4;
 		}
 
 		select:focus::-ms-value {
@@ -2162,7 +2162,7 @@ input, select, textarea {
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: #646464;
+			color: #3c3b3b;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -2204,15 +2204,15 @@ input, select, textarea {
 
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
-			background: #3c3b3b;
+			background: #f4f4f4;
 			border-color: #3c3b3b;
-			color: #ffffff;
+			color: #3c3b3b;
 			content: '\f00c';
 		}
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #2ebaae;
+			border-color: #3c3b3b;
 			box-shadow: 0 0 0 1px #2ebaae;
 		}
 
@@ -2221,22 +2221,22 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: #aaaaaa !important;
+		color: #2ebaae !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: #aaaaaa !important;
+		color: #2ebaae !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: #aaaaaa !important;
+		color: #2ebaae !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: #aaaaaa !important;
+		color: #2ebaae !important;
 		opacity: 1.0;
 	}
 
@@ -2632,7 +2632,7 @@ input, select, textarea {
 		-webkit-flex-direction: column-reverse;
 		-ms-flex-direction: column-reverse;
 		flex-direction: column-reverse;
-		background: #ffffff;
+		background: #f4f4f4;
 		border: solid 1px rgba(160, 160, 160, 0.3);
 		margin: 0 0 2em 0;
 	}
@@ -2734,7 +2734,7 @@ input, select, textarea {
 
 	.post {
 		padding: 3em 3em 1em 3em ;
-		background: #ffffff;
+		background: #f4f4f4;
 		border: solid 1px rgba(160, 160, 160, 0.3);
 		margin: 0 0 3em 0;
 		position: relative;
@@ -3121,7 +3121,7 @@ input, select, textarea {
 		-webkit-justify-content: space-between;
 		-ms-justify-content: space-between;
 		justify-content: space-between;
-		background-color: #ffffff;
+		background-color: #3c3b3b;
 		border-bottom: solid 1px rgba(160, 160, 160, 0.3);
 		height: 3.5em;
 		left: 0;
@@ -3220,7 +3220,7 @@ input, select, textarea {
 					#header .main ul li > a {
 						text-decoration: none;
 						border-bottom: 0;
-						color: #aaaaaa;
+						color: #3c3b3b;
 						overflow: hidden;
 						position: relative;
 						text-indent: 4em;
@@ -3494,11 +3494,11 @@ input, select, textarea {
 /* Footer */
 
 	#footer .icons {
-		color: #aaaaaa;
+		color: #3c3b3b;
 	}
 
 	#footer .copyright {
-		color: #aaaaaa;
+		color: #3c3b3b;
 		font-family: "Raleway", Helvetica, sans-serif;
 		font-size: 0.5em;
 		font-weight: 400;
@@ -3522,7 +3522,7 @@ input, select, textarea {
 		-ms-transition: -ms-transform 0.5s ease, visibility 0.5s;
 		transition: transform 0.5s ease, visibility 0.5s;
 		-webkit-overflow-scrolling: touch;
-		background: #ffffff;
+		background: #f4f4f4;
 		border-left: solid 1px rgba(160, 160, 160, 0.3);
 		box-shadow: none;
 		height: 100%;
@@ -3585,7 +3585,7 @@ input, select, textarea {
 					}
 
 					#menu .links > li a:hover h3 {
-						color: #2ebaae;
+						color: #3c3b3b;
 					}
 
 				#menu .links > li:first-child {
