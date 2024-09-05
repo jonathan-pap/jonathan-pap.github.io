@@ -1,81 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Dashboard</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataCrafted</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Dashboard Header</h1>
-        </header>
-        <aside class="filters">
-            <h2>Menu / Filters</h2>
-            <ul>
-                <li><a href="#" onclick="switchContent('overview')">Overview</a></li>
-                <li><a href="#" onclick="switchContent('projects')">Projects</a></li>
-                <li><a href="#" onclick="switchContent('about')">About Me</a></li>
-            </ul>
+  <header>
+    <nav>
+      <ul class="top-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-            <h3>Filters</h3>
-            <label for="filter1">Filter 1</label>
-            <select id="filter1">
-                <option>All</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-            </select>
+  <section class="hero">
+    <h1>Turn raw data into crafted solutions with the latest in tech.</h1>
+    <p>From raw data to insights—explore the power of analytics.</p>
+  </section>
 
-            <label for="filter2">Filter 2</label>
-            <select id="filter2">
-                <option>All</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-            </select>
-        </aside>
-        <main id="main-content">
-            <section id="overview" class="content-section">
-                <div class="tiles">
-                    <div class="tile">KPI 1</div>
-                    <div class="tile">KPI 2</div>
-                    <div class="tile">KPI 3</div>
-                </div>
-                <div class="chart">Chart Area</div>
-                <div class="data-table">Data Table Area</div>
-            </section>
-
-            <section id="projects" class="content-section" style="display:none;">
-                <div class="tiles">
-                    <div class="tile">Project KPI 1</div>
-                    <div class="tile">Project KPI 2</div>
-                    <div class="tile">Project KPI 3</div>
-                </div>
-                <div class="chart">Projects Chart Area</div>
-                <div class="data-table">Projects Data Table Area</div>
-            </section>
-
-            <section id="about" class="content-section" style="display:none;">
-                <div class="tiles">
-                    <div class="tile">About KPI 1</div>
-                    <div class="tile">About KPI 2</div>
-                    <div class="tile">About KPI 3</div>
-                </div>
-                <div class="chart">About Chart Area</div>
-                <div class="data-table">About Data Table Area</div>
-            </section>
-        </main>
+  <section class="portfolio-preview">
+    <h2>Portfolio Highlights</h2>
+    <div class="tile-container">
+      <!-- Add portfolio project tiles here -->
+      <div class="tile">
+        <img src="project1.jpg" alt="Project 1">
+        <h3>Project 1</h3>
+        <p>Brief description of project 1.</p>
+      </div>
+      <div class="tile">
+        <img src="project2.jpg" alt="Project 2">
+        <h3>Project 2</h3>
+        <p>Brief description of project 2.</p>
+      </div>
     </div>
-    <script>
-        function switchContent(section) {
-            // Hide all content sections
-            document.querySelectorAll('.content-section').forEach(function(section) {
-                section.style.display = 'none';
-            });
+  </section>
 
-            // Show the selected content section
-            document.getElementById(section).style.display = 'block';
-        }
-    </script>
+  <section class="blog-preview">
+    <h2>Latest Blog Posts</h2>
+    <div class="blog-post">
+      <h3><a href="blog-post.html">Introduction to Python Data Structures</a></h3>
+      <p>Learn about data structures and how Python handles them efficiently...</p>
+    </div>
+    <div class="blog-post">
+      <h3><a href="blog-post.html">Power BI Tips and Tricks</a></h3>
+      <p>Explore some quick tips to maximize your Power BI reports...</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 DataCrafted. Contact: <a href="mailto:info@datacrafted.com">info@datacrafted.com</a></p>
+  </footer>
 </body>
 </html>
