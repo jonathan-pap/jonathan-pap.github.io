@@ -1,13 +1,13 @@
 {
   "site": {
-    "title": "Geeky Nextjs",
+    "title": "BI-Forge",
     "base_url": "/",
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
     "logo_white": "/images/logo-light.png",
     "logo_width": "150",
     "logo_height": "39",
-    "logo_text": "Geeky"
+    "logo_text": "BI-Forge"
   },
   "settings": {
     "theme_switcher": true,
@@ -26,14 +26,14 @@
     "copyright": "Designed and Developed By [Statichunt](https://statichunt.com/)"
   },
   "metadata": {
-    "meta_author": "Statichunt",
+    "meta_author": "Jp",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Geeky Nextjs Personal Blog Template"
+    "meta_description": "Jp's Blog"
   },
   "widgets": {
     "about": {
       "enable": true,
-      "content": "With SQL, Python, and Power BI by your side, you’re ready to rock the data world and take on every challenge. Let’s make data fun!"
+      "content": "With SQL, Python, Excel and Power BI by your side, you’re ready to rock the data world and take on every challenge. Let’s make data fun!"
     },
     "featured_posts": {
       "enable": true,
@@ -45,9 +45,9 @@
       "title": "Blog Categories"
     },
     "newsletter": {
-      "enable": true,
+      "enable": false,
       "title": "Newsletter",
-      "content": "Join thousands of Tiny Salt subscribers and get our best recipes delivered each week!",
+      "content": "Forge your way to smarter insights! Get tips, tools, and strategies straight to your inbox.",
       "privacy_policy_page": "#",
       "malichipm_url": ""
     }
