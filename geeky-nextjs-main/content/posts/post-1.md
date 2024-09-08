@@ -1,8 +1,8 @@
 ---
-title: "How to make toys from old Olarpaper"
+title: "Data Storytelling"
 date: 2024-04-04T01:00:00Z
 image: /images/post/post-1.png
-categories: ["programming"]
+categories: ["data"]
 featured: true
 draft: false
 ---
