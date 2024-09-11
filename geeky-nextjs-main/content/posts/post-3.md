@@ -1,25 +1,135 @@
 ---
-title: What you need to know about Photography
-date: 2022-04-02T03:00:00+00:00
+title: What is Exploratory Data Analysis (EDA)?
+date: 2024-09-10T03:00:00+00:00
 image: /images/post/post-3.png
-categories: ["sql"]
+categories: ["data analysis"]
 featured: true
 draft: false
 ---
 
-Nemo vel ad consectetur namut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.
+Exploratory Data Analysis (EDA) is a crucial first step in understanding and working with data. Before diving into complex models and algorithms, it’s essential to explore the dataset to uncover patterns, spot anomalies, test hypotheses, and check assumptions.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+EDA helps answer important questions about the dataset,
 
-## Covid-19 Situation
+- What are the data types and distribution of the features?
+- Are there any missing values or outliers?
+- What are the relationships between variables?
+- Are there any anomalies in the dataset?
 
-Nam ut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.
+By providing these insights, EDA ensures that the data is ready for further analysis, such as machine learning, hypothesis testing, predictive modeling or used to drive business decions.
 
-> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+## Steps in Exploratory Data Analysis
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+EDA involves several systematic steps to investigate the dataset and uncover key insights.
 
-![alter-text](/images/post/post-1.png)
-*Example Caption*
+1. Data Collection
+The data can come from various sources such as databases, spreadsheets, APIs, or external data repositories.
+This can be structred, unstructured or semi structured data.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel ad consectetur ut aperiam. Itaque eligendi natus aperiam? Excepturi repellendus consequatur quibusdam optio expedita praesentium est adipisci dolorem ut eius!
+2. Data Cleaning
+
+It is essential to clean and pre-process the data to ensure accuracy. Data cleaning includes
+
+- Removing duplicates
+- Handle missing values (removing or imputation with appropiate values)
+- Correct data types
+- Filtering irrelevant / incorrect data points
+
+Clean data is essential , this ensures that the dataset is ready for analysis.
+
+3. Initial Data Investigation
+
+Data is examinded and the statistical properties and patterns are discovered.
+
+- Descriptive Statistics: key statistics such as mean, median, mode, range, variance, and standard deviation.
+These help to understand the central tendency and variability of the data.
+- Data Structure: Understanding the number of observations (rows), variables (columns), and the types of variables (categorical, continuous).
+
+4. Summarization
+
+Generate summary statistics for individual columns or subsets of data.
+
+- Frequency tables for categorical variables
+- Summary statistics for numerical variables (mean, median, quartiles)
+- Data visualization (e.g., histograms, box plots) to understand distribution and spread
+
+## Technique
+
+EDA is carried out using various techniques that help in understanding the dataset in-depth
+
+**Univariate Analysis**
+
+Examines each variable individually, allowing understand the distribution and identify anomlies
+
+- Descriptive statistics: Measures like mean, median, variance, and standard deviation help summarize numerical data.
+For example, mean gives an average value, and variance measures how far the data is spread out.
+
+- Visualizations:
+
+  - Histograms: visualizong the distribution of single numeric values, identify if the the shape, for example skewed or normal.
+  - Box Plots: Summary of the datas distribution, highlighting the median, quartiles and outliers
+
+**Bivariate and Multivariate Analysis**
+
+Finding relationship between two or more variables. These relationships help to reveal correlations or patterns across features.
+
+- Scatter plots: Ideal for visualizing relationships between two continuous variables, revealing trends such as linear or non-linear associations.
+
+- Correlation matrices: Used to measure the degree of relationship between multiple numeric variables. A heatmap can visualize the correlation matrix to quickly identify strong positive or negative correlations.
+
+- Pair plots: Provide a visualization of multiple pairwise relationships between variables. This is particularly useful when you have many continuous variables and need to explore their interactions.
+
+- Cross-tabulation: For categorical data, a cross-tab or contingency table helps to understand the relationship between two categorical variables by displaying the frequency distribution of the variables.
+
+## Missing Data and Outliers
+
+Handling missing data and outliers is crucial for ensuring that your data analysis is not biased or skewed.
+Missing data can occur due to various reasons such as data entry errors or incomplete information. It’s important to assess the extent of missing data using:
+
+- Missing data heatmaps: Visualize which parts of the data are missing.
+- Summary tables: Display the percentage of missing values for each column.
+
+**Imputation Methods for Missing Data**
+
+- Removing missing values: If the number of missing values is small, removing those records might be a good option.
+- Imputation: Missing values can be replaced with calculated values like the mean, median, or mode, depending on the type of variable.
+- Advanced imputation techniques: For more complex datasets, techniques such as K-Nearest Neighbors (KNN) imputation or multiple imputations can be used.
+
+**Dealing with Outliers**
+
+Outliers can distort the results. Common methods to deal with outliers include
+
+- Transformation: Applying log or square root transformations to reduce the influence of outliers.
+- Removing outliers: In some cases, outliers can be removed if they are deemed erroneous or irrelevant to the analysis.
+
+## Tools for EDA
+
+Several powerful tools are available for conducting Exploratory Data Analysis.
+Depending on your familiarity with programming and the size of your dataset, different tools may be appropriate for your analysis.
+Some of the most commonly used tools:
+
+ - Python: Python is widely used for EDA because of its robust libraries that make data analysis and visualization straightforward
+ - R: is another excellent programming language for statistical analysis and EDA
+ - Excel: For users unfamiliar with programming, Excel can be used to conduct basic EDA, especially for smaller datasets.
+ - Power BI and Tableau: Business intelligence tools often used in organizations to visualize and analyze large datasets
+
+## Best Practices
+
+- Iterative Approach: EDA is not a one-time task but an iterative process. As you explore the data, new insights may lead to refining your analysis or investigating different angles. It's common to loop back to earlier steps, such as cleaning or filtering the data, based on new findings.
+
+- Visualization is Key
+While statistics are essential, visualizing the data can often reveal patterns, relationships, or anomalies that raw numbers may not immediately convey.
+Always look for the right type of plot for the specific data you are analyzing.
+
+- Start Simple, Then Go Deeper
+Begin your EDA with simple, basic summaries and visualizations. Once you understand the general trends in the data, you can dive deeper by applying more sophisticated analyses.
+
+- Document Your Findings
+Documenting your observations and insights during the EDA process is important, especially if you’re working in a team. This documentation helps track key findings and decisions, making it easier to revisit them later during the modeling phase.
+
+- Be Aware of Biases
+During EDA, it’s easy to overfit your expectations to the data. Keep an open mind and avoid confirmation bias—explore the data without preconceptions, allowing the insights to emerge naturally.
+
+## Conclusion
+Exploratory Data Analysis is a vital process in understanding datasets and preparing them for formal modeling. By following structured steps, employing various analytical techniques, and using the right tools, EDA helps uncover insights, detect anomalies, and ensure data quality. The key to effective EDA lies in an iterative approach, strong visualizations, and attention to detail when handling missing data and outliers.
+
