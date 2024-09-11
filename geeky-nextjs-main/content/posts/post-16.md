@@ -1,6 +1,6 @@
 ---
 title: "How to import data"
-date: 2024-04-04T15:00:00Z
+date: 3000-04-04T05:00:00Z
 image: /images/post/post-7.png
 categories: ["PowerBI"]
 featured: false
