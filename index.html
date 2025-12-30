@@ -3,91 +3,118 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="A minimal blue-to-purple blog hosted on GitHub Pages." />
-  <title>Blue → Purple Blog</title>
+  <meta name="description" content="A modern blue-to-purple blog hosted on GitHub Pages." />
+  <title>TechBlog</title>
 
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body>
-  <header class="topbar">
-    <a class="brand" href="./index.html" aria-label="Home">
-      <span class="brand-mark"></span>
-      <span class="brand-text">BluePurple Blog</span>
-    </a>
+  <!-- Top Nav -->
+  <header class="topnav">
+    <div class="topnav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-badge">TP</span>
+        <span class="brand-name">Tech<span class="brand-accent">Blog</span></span>
+      </a>
 
-    <nav class="nav">
-      <a href="./index.html" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="https://github.com/" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
-    </nav>
+      <nav class="navlinks">
+        <a class="navlink" href="./index.html">
+          <span class="navicon" aria-hidden="true">
+            <!-- home icon -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          Home
+        </a>
+
+        <a class="navlink" href="#articles">
+          <span class="navicon" aria-hidden="true">
+            <!-- article icon -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 8h8M9 12h8M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          Articles
+        </a>
+
+        <a class="navlink" href="#about">
+          <span class="navicon" aria-hidden="true">
+            <!-- user icon -->
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          About
+        </a>
+      </nav>
+
+      <a class="cta" href="#articles">
+        <span class="navicon" aria-hidden="true">
+          <!-- book icon -->
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h10a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M6 18V4" stroke="currentColor" stroke-width="1.6"/></svg>
+        </span>
+        Read Articles
+      </a>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-inner">
-        <h1 class="hero-title">A clean GitHub Pages blog</h1>
-        <p class="hero-subtitle">
-          Blue-to-purple gradients, smooth transitions, Markdown posts, and zero build tooling.
-        </p>
+  <!-- Page -->
+  <main class="page">
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-title">Categories</div>
+          <div id="categories" class="list"></div>
+        </section>
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#posts">Browse posts</a>
-          <a class="btn btn-ghost" href="#about">About</a>
+        <section class="panel">
+          <div class="panel-title">Popular Tags</div>
+          <div id="tags" class="chips"></div>
+        </section>
+      </aside>
+
+      <!-- Content -->
+      <section class="content">
+        <div class="content-head">
+          <h1 class="content-title">Latest Articles</h1>
+          <div class="content-meta">
+            <span id="articleCount">0</span> articles
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section id="posts" class="panel">
-      <div class="panel-header">
-        <h2 class="panel-title">Latest posts</h2>
-
-        <div class="controls">
-          <label class="control">
-            <span class="control-label">Search</span>
+        <div class="filters">
+          <label class="field">
+            <span class="field-label">Search</span>
             <input id="searchInput" class="input" type="search" placeholder="Title, tag, excerpt…" autocomplete="off" />
           </label>
 
-          <label class="control">
-            <span class="control-label">Tag</span>
+          <label class="field">
+            <span class="field-label">Tag</span>
             <select id="tagSelect" class="select">
               <option value="">All</option>
             </select>
           </label>
         </div>
-      </div>
 
-      <div id="postsGrid" class="grid" aria-live="polite"></div>
+        <div id="articles" class="cards" aria-live="polite"></div>
 
-      <div id="emptyState" class="empty" hidden>
-        <h3>No posts found</h3>
-        <p>Try clearing filters or adding new posts to <code>content/posts.json</code>.</p>
-      </div>
-    </section>
-
-    <section id="about" class="panel">
-      <h2 class="panel-title">About</h2>
-      <p class="panel-text">
-        This site is a static blog template designed for GitHub Pages. Add Markdown files under
-        <code>content/posts/</code> and register them in <code>content/posts.json</code>.
-      </p>
-
-      <div class="callout">
-        <div class="callout-title">Tip</div>
-        <div class="callout-body">
-          Use relative paths (like this template does) so it works both on
-          <strong>username.github.io</strong> and <strong>project pages</strong>.
+        <div id="emptyState" class="empty" hidden>
+          <h3>No articles found</h3>
+          <p>Clear filters or add more items to <code>content/posts.json</code>.</p>
         </div>
-      </div>
-    </section>
 
-    <footer class="footer">
-      <span>© <span id="year"></span> BluePurple Blog</span>
-      <span class="footer-dot">•</span>
-      <a class="footer-link" href="./index.html">Home</a>
-      <span class="footer-dot">•</span>
-      <a class="footer-link" href="./content/posts.json" target="_blank" rel="noreferrer">posts.json</a>
-    </footer>
+        <section id="about" class="panel about">
+          <div class="panel-title">About</div>
+          <p class="muted">
+            This is a static blog template designed for GitHub Pages. Add Markdown files under
+            <code>content/posts/</code> and register them in <code>content/posts.json</code>.
+          </p>
+        </section>
+
+        <footer class="footer">
+          <span>© <span id="year"></span> TechBlog</span>
+          <span class="dot">•</span>
+          <a class="footer-link" href="./content/posts.json" target="_blank" rel="noreferrer">posts.json</a>
+        </footer>
+      </section>
+    </div>
   </main>
 
   <script src="assets/js/app.js"></script>
