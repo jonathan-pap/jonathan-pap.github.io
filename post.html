@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Blog post" />
+  <title>Post • BluePurple Blog</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Markdown renderer (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Home">
+      <span class="brand-mark"></span>
+      <span class="brand-text">BluePurple Blog</span>
+    </a>
+
+    <nav class="nav">
+      <a href="./index.html" class="nav-link">Home</a>
+      <a href="./index.html#posts" class="nav-link">Posts</a>
+      <a href="./index.html#about" class="nav-link">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <a class="backlink" href="./index.html#posts">← Back to posts</a>
+
+      <div class="post-head">
+        <h1 id="postTitle" class="post-title">Loading…</h1>
+        <div class="post-meta">
+          <span id="postDate"></span>
+          <span class="meta-dot">•</span>
+          <span id="postTags"></span>
+        </div>
+      </div>
+
+      <article id="postBody" class="prose" aria-live="polite"></article>
+
+      <div id="postError" class="empty" hidden>
+        <h3>Could not load this post</h3>
+        <p>Check that the slug exists in <code>content/posts.json</code> and the markdown file exists.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> BluePurple Blog</span>
+    </footer>
+  </main>
+
+  <script src="assets/js/post.js"></script>
+</body>
+</html>
