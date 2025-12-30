@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="A minimal blue-to-purple blog hosted on GitHub Pages." />
+  <title>Blue → Purple Blog</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Home">
+      <span class="brand-mark"></span>
+      <span class="brand-text">BluePurple Blog</span>
+    </a>
+
+    <nav class="nav">
+      <a href="./index.html" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="https://github.com/" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">A clean GitHub Pages blog</h1>
+        <p class="hero-subtitle">
+          Blue-to-purple gradients, smooth transitions, Markdown posts, and zero build tooling.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#posts">Browse posts</a>
+          <a class="btn btn-ghost" href="#about">About</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="posts" class="panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Latest posts</h2>
+
+        <div class="controls">
+          <label class="control">
+            <span class="control-label">Search</span>
+            <input id="searchInput" class="input" type="search" placeholder="Title, tag, excerpt…" autocomplete="off" />
+          </label>
+
+          <label class="control">
+            <span class="control-label">Tag</span>
+            <select id="tagSelect" class="select">
+              <option value="">All</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="postsGrid" class="grid" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty" hidden>
+        <h3>No posts found</h3>
+        <p>Try clearing filters or adding new posts to <code>content/posts.json</code>.</p>
+      </div>
+    </section>
+
+    <section id="about" class="panel">
+      <h2 class="panel-title">About</h2>
+      <p class="panel-text">
+        This site is a static blog template designed for GitHub Pages. Add Markdown files under
+        <code>content/posts/</code> and register them in <code>content/posts.json</code>.
+      </p>
+
+      <div class="callout">
+        <div class="callout-title">Tip</div>
+        <div class="callout-body">
+          Use relative paths (like this template does) so it works both on
+          <strong>username.github.io</strong> and <strong>project pages</strong>.
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> BluePurple Blog</span>
+      <span class="footer-dot">•</span>
+      <a class="footer-link" href="./index.html">Home</a>
+      <span class="footer-dot">•</span>
+      <a class="footer-link" href="./content/posts.json" target="_blank" rel="noreferrer">posts.json</a>
+    </footer>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
