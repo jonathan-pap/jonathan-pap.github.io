@@ -9,7 +9,6 @@
   const bodyEl = document.getElementById("postBody");
   const errorEl = document.getElementById("postError");
   const errorMsgEl = document.getElementById("postErrorMsg");
-  const debugEl = document.getElementById("debug");
 
   const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "long", day: "2-digit" });
 
@@ -27,96 +26,56 @@
       .replaceAll("'", "&#039;");
   }
 
-  function showError(msg, debug) {
+  function showError(msg) {
     errorEl.hidden = false;
     errorMsgEl.textContent = msg;
     bodyEl.innerHTML = "";
-    if (debugEl && debug) {
-      debugEl.style.display = "block";
-      debugEl.innerHTML = debug;
-    }
-  }
-
-  async function safeFetchText(url) {
-    const res = await fetch(url, { cache: "no-store" });
-    return { ok: res.ok, status: res.status, text: res.ok ? await res.text() : "" };
-  }
-
-  async function safeFetchJson(url) {
-    const res = await fetch(url, { cache: "no-store" });
-    return { ok: res.ok, status: res.status, json: res.ok ? await res.json() : null };
   }
 
   async function init() {
     const slug = getSlug();
     if (!slug) {
       titleEl.textContent = "Missing post slug";
-      showError("No slug provided. Open a post from the home page.", `Expected URL like <code>post.html?slug=your-post</code>`);
+      showError("Open a post from the Articles page.");
       return;
     }
 
-    // If marked did not load, do not hang.
     if (!window.marked || typeof window.marked.parse !== "function") {
-      titleEl.textContent = "Markdown renderer not available";
-      showError(
-        "The Markdown renderer (marked) did not load. Check your network / CSP / ad-blocker.",
-        `Missing global <code>marked</code>. Ensure post.html includes the marked CDN script.`
-      );
+      titleEl.textContent = "Renderer missing";
+      showError("Markdown renderer did not load (marked).");
       return;
     }
 
     try {
-      // 1) Load metadata
-      const metaUrl = "./content/posts.json";
-      const metaRes = await safeFetchJson(metaUrl);
+      const metaRes = await fetch("./content/posts.json", { cache: "no-store" });
+      if (!metaRes.ok) throw new Error(`posts.json ${metaRes.status}`);
+      const meta = await metaRes.json();
 
-      if (!metaRes.ok) {
-        titleEl.textContent = "Post not available";
-        showError(
-          `Could not load posts index (${metaRes.status}).`,
-          `Tried: <code>${escapeHtml(metaUrl)}</code><br/>Common cause: wrong path on GitHub Pages project sites. Use <code>./</code> paths.`
-        );
-        return;
-      }
-
-      const post = (metaRes.json.posts || []).find(p => p.slug === slug);
+      const post = (meta.posts || []).find(p => p.slug === slug);
       if (!post) {
         titleEl.textContent = "Post not found";
-        showError(
-          `No post entry found for slug: "${slug}".`,
-          `Check <code>content/posts.json</code> contains an item with <code>"slug": "${escapeHtml(slug)}"</code>.`
-        );
+        showError(`No post for slug: ${slug}`);
         return;
       }
 
-      // Set header info
       document.title = `${post.title} • TechBlog`;
       titleEl.textContent = post.title || "Untitled";
       dateEl.textContent = post.date ? fmt.format(new Date(post.date)) : "";
       catEl.innerHTML = post.category ? `<span class="tagpill">${escapeHtml(post.category)}</span>` : "";
       tagsEl.innerHTML = (post.tags || []).map(t => `<span class="tagpill">#${escapeHtml(t)}</span>`).join(" ");
 
-      // 2) Load markdown
       const mdUrl = `./content/posts/${encodeURIComponent(slug)}.md`;
-      const mdRes = await safeFetchText(mdUrl);
+      const mdRes = await fetch(mdUrl, { cache: "no-store" });
+      if (!mdRes.ok) throw new Error(`markdown ${mdRes.status}`);
 
-      if (!mdRes.ok) {
-        showError(
-          `Could not load the Markdown file (${mdRes.status}).`,
-          `Tried: <code>${escapeHtml(mdUrl)}</code><br/>Ensure the file exists exactly as: <code>content/posts/${escapeHtml(slug)}.md</code>`
-        );
-        return;
-      }
-
-      // Render markdown
-      const html = window.marked.parse(mdRes.text, { mangle: false, headerIds: true });
-      bodyEl.innerHTML = html;
+      const md = await mdRes.text();
+      bodyEl.innerHTML = window.marked.parse(md, { mangle: false, headerIds: true });
       errorEl.hidden = true;
 
     } catch (e) {
       console.error(e);
       titleEl.textContent = "Error loading post";
-      showError("Unexpected error while loading this post.", escapeHtml(String(e)));
+      showError(String(e));
     }
   }
 
