@@ -3,55 +3,110 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Blog post" />
-  <title>Post • BluePurple Blog</title>
+  <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
 
-  <!-- Markdown renderer (CDN) -->
+  <!-- Markdown renderer -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    /* Small additions for post layout, keeping your theme */
+    .prose{ line-height: 1.8; color: rgba(255,255,255,0.88); }
+    .prose h1,.prose h2,.prose h3{ line-height: 1.25; }
+    .prose a{ color: rgba(255,255,255,0.92); }
+    .prose pre{
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 14px;
+      overflow:auto;
+    }
+    .prose code{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 2px 6px;
+    }
+    .post-head{ margin-bottom: 14px; }
+    .post-title{ margin: 0 0 6px; font-size: clamp(24px, 3.2vw, 38px); }
+    .post-meta{ color: rgba(255,255,255,0.68); display:flex; gap:10px; flex-wrap:wrap; }
+    .tagpill{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      font-weight: 750;
+    }
+    .backlink{
+      display:inline-block;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.82);
+      text-decoration:none;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+    .backlink:hover{ transform: translateX(-2px); opacity: 0.95; }
+    .debug{
+      margin-top: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding-top: 10px;
+      display:none;
+    }
+    .debug code{ font-size: 12px; }
+  </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <a class="brand" href="./index.html" aria-label="Home">
-      <span class="brand-mark"></span>
-      <span class="brand-text">BluePurple Blog</span>
-    </a>
+  <header class="topnav">
+    <div class="topnav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-badge">TP</span>
+        <span class="brand-name">Tech<span class="brand-accent">Blog</span></span>
+      </a>
 
-    <nav class="nav">
-      <a href="./index.html" class="nav-link">Home</a>
-      <a href="./index.html#posts" class="nav-link">Posts</a>
-      <a href="./index.html#about" class="nav-link">About</a>
-    </nav>
+      <nav class="navlinks" aria-label="Primary">
+        <a class="navlink" href="./index.html#articles">Articles</a>
+        <a class="navlink" href="./index.html#about">About</a>
+      </nav>
+
+      <a class="cta" href="./index.html#articles">Back to list</a>
+    </div>
   </header>
 
-  <main class="container">
+  <main class="page">
     <section class="panel">
-      <a class="backlink" href="./index.html#posts">← Back to posts</a>
+      <a class="backlink" href="./index.html#articles">← Back to posts</a>
 
       <div class="post-head">
         <h1 id="postTitle" class="post-title">Loading…</h1>
         <div class="post-meta">
           <span id="postDate"></span>
-          <span class="meta-dot">•</span>
+          <span id="postCategory"></span>
           <span id="postTags"></span>
         </div>
       </div>
 
-      <article id="postBody" class="prose" aria-live="polite"></article>
+      <article id="postBody" class="prose"></article>
 
       <div id="postError" class="empty" hidden>
         <h3>Could not load this post</h3>
-        <p>Check that the slug exists in <code>content/posts.json</code> and the markdown file exists.</p>
+        <p id="postErrorMsg">An error occurred.</p>
       </div>
+
+      <div id="debug" class="debug"></div>
     </section>
 
     <footer class="footer">
-      <span>© <span id="year"></span> BluePurple Blog</span>
+      <span>© <span id="year"></span> TechBlog</span>
     </footer>
   </main>
 
-  <script src="assets/js/post.js"></script>
+  <script src="./assets/js/post.js"></script>
 </body>
 </html>
