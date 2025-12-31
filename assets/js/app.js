@@ -18,7 +18,6 @@
   const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
-
   function escapeHtml(str) {
     return String(str)
       .replaceAll("&", "&amp;")
@@ -27,24 +26,17 @@
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
   }
-
   function initials(name) {
     const parts = String(name || "").split(" ").filter(Boolean);
     return ((parts[0]?.[0] || "A") + (parts[1]?.[0] || "")).toUpperCase();
   }
-
   function iconSvg(kind){
     const common = `fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"`;
     if (kind === "all") return `<svg viewBox="0 0 24 24"><path ${common} d="M5 4h14v16H5z"/><path ${common} d="M8 8h8M8 12h8M8 16h6"/></svg>`;
-    if (kind === "tutorials") return `<svg viewBox="0 0 24 24"><path ${common} d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"/><path ${common} d="M8 7h8M8 11h8M8 15h6"/></svg>`;
-    if (kind === "insights") return `<svg viewBox="0 0 24 24"><path ${common} d="M4 19h16"/><path ${common} d="M7 16V9"/><path ${common} d="M12 16V6"/><path ${common} d="M17 16v-4"/></svg>`;
     return `<svg viewBox="0 0 24 24"><path ${common} d="M7 7h10v10H7z"/><path ${common} d="M9 4h6M9 20h6"/></svg>`;
   }
-
   function categoryKey(cat){
     const c = normalize(cat);
-    if (c.includes("tutorial")) return "tutorials";
-    if (c.includes("insight")) return "insights";
     if (c.includes("all")) return "all";
     return "default";
   }
@@ -91,11 +83,8 @@
       categoriesEl.appendChild(div);
     }
 
-    // tags + dropdown
     const tagCounts = new Map();
-    for (const p of posts) {
-      for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-    }
+    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
 
     const tags = Array.from(tagCounts.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 10);
     tagsEl.innerHTML = "";
@@ -103,18 +92,13 @@
       const chip = document.createElement("div");
       chip.className = "chip";
       chip.innerHTML = `<span>#${escapeHtml(t)}</span> <strong>(${n})</strong>`;
-      chip.addEventListener("click", () => {
-        state.tag = t;
-        tagSelect.value = t;
-        applyAndRender();
-      });
+      chip.addEventListener("click", () => { state.tag = t; tagSelect.value = t; applyAndRender(); });
       tagsEl.appendChild(chip);
     }
 
     const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
     tagSelect.innerHTML = `<option value="">All</option>` +
       allTagNames.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
-
     if (state.tag) tagSelect.value = state.tag;
   }
 
@@ -124,12 +108,9 @@
     const cat = normalize(state.category);
 
     const hay = normalize([p.title, p.excerpt, p.category, ...(p.tags || [])].join(" "));
-
     const okQ = q ? hay.includes(q) : true;
     const okT = tag ? (p.tags || []).some(t => normalize(t) === tag) : true;
-    const okC = (cat && cat !== normalize("All Articles"))
-      ? normalize(p.category || "") === cat
-      : true;
+    const okC = (cat && cat !== normalize("All Articles")) ? normalize(p.category || "") === cat : true;
 
     return okQ && okT && okC;
   }
@@ -163,9 +144,7 @@
         <div class="card-body">
           <h3 class="card-title">${escapeHtml(p.title || "Untitled")}</h3>
           <p class="card-excerpt">${escapeHtml(p.excerpt || "")}</p>
-
           <div class="hashes">${escapeHtml(hashTags)}</div>
-
           <div class="divider"></div>
 
           <div class="card-foot">
@@ -177,7 +156,7 @@
                 }
               </div>
               <div>
-                <div style="font-weight:800; color: rgba(255,255,255,0.88); line-height:1.1;">
+                <div style="font-weight:900; color: rgba(255,255,255,0.88); line-height:1.1;">
                   ${escapeHtml(authorName)}
                 </div>
                 <div style="color: rgba(255,255,255,0.62); font-size:12px;">
@@ -208,32 +187,26 @@
   }
 
   async function init() {
-    try {
-      const res = await fetch("./content/posts.json", { cache: "no-store" });
-      if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
-      const data = await res.json();
+    const res = await fetch("./content/posts.json", { cache: "no-store" });
+    const data = await res.json();
 
-      allPosts = (data.posts || []).slice().sort((a,b) => {
-        const da = a.date ? new Date(a.date).getTime() : 0;
-        const db = b.date ? new Date(b.date).getTime() : 0;
-        return db - da;
-      });
+    allPosts = (data.posts || []).slice().sort((a,b) => {
+      const da = a.date ? new Date(a.date).getTime() : 0;
+      const db = b.date ? new Date(b.date).getTime() : 0;
+      return db - da;
+    });
 
-      buildSidebar(allPosts);
+    buildSidebar(allPosts);
 
-      searchInput.addEventListener("input", (e) => { state.q = e.target.value || ""; applyAndRender(); });
-      tagSelect.addEventListener("change", (e) => { state.tag = e.target.value || ""; applyAndRender(); });
+    searchInput.addEventListener("input", (e) => { state.q = e.target.value || ""; applyAndRender(); });
+    tagSelect.addEventListener("change", (e) => { state.tag = e.target.value || ""; applyAndRender(); });
 
-      applyAndRender();
-    } catch (e) {
-      console.error(e);
-      emptyStateEl.hidden = false;
-      emptyStateEl.innerHTML = `
-        <h3>Load error</h3>
-        <p>Could not load <code>content/posts.json</code>. Check paths and GitHub Pages build output.</p>
-      `;
-    }
+    applyAndRender();
   }
 
-  init();
+  init().catch((e) => {
+    console.error(e);
+    emptyStateEl.hidden = false;
+    emptyStateEl.innerHTML = `<h3>Load error</h3><p>Could not load <code>content/posts.json</code>.</p>`;
+  });
 })();
