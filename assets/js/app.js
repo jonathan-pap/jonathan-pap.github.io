@@ -1,8 +1,9 @@
-/* assets/js/app.js (clean, search-only + sidebar browse + clean archive)
-   - No tag dropdown
-   - Sidebar: Categories, Popular Tags, Archive
-   - Chips show active filters (category/tag/archive/search)
-   - Clean archive: month header only, post rows show title + day (no full date)
+/* assets/js/app.js (FULL)
+   Updates requested:
+   - Archive shows Year → Month; clicking month toggles posts list
+   - Auto-close other months (and other years) so archive stays short
+   - Remove date/day next to article name in archive post list
+   - No tag dropdown; Search + sidebar (Categories/Tags/Archive) + chips
 */
 
 (function () {
@@ -25,8 +26,8 @@
     category: "All Articles",
     tag: "All",
     archive: null,            // {year, month}
-    openYears: new Set(),
-    openMonths: new Set(),    // key `${year}-${month}`
+    openYears: new Set(),     // only 1 year open in practice (enforced)
+    openMonths: new Set(),    // only 1 month open in practice (enforced) key `${year}-${month}`
   };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
@@ -45,17 +46,8 @@
     return (dt && !Number.isNaN(dt.getTime())) ? dt : null;
   }
 
-  function dayLabel(dt){
-    if (!dt) return "";
-    const d = dt.getDate();
-    return String(d).padStart(2, "0");
-  }
-
   function getReadTimeMinutes(p){
-    // If readTime is provided in posts.json, use it.
     if (typeof p.readTime === "number") return p.readTime;
-
-    // Estimate from excerpt + title (keeps it lightweight)
     const text = `${p.title || ""} ${p.excerpt || ""}`.trim();
     const words = text ? text.split(/\s+/).length : 0;
     return Math.max(1, Math.round(words / 180));
@@ -130,13 +122,13 @@
       }));
   }
 
+  // -------- Filter setters / clearers --------
+
   function setCategory(name){ state.category = name; renderAll(); }
   function setTag(name){ state.tag = name || "All"; renderAll(); }
 
   function setArchive(year, month){
     state.archive = { year, month };
-    state.openYears.add(year);
-    state.openMonths.add(`${year}-${month}`);
     renderAll();
   }
 
@@ -145,18 +137,41 @@
   function clearTag(){ state.tag = "All"; renderAll(); }
   function clearSearch(){ state.q = ""; searchInput.value = ""; renderAll(); }
 
+  // -------- Archive open/close behaviour (auto-close others) --------
+
+  function openOnlyYear(year){
+    state.openYears = new Set([year]); // close other years
+    state.openMonths = new Set();      // also close all months when switching years
+  }
+
   function toggleYear(year){
-    if (state.openYears.has(year)) state.openYears.delete(year);
-    else state.openYears.add(year);
+    const isOpen = state.openYears.has(year);
+
+    if (isOpen){
+      // closing year closes months too
+      state.openYears.delete(year);
+      state.openMonths = new Set();
+    } else {
+      openOnlyYear(year);
+    }
+
     renderArchive();
   }
 
   function toggleMonth(year, month){
+    // Ensure this year is open, and other years closed
+    openOnlyYear(year);
+
     const key = `${year}-${month}`;
-    if (state.openMonths.has(key)) state.openMonths.delete(key);
-    else state.openMonths.add(key);
+    const isOpen = state.openMonths.has(key);
+
+    // Auto-close other months: we keep only one open at a time
+    state.openMonths = isOpen ? new Set() : new Set([key]);
+
     renderArchive();
   }
+
+  // -------- Filtering --------
 
   function filteredPosts(){
     const q = normalize(state.q);
@@ -187,7 +202,7 @@
     });
   }
 
-  // ---------------- Renders ----------------
+  // -------- Renders --------
 
   function renderCategories(){
     const cats = buildCategories(state.posts);
@@ -229,9 +244,10 @@
   function renderArchive(){
     const archive = buildArchive(state.posts);
 
-    // Default open: newest year
+    // Default open newest year (only once)
     if (state.openYears.size === 0 && archive.length){
-      state.openYears.add(archive[0].year);
+      state.openYears = new Set([archive[0].year]);
+      state.openMonths = new Set(); // no month open by default
     }
 
     archiveEl.innerHTML = archive.map(y => {
@@ -251,10 +267,14 @@
             ${y.months.map(m => {
               const key = `${m.year}-${m.month}`;
               const monthOpen = state.openMonths.has(key);
-              const active = (state.archive && state.archive.year === m.year && state.archive.month === m.month) ? "active" : "";
+
+              const isActive =
+                state.archive &&
+                state.archive.year === m.year &&
+                state.archive.month === m.month;
 
               return `
-                <div class="arch-month ${active}">
+                <div class="arch-month ${isActive ? "active" : ""}">
                   <button class="arch-month-btn" type="button" data-month="${key}" aria-expanded="${monthOpen}">
                     <span class="arch-left">
                       <span class="arch-chevron">${monthOpen ? "▾" : "▸"}</span>
@@ -265,12 +285,11 @@
 
                   <div class="arch-posts arch-posts--clean" ${monthOpen ? "" : "hidden"}>
                     ${m.posts.map(p => {
-                      const day = dayLabel(p._dt);
+                      // No date/day shown next to title (per request)
                       return `
                         <a class="arch-post arch-post--clean" href="./post.html?slug=${encodeURIComponent(p.slug)}"
                            title="${escapeHtml(p.title||"")}">
                           <span class="arch-post-title arch-post-title--clean">${escapeHtml(p.title || "Untitled")}</span>
-                          <span class="arch-post-day">${escapeHtml(day)}</span>
                         </a>
                       `;
                     }).join("")}
@@ -283,14 +302,18 @@
       `;
     }).join("");
 
+    // Year toggles
     archiveEl.querySelectorAll("[data-year]").forEach(btn => {
       btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
     });
 
+    // Month toggles + set filter
     archiveEl.querySelectorAll("[data-month]").forEach(btn => {
       btn.addEventListener("click", () => {
         const [yy, mm] = btn.getAttribute("data-month").split("-").map(Number);
         toggleMonth(yy, mm);
+
+        // Clicking the month applies the archive filter immediately
         setArchive(yy, mm);
       });
     });
