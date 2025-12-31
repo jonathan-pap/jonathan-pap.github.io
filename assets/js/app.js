@@ -3,7 +3,6 @@
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   const categoriesEl = document.getElementById("categories");
-  const tagsEl = document.getElementById("tags");
   const cardsEl = document.getElementById("cards");
   const emptyEl = document.getElementById("emptyState");
   const countEl = document.getElementById("articleCount");
@@ -67,7 +66,7 @@
     closeDD();
   }
 
-  function buildSidebar(posts) {
+  function buildCategories(posts) {
     const counts = new Map();
     for (const p of posts) {
       const c = p.category || "Uncategorized";
@@ -96,7 +95,7 @@
       div.addEventListener("click", () => {
         state.category = c.name;
         applyAndRender();
-        buildSidebar(allPosts);
+        buildCategories(allPosts);
       });
 
       div.addEventListener("keydown", (e) => {
@@ -105,26 +104,11 @@
 
       categoriesEl.appendChild(div);
     }
-
-    // Popular tags chips
-    const tagCounts = new Map();
-    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-
-    const popular = Array.from(tagCounts.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 10);
-    tagsEl.innerHTML = "";
-    for (const [t, n] of popular) {
-      const chip = document.createElement("div");
-      chip.className = "chip";
-      chip.innerHTML = `<span>#${escapeHtml(t)}</span> <strong>(${n})</strong>`;
-      chip.addEventListener("click", () => setTag(t));
-      tagsEl.appendChild(chip);
-    }
   }
 
   function buildTagDropdown(posts) {
     const tagCounts = new Map();
     for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-
     const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
 
     tagDDMenu.innerHTML = "";
@@ -277,7 +261,7 @@
       return db - da;
     });
 
-    buildSidebar(allPosts);
+    buildCategories(allPosts);
     buildTagDropdown(allPosts);
 
     searchInput.addEventListener("input", (e) => {
