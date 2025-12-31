@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=2" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=3" />
 </head>
 
 <body>
@@ -54,7 +54,7 @@
           <div class="field">
             <span class="field-label">Tag</span>
 
-            <!-- Custom dropdown -->
+            <!-- Custom dropdown (single) -->
             <div class="dd" id="tagDD">
               <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
                 <span class="dd-value" id="tagDDValue">All</span>
@@ -63,11 +63,6 @@
 
               <div class="dd-menu" id="tagDDMenu" role="listbox" tabindex="-1" aria-label="Tag filter" hidden></div>
             </div>
-
-            <!-- Safe fallback -->
-            <select id="tagSelectFallback" class="select select-fallback" aria-label="Tag filter fallback">
-              <option value="">All</option>
-            </select>
           </div>
         </div>
 
@@ -94,6 +89,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=2"></script>
+  <script src="./assets/js/app.js?v=3"></script>
 </body>
 </html>
