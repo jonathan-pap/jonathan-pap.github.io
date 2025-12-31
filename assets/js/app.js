@@ -218,4 +218,250 @@
     tagMenu.innerHTML = opts.map(o => {
       const selected = (state.tag === o.name) ? `aria-selected="true"` : `aria-selected="false"`;
       return `
-        <div class="dd-item" role="opt
+        <div class="dd-item" role="option" ${selected} data-tag="${escapeHtml(o.name)}">
+          <span>${escapeHtml(o.name)}</span>
+          <span style="opacity:.7;font-weight:900;">${o.count}</span>
+        </div>
+      `;
+    }).join("");
+
+    tagMenu.querySelectorAll("[data-tag]").forEach(item => {
+      item.addEventListener("click", () => {
+        setTag(item.getAttribute("data-tag"));
+        closeTagMenu();
+      });
+    });
+  }
+
+  function openTagMenu(){
+    state.tagOpen = true;
+    tagMenu.hidden = false;
+    tagBtn.setAttribute("aria-expanded", "true");
+  }
+  function closeTagMenu(){
+    state.tagOpen = false;
+    tagMenu.hidden = true;
+    tagBtn.setAttribute("aria-expanded", "false");
+  }
+  function toggleTagMenu(){
+    if (state.tagOpen) closeTagMenu();
+    else openTagMenu();
+  }
+
+  function renderArchive(){
+    const archive = buildArchive(state.posts);
+
+    if (state.openYears.size === 0 && archive.length){
+      state.openYears.add(archive[0].year);
+    }
+
+    archiveEl.innerHTML = archive.map(y => {
+      const yearOpen = state.openYears.has(y.year);
+      return `
+        <div class="arch-year">
+          <button class="arch-year-btn" type="button" data-year="${y.year}" aria-expanded="${yearOpen}">
+            <span class="arch-left">
+              <span class="arch-chevron">${yearOpen ? "▾" : "▸"}</span>
+              <span class="arch-year-label">${y.year}</span>
+            </span>
+            <span class="arch-count">${y.total}</span>
+          </button>
+
+          <div class="arch-months" ${yearOpen ? "" : "hidden"}>
+            ${y.months.map(m => {
+              const key = `${m.year}-${m.month}`;
+              const monthOpen = state.openMonths.has(key);
+              const active = (state.archive && state.archive.year === m.year && state.archive.month === m.month) ? "active" : "";
+              return `
+                <div class="arch-month ${active}">
+                  <button class="arch-month-btn" type="button" data-month="${key}" aria-expanded="${monthOpen}">
+                    <span class="arch-left">
+                      <span class="arch-chevron">${monthOpen ? "▾" : "▸"}</span>
+                      <span class="arch-month-label">${escapeHtml(m.label)}</span>
+                      <span class="arch-month-count">(${m.count})</span>
+                    </span>
+                    <span class="arch-action">View</span>
+                  </button>
+
+                  <div class="arch-posts" ${monthOpen ? "" : "hidden"}>
+                    ${m.posts.map(p => {
+                      const dt = p._dt ? fmt.format(p._dt) : "";
+                      return `
+                        <a class="arch-post" href="./post.html?slug=${encodeURIComponent(p.slug)}" title="${escapeHtml(p.title||"")}">
+                          <span class="arch-post-title">${escapeHtml(p.title || "Untitled")}</span>
+                          <span class="arch-post-date">${escapeHtml(dt)}</span>
+                        </a>
+                      `;
+                    }).join("")}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    archiveEl.querySelectorAll("[data-year]").forEach(btn => {
+      btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
+    });
+
+    archiveEl.querySelectorAll("[data-month]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const [y, m] = btn.getAttribute("data-month").split("-").map(Number);
+        toggleMonth(y, m);
+        setArchive(y, m);
+      });
+    });
+  }
+
+  function renderCards(){
+    const posts = filteredPosts();
+    countEl.textContent = `${posts.length} article${posts.length === 1 ? "" : "s"}`;
+
+    if (!posts.length){
+      cardsEl.innerHTML = `
+        <div class="empty">
+          <strong>No matches.</strong>
+          <div class="muted" style="margin-top:6px;">Try clearing filters or adjusting search.</div>
+        </div>
+      `;
+      return;
+    }
+
+    cardsEl.innerHTML = posts.map(p => {
+      const dt = p._dt ? fmt.format(p._dt) : "";
+      const cat = p.category || "Article";
+      const rt = getReadTimeMinutes(p);
+      const tags = (p.tags || []).slice(0, 4).map(t => `#${t}`).join("  ");
+      const author = p.author || "Author";
+      const avatar = (author[0] || "A").toUpperCase();
+
+      return `
+        <a class="card" href="./post.html?slug=${encodeURIComponent(p.slug)}">
+          <div class="card-media">
+            <div class="placeholder"></div>
+            <div class="pill">${escapeHtml(cat)}</div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title">${escapeHtml(p.title || "Untitled")}</div>
+            <div class="card-excerpt">${escapeHtml(p.excerpt || "")}</div>
+
+            <div class="hashes">${escapeHtml(tags)}</div>
+
+            <div class="divider"></div>
+
+            <div class="card-foot">
+              <div class="author">
+                <div class="avatar"><span>${escapeHtml(avatar)}</span></div>
+                <div>
+                  <div style="font-weight:900;">${escapeHtml(author)}</div>
+                  <div style="opacity:.75;font-size:12px;">${escapeHtml(dt)}</div>
+                </div>
+              </div>
+
+              <div class="readtime" title="Estimated reading time">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>${rt} min</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    }).join("");
+  }
+
+  function renderFilterChips(){
+    const chips = [];
+
+    if (state.archive){
+      chips.push({
+        key: "archive",
+        label: `${monthNames[state.archive.month]} ${state.archive.year}`,
+        clear: clearArchive
+      });
+    }
+    if (state.category !== "All Articles"){
+      chips.push({ key: "category", label: state.category, clear: clearCategory });
+    }
+    if (state.tag !== "All"){
+      chips.push({ key: "tag", label: `#${state.tag}`, clear: clearTag });
+    }
+    if (state.q){
+      chips.push({ key: "search", label: `Search: "${state.q}"`, clear: clearSearch });
+    }
+
+    if (!chips.length){
+      chipsEl.innerHTML = "";
+      return;
+    }
+
+    chipsEl.innerHTML = chips.map(c => `
+      <button class="filterchip" type="button" data-chip="${escapeHtml(c.key)}">
+        <span class="filterchip-label">${escapeHtml(c.label)}</span>
+        <span class="filterchip-x">×</span>
+      </button>
+    `).join("");
+
+    chipsEl.querySelectorAll("[data-chip]").forEach(btn => {
+      const key = btn.getAttribute("data-chip");
+      btn.addEventListener("click", () => {
+        const match = chips.find(x => x.key === key);
+        if (match) match.clear();
+      });
+    });
+  }
+
+  function renderAll(){
+    if (searchInput.value !== state.q) searchInput.value = state.q;
+    tagValue.textContent = state.tag;
+
+    renderArchive();
+    renderCategories();
+    renderSidebarTags();
+    renderTagDropdown();
+    renderFilterChips();
+    renderCards();
+  }
+
+  async function init(){
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    const res = await fetch("./content/posts.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
+    const data = await res.json();
+
+    state.posts = enrichPosts(data.posts || []);
+
+    searchInput.addEventListener("input", (e) => {
+      state.q = e.target.value || "";
+      renderAll();
+    });
+
+    tagBtn.addEventListener("click", toggleTagMenu);
+    document.addEventListener("click", (e) => {
+      if (!state.tagOpen) return;
+      const dd = document.getElementById("tagDropdown");
+      if (!dd.contains(e.target)) closeTagMenu();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeTagMenu();
+    });
+
+    renderAll();
+  }
+
+  init().catch((e) => {
+    console.error(e);
+    cardsEl.innerHTML = `
+      <div class="empty">
+        <strong>Could not load posts.</strong>
+        <div class="muted" style="margin-top:6px;">Check that <code>content/posts.json</code> exists and is valid JSON.</div>
+      </div>
+    `;
+  });
+})();
