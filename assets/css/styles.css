@@ -183,7 +183,7 @@ body{
 .field{ display:flex; flex-direction: column; gap: 6px; min-width: 260px; }
 .field-label{ font-size: 12px; color: rgba(255,255,255,0.68); }
 
-.input,.select{
+.input{
   width:100%;
   padding: 10px 12px;
   border-radius: 12px;
@@ -193,7 +193,7 @@ body{
   outline:none;
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
-.input:focus,.select:focus{
+.input:focus{
   transform: translateY(-1px);
   background: rgba(255,255,255,0.07);
   border-color: rgba(255,255,255,0.20);
@@ -302,9 +302,7 @@ body{
   .field{ min-width: 100%; }
 }
 
-/* ------------------ Option B: Custom Tag Dropdown ------------------ */
-
-.select-fallback{ display: none; }
+/* ------------------ Custom Tag Dropdown ------------------ */
 
 .dd{ position: relative; width: 100%; }
 
