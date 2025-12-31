@@ -1,12 +1,6 @@
-/* assets/js/app.js (FULL)
-   Updates requested:
-   - Archive shows Year → Month; clicking month toggles posts list
-   - Auto-close other months (and other years) so archive stays short
-   - Remove date/day next to article name in archive post list
-   - No tag dropdown; Search + sidebar (Categories/Tags/Archive) + chips
-*/
-
 (function () {
+  console.log("APP.JS LOADED ✅ v2025-12-31-archive-clean");
+
   const archiveEl = document.getElementById("archiveList");
   const categoriesEl = document.getElementById("categoriesList");
   const tagsEl = document.getElementById("tagsList");
@@ -25,9 +19,9 @@
     q: "",
     category: "All Articles",
     tag: "All",
-    archive: null,            // {year, month}
-    openYears: new Set(),     // only 1 year open in practice (enforced)
-    openMonths: new Set(),    // only 1 month open in practice (enforced) key `${year}-${month}`
+    archive: null,            // {year, month} or null
+    openYears: new Set(),     // we enforce only 1 open year
+    openMonths: new Set(),    // we enforce only 1 open month: key `${year}-${month}`
   };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
@@ -48,6 +42,8 @@
 
   function getReadTimeMinutes(p){
     if (typeof p.readTime === "number") return p.readTime;
+
+    // lightweight estimate
     const text = `${p.title || ""} ${p.excerpt || ""}`.trim();
     const words = text ? text.split(/\s+/).length : 0;
     return Math.max(1, Math.round(words / 180));
@@ -57,9 +53,12 @@
     return (posts || [])
       .map(p => {
         const dt = parseDateSafe(p.date);
-        const year = dt ? dt.getFullYear() : 0;
-        const month = dt ? dt.getMonth() : 0;
-        return { ...p, _dt: dt, _year: year, _month: month };
+        return {
+          ...p,
+          _dt: dt,
+          _year: dt ? dt.getFullYear() : 0,
+          _month: dt ? dt.getMonth() : 0
+        };
       })
       .sort((a,b) => (b._dt?.getTime()||0) - (a._dt?.getTime()||0));
   }
@@ -122,7 +121,7 @@
       }));
   }
 
-  // -------- Filter setters / clearers --------
+  // ---- setters / clearers ----
 
   function setCategory(name){ state.category = name; renderAll(); }
   function setTag(name){ state.tag = name || "All"; renderAll(); }
@@ -137,18 +136,17 @@
   function clearTag(){ state.tag = "All"; renderAll(); }
   function clearSearch(){ state.q = ""; searchInput.value = ""; renderAll(); }
 
-  // -------- Archive open/close behaviour (auto-close others) --------
+  // ---- archive open/close (auto-close others) ----
 
   function openOnlyYear(year){
-    state.openYears = new Set([year]); // close other years
-    state.openMonths = new Set();      // also close all months when switching years
+    state.openYears = new Set([year]);
+    state.openMonths = new Set(); // reset open month when switching years
   }
 
   function toggleYear(year){
     const isOpen = state.openYears.has(year);
 
     if (isOpen){
-      // closing year closes months too
       state.openYears.delete(year);
       state.openMonths = new Set();
     } else {
@@ -159,19 +157,17 @@
   }
 
   function toggleMonth(year, month){
-    // Ensure this year is open, and other years closed
     openOnlyYear(year);
 
     const key = `${year}-${month}`;
     const isOpen = state.openMonths.has(key);
 
-    // Auto-close other months: we keep only one open at a time
     state.openMonths = isOpen ? new Set() : new Set([key]);
 
     renderArchive();
   }
 
-  // -------- Filtering --------
+  // ---- filtering ----
 
   function filteredPosts(){
     const q = normalize(state.q);
@@ -202,7 +198,7 @@
     });
   }
 
-  // -------- Renders --------
+  // ---- renders ----
 
   function renderCategories(){
     const cats = buildCategories(state.posts);
@@ -244,10 +240,10 @@
   function renderArchive(){
     const archive = buildArchive(state.posts);
 
-    // Default open newest year (only once)
+    // default open newest year (no month open)
     if (state.openYears.size === 0 && archive.length){
       state.openYears = new Set([archive[0].year]);
-      state.openMonths = new Set(); // no month open by default
+      state.openMonths = new Set();
     }
 
     archiveEl.innerHTML = archive.map(y => {
@@ -284,15 +280,13 @@
                   </button>
 
                   <div class="arch-posts arch-posts--clean" ${monthOpen ? "" : "hidden"}>
-                    ${m.posts.map(p => {
-                      // No date/day shown next to title (per request)
-                      return `
-                        <a class="arch-post arch-post--clean" href="./post.html?slug=${encodeURIComponent(p.slug)}"
-                           title="${escapeHtml(p.title||"")}">
-                          <span class="arch-post-title arch-post-title--clean">${escapeHtml(p.title || "Untitled")}</span>
-                        </a>
-                      `;
-                    }).join("")}
+                    ${m.posts.map(p => `
+                      <a class="arch-post arch-post--clean"
+                         href="./post.html?slug=${encodeURIComponent(p.slug)}"
+                         title="${escapeHtml(p.title||"")}">
+                        <span class="arch-post-title arch-post-title--clean">${escapeHtml(p.title || "Untitled")}</span>
+                      </a>
+                    `).join("")}
                   </div>
                 </div>
               `;
@@ -302,18 +296,16 @@
       `;
     }).join("");
 
-    // Year toggles
+    // year toggles
     archiveEl.querySelectorAll("[data-year]").forEach(btn => {
       btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
     });
 
-    // Month toggles + set filter
+    // month toggles + set filter
     archiveEl.querySelectorAll("[data-month]").forEach(btn => {
       btn.addEventListener("click", () => {
         const [yy, mm] = btn.getAttribute("data-month").split("-").map(Number);
         toggleMonth(yy, mm);
-
-        // Clicking the month applies the archive filter immediately
         setArchive(yy, mm);
       });
     });
@@ -339,12 +331,12 @@
       const rt = getReadTimeMinutes(p);
       const tags = (p.tags || []).slice(0, 4).map(t => `#${t}`).join("  ");
 
-      // Ensure author is a string (avoid [object Object])
-      const authorRaw = p.author;
-      const author = (typeof authorRaw === "string" && authorRaw.trim())
-        ? authorRaw.trim()
-        : "Author";
-
+      // author can be string OR object in some inputs; guard it
+      let author = "Author";
+      if (typeof p.author === "string" && p.author.trim()) author = p.author.trim();
+      else if (p.author && typeof p.author === "object") {
+        if (typeof p.author.name === "string" && p.author.name.trim()) author = p.author.name.trim();
+      }
       const avatar = (author[0] || "A").toUpperCase();
 
       return `
