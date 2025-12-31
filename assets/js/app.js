@@ -15,9 +15,6 @@
   const tagDDValue = document.getElementById("tagDDValue");
   const tagDDMenu = document.getElementById("tagDDMenu");
 
-  // Fallback (kept safe; hidden)
-  const tagFallback = document.getElementById("tagSelectFallback");
-
   let allPosts = [];
   let state = { q: "", category: "All Articles", tag: "" };
 
@@ -65,7 +62,6 @@
 
   function setTag(tag) {
     state.tag = tag || "";
-    if (tagFallback) tagFallback.value = state.tag;
     syncDDSelection();
     applyAndRender();
     closeDD();
@@ -154,14 +150,6 @@
 
     addItem("All", "", posts.length);
     for (const t of allTagNames) addItem(t, t, tagCounts.get(t));
-
-    // Fallback options (hidden, but safe)
-    if (tagFallback) {
-      tagFallback.innerHTML = `<option value="">All</option>` +
-        allTagNames.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
-      tagFallback.value = state.tag;
-      tagFallback.addEventListener("change", (e) => setTag(e.target.value || ""));
-    }
 
     syncDDSelection();
 
