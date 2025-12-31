@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=6" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=9" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
@@ -56,8 +56,6 @@
         <a class="navlink" href="./index.html">Articles</a>
         <a class="navlink" href="./about.html">About</a>
       </nav>
-
-      
     </div>
   </header>
 
@@ -66,6 +64,7 @@
       <a class="backlink" href="./index.html#articles">← Back to posts</a>
 
       <h1 id="postTitle" class="post-title">Loading…</h1>
+
       <div class="post-meta">
         <span id="postDate"></span>
         <span id="postCategory"></span>
@@ -78,6 +77,22 @@
         <h3>Could not load this post</h3>
         <p id="postErrorMsg">An error occurred.</p>
       </div>
+
+      <!-- Prev/Next -->
+      <section id="postNavSection" class="post-nav" hidden>
+        <div class="post-nav-head">
+          <div class="post-nav-title">Continue reading</div>
+        </div>
+        <div id="postNav" class="post-nav-grid"></div>
+      </section>
+
+      <!-- Related -->
+      <section id="relatedSection" class="related" hidden>
+        <div class="related-head">
+          <div class="related-title">Related posts</div>
+        </div>
+        <div id="relatedPosts" class="related-grid"></div>
+      </section>
 
       <!-- Consistent footer -->
       <footer class="site-footer" style="margin-top: 18px;">
@@ -110,6 +125,6 @@
     </section>
   </main>
 
-  <script src="./assets/js/post.js?v=6"></script>
+  <script src="./assets/js/post.js?v=9"></script>
 </body>
 </html>
