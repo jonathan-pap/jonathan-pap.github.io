@@ -4,15 +4,21 @@
       "slug": "hello-world",
       "title": "Hello World",
       "date": "2025-12-30",
+      "category": "Article",
       "tags": ["Welcome", "GitHub Pages"],
-      "excerpt": "Your first post using Markdown, hosted on GitHub Pages with a blue-to-purple theme."
+      "excerpt": "Your first post using Markdown, hosted on GitHub Pages with a blue-to-purple theme.",
+      "readTime": "3 min",
+      "author": { "name": "Author" }
     },
     {
       "slug": "second-post",
       "title": "Second Post: How to Add More Articles",
       "date": "2025-12-29",
+      "category": "Article",
       "tags": ["How-To", "Content"],
-      "excerpt": "Add a new .md file, update posts.json, and push to main. That is it."
+      "excerpt": "Add a new .md file, update posts.json, and push to main. That is it.",
+      "readTime": "2 min",
+      "author": { "name": "Author" }
     }
   ]
 }
