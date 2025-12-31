@@ -9,7 +9,12 @@
   const countEl = document.getElementById("articleCount");
 
   const searchInput = document.getElementById("searchInput");
-  const tagSelect = document.getElementById("tagSelect");
+
+  // Custom dropdown elements
+  const tagDD = document.getElementById("tagDD");
+  const tagDDButton = document.getElementById("tagDDButton");
+  const tagDDValue = document.getElementById("tagDDValue");
+  const tagDDMenu = document.getElementById("tagDDMenu");
 
   let allPosts = [];
   let state = { q: "", category: "All Articles", tag: "" };
@@ -28,6 +33,85 @@
   function initials(name) {
     const parts = String(name || "").split(" ").filter(Boolean);
     return ((parts[0]?.[0] || "A") + (parts[1]?.[0] || "")).toUpperCase();
+  }
+
+  function setTag(tag) {
+    state.tag = tag || "";
+    tagDDValue.textContent = state.tag || "All";
+    applyAndRender();
+    closeDD();
+  }
+
+  function openDD() {
+    tagDDMenu.hidden = false;
+    tagDDButton.setAttribute("aria-expanded", "true");
+    // Focus first selected item or first item
+    const selected = tagDDMenu.querySelector('.dd-item[aria-selected="true"]');
+    (selected || tagDDMenu.querySelector(".dd-item"))?.focus();
+  }
+
+  function closeDD() {
+    tagDDMenu.hidden = true;
+    tagDDButton.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleDD() {
+    if (tagDDMenu.hidden) openDD();
+    else closeDD();
+  }
+
+  function buildTagDropdown(posts) {
+    const tagCounts = new Map();
+    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+
+    const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
+
+    // Build listbox items
+    tagDDMenu.innerHTML = "";
+
+    // All option
+    const allItem = document.createElement("div");
+    allItem.className = "dd-item";
+    allItem.setAttribute("role", "option");
+    allItem.setAttribute("tabindex", "0");
+    allItem.dataset.value = "";
+    allItem.setAttribute("aria-selected", state.tag === "" ? "true" : "false");
+    allItem.innerHTML = `
+      <div class="dd-item-left">
+        <div class="dd-item-label">All</div>
+      </div>
+      <div class="dd-item-count">${posts.length}</div>
+    `;
+    allItem.addEventListener("click", () => setTag(""));
+    tagDDMenu.appendChild(allItem);
+
+    for (const t of allTagNames) {
+      const item = document.createElement("div");
+      item.className = "dd-item";
+      item.setAttribute("role", "option");
+      item.setAttribute("tabindex", "0");
+      item.dataset.value = t;
+      item.setAttribute("aria-selected", state.tag === t ? "true" : "false");
+
+      item.innerHTML = `
+        <div class="dd-item-left">
+          <div class="dd-item-label">${escapeHtml(t)}</div>
+        </div>
+        <div class="dd-item-count">${tagCounts.get(t)}</div>
+      `;
+
+      item.addEventListener("click", () => setTag(t));
+      tagDDMenu.appendChild(item);
+    }
+  }
+
+  function syncDropdownSelection() {
+    const items = tagDDMenu.querySelectorAll(".dd-item");
+    items.forEach(el => {
+      const v = el.dataset.value || "";
+      el.setAttribute("aria-selected", v === state.tag ? "true" : "false");
+    });
+    tagDDValue.textContent = state.tag || "All";
   }
 
   function buildSidebar(posts) {
@@ -71,27 +155,19 @@
       categoriesEl.appendChild(div);
     }
 
+    // Popular tags chips
     const tagCounts = new Map();
     for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
 
-    const tags = Array.from(tagCounts.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 10);
+    const popular = Array.from(tagCounts.entries()).sort((a,b)=>b[1]-a[1]).slice(0, 10);
     tagsEl.innerHTML = "";
-    for (const [t, n] of tags) {
+    for (const [t, n] of popular) {
       const chip = document.createElement("div");
       chip.className = "chip";
       chip.innerHTML = `<span>#${escapeHtml(t)}</span> <strong>(${n})</strong>`;
-      chip.addEventListener("click", () => {
-        state.tag = t;
-        tagSelect.value = t;
-        applyAndRender();
-      });
+      chip.addEventListener("click", () => { setTag(t); syncDropdownSelection(); });
       tagsEl.appendChild(chip);
     }
-
-    const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
-    tagSelect.innerHTML = `<option value="">All</option>` +
-      allTagNames.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
-    if (state.tag) tagSelect.value = state.tag;
   }
 
   function matchesFilters(p) {
@@ -164,6 +240,61 @@
     renderCards(filtered);
   }
 
+  // ---- Dropdown interactions ----
+  tagDDButton.addEventListener("click", toggleDD);
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!tagDD.contains(e.target) && !tagDDMenu.hidden) closeDD();
+  });
+
+  // Keyboard: button
+  tagDDButton.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openDD();
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeDD();
+    }
+  });
+
+  // Keyboard: menu navigation
+  tagDDMenu.addEventListener("keydown", (e) => {
+    const items = Array.from(tagDDMenu.querySelectorAll(".dd-item"));
+    const idx = items.indexOf(document.activeElement);
+
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeDD();
+      tagDDButton.focus();
+      return;
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = items[Math.min(idx + 1, items.length - 1)] || items[0];
+      next?.focus();
+      return;
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = items[Math.max(idx - 1, 0)] || items[0];
+      prev?.focus();
+      return;
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const v = document.activeElement?.dataset?.value;
+      setTag(v || "");
+      syncDropdownSelection();
+      tagDDButton.focus();
+    }
+  });
+
   async function init() {
     const res = await fetch("./content/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
@@ -176,9 +307,13 @@
     });
 
     buildSidebar(allPosts);
+    buildTagDropdown(allPosts);
+    syncDropdownSelection();
 
-    searchInput.addEventListener("input", (e) => { state.q = e.target.value || ""; applyAndRender(); });
-    tagSelect.addEventListener("change", (e) => { state.tag = e.target.value || ""; applyAndRender(); });
+    searchInput.addEventListener("input", (e) => {
+      state.q = e.target.value || "";
+      applyAndRender();
+    });
 
     applyAndRender();
   }
