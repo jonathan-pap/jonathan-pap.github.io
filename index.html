@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=13" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=14" />
 </head>
 
 <body class="page-articles">
@@ -29,12 +29,6 @@
       <!-- LEFT SIDEBAR -->
       <aside class="sidebar">
 
-        <!-- Archive -->
-        <section class="panel">
-          <div class="panel-title">Archive</div>
-          <div id="archiveList" class="archive-nav"></div>
-        </section>
-
         <!-- Categories -->
         <section class="panel">
           <div class="panel-title">Categories</div>
@@ -45,6 +39,12 @@
         <section class="panel">
           <div class="panel-title">Popular Tags</div>
           <div id="tagsList" class="sidebar-tags"></div>
+        </section>
+
+        <!-- Archive (moved below) -->
+        <section class="panel">
+          <div class="panel-title">Archive</div>
+          <div id="archiveList" class="archive-nav"></div>
         </section>
 
       </aside>
@@ -62,9 +62,13 @@
           </div>
         </div>
 
-        <!-- Filters -->
+        <!-- Filters + chips -->
         <div class="panel" style="padding:14px;">
-          <div class="filters">
+
+          <!-- Active filter chips (moved ABOVE search/dropdown) -->
+          <div id="activeFilters" class="filterchips" aria-label="Active filters"></div>
+
+          <div class="filters" style="margin-top: 12px;">
             <div class="field">
               <div class="field-label">Search</div>
               <input id="searchInput" class="input" placeholder="Title, tag, excerpt…" />
@@ -83,9 +87,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Active filter chips -->
-          <div id="activeFilters" class="filterchips" aria-label="Active filters"></div>
         </div>
 
         <!-- Cards -->
@@ -123,6 +124,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=13"></script>
+  <script src="./assets/js/app.js?v=14"></script>
 </body>
 </html>
