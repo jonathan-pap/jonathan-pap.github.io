@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=1" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=2" />
 </head>
 
 <body>
@@ -51,21 +51,24 @@
             <input id="searchInput" class="input" type="search" placeholder="Title, tag, excerpt…" autocomplete="off" />
           </label>
 
-<div class="field">
-  <span class="field-label">Tag</span>
+          <div class="field">
+            <span class="field-label">Tag</span>
 
-  <div class="dd" id="tagDD">
-    <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
-      <span class="dd-value" id="tagDDValue">All</span>
-      <span class="dd-caret" aria-hidden="true">▾</span>
-    </button>
+            <!-- Custom dropdown -->
+            <div class="dd" id="tagDD">
+              <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="dd-value" id="tagDDValue">All</span>
+                <span class="dd-caret" aria-hidden="true">▾</span>
+              </button>
 
-    <div class="dd-menu" id="tagDDMenu" role="listbox" tabindex="-1" aria-label="Tag filter" hidden>
-      <!-- items injected by JS -->
-    </div>
-  </div>
-</div>
+              <div class="dd-menu" id="tagDDMenu" role="listbox" tabindex="-1" aria-label="Tag filter" hidden></div>
+            </div>
 
+            <!-- Safe fallback -->
+            <select id="tagSelectFallback" class="select select-fallback" aria-label="Tag filter fallback">
+              <option value="">All</option>
+            </select>
+          </div>
         </div>
 
         <div id="cards" class="cards" aria-live="polite"></div>
@@ -91,6 +94,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=1"></script>
+  <script src="./assets/js/app.js?v=2"></script>
 </body>
 </html>
