@@ -7,12 +7,6 @@
   const yearEl = document.getElementById("year");
 
   const searchInput = document.getElementById("searchInput");
-
-  // Tag dropdown
-  const tagBtn = document.getElementById("tagBtn");
-  const tagValue = document.getElementById("tagValue");
-  const tagMenu = document.getElementById("tagMenu");
-
   const chipsEl = document.getElementById("activeFilters");
 
   const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -26,7 +20,6 @@
     archive: null,            // {year, month}
     openYears: new Set(),
     openMonths: new Set(),    // key `${year}-${month}`
-    tagOpen: false,
   };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
@@ -85,7 +78,7 @@
   }
 
   function buildArchive(posts){
-    const years = new Map(); // year -> { total, months: Map(month -> {count, posts:[]}) }
+    const years = new Map();
     for (const p of posts){
       const y = p._year || 0;
       const m = p._month || 0;
@@ -172,8 +165,6 @@
     });
   }
 
-  // ---------------- Renders ----------------
-
   function renderCategories(){
     const cats = buildCategories(state.posts);
     categoriesEl.innerHTML = cats.map(c => {
@@ -193,7 +184,7 @@
   }
 
   function renderSidebarTags(){
-    const tags = buildTags(state.posts).slice(0, 10);
+    const tags = buildTags(state.posts).slice(0, 12);
     tagsEl.innerHTML = tags.map(t => {
       const active = (state.tag === t.name) ? "active" : "";
       return `
@@ -207,45 +198,6 @@
     tagsEl.querySelectorAll("[data-tag]").forEach(btn => {
       btn.addEventListener("click", () => setTag(btn.getAttribute("data-tag")));
     });
-  }
-
-  function renderTagDropdown(){
-    const tags = buildTags(state.posts);
-    const opts = [{ name:"All", count: state.posts.length }, ...tags.map(t => ({ name:t.name, count:t.count }))];
-
-    tagValue.textContent = state.tag;
-
-    tagMenu.innerHTML = opts.map(o => {
-      const selected = (state.tag === o.name) ? `aria-selected="true"` : `aria-selected="false"`;
-      return `
-        <div class="dd-item" role="option" ${selected} data-tag="${escapeHtml(o.name)}">
-          <span>${escapeHtml(o.name)}</span>
-          <span style="opacity:.7;font-weight:900;">${o.count}</span>
-        </div>
-      `;
-    }).join("");
-
-    tagMenu.querySelectorAll("[data-tag]").forEach(item => {
-      item.addEventListener("click", () => {
-        setTag(item.getAttribute("data-tag"));
-        closeTagMenu();
-      });
-    });
-  }
-
-  function openTagMenu(){
-    state.tagOpen = true;
-    tagMenu.hidden = false;
-    tagBtn.setAttribute("aria-expanded", "true");
-  }
-  function closeTagMenu(){
-    state.tagOpen = false;
-    tagMenu.hidden = true;
-    tagBtn.setAttribute("aria-expanded", "false");
-  }
-  function toggleTagMenu(){
-    if (state.tagOpen) closeTagMenu();
-    else openTagMenu();
   }
 
   function renderArchive(){
@@ -347,7 +299,6 @@
           <div class="card-body">
             <div class="card-title">${escapeHtml(p.title || "Untitled")}</div>
             <div class="card-excerpt">${escapeHtml(p.excerpt || "")}</div>
-
             <div class="hashes">${escapeHtml(tags)}</div>
 
             <div class="divider"></div>
@@ -366,7 +317,7 @@
                   <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                <span>${rt} min</span>
+                <span>${rt} min min</span>
               </div>
             </div>
           </div>
@@ -418,12 +369,10 @@
 
   function renderAll(){
     if (searchInput.value !== state.q) searchInput.value = state.q;
-    tagValue.textContent = state.tag;
 
     renderArchive();
     renderCategories();
     renderSidebarTags();
-    renderTagDropdown();
     renderFilterChips();
     renderCards();
   }
@@ -440,16 +389,6 @@
     searchInput.addEventListener("input", (e) => {
       state.q = e.target.value || "";
       renderAll();
-    });
-
-    tagBtn.addEventListener("click", toggleTagMenu);
-    document.addEventListener("click", (e) => {
-      if (!state.tagOpen) return;
-      const dd = document.getElementById("tagDropdown");
-      if (!dd.contains(e.target)) closeTagMenu();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeTagMenu();
     });
 
     renderAll();
