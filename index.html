@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=8" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=12" />
 </head>
 
 <body>
@@ -25,80 +25,104 @@
 
   <main class="page" id="articles">
     <div class="layout">
+
+      <!-- LEFT SIDEBAR -->
       <aside class="sidebar">
+
+        <!-- Archive -->
+        <section class="panel">
+          <div class="panel-title">Archive</div>
+          <div id="archiveList" class="archive"></div>
+        </section>
+
+        <!-- Categories -->
         <section class="panel">
           <div class="panel-title">Categories</div>
-          <div id="categories" class="list"></div>
+          <div id="categoriesList" class="list"></div>
         </section>
+
+        <!-- Popular Tags -->
+        <section class="panel">
+          <div class="panel-title">Popular Tags</div>
+          <div id="tagsList" class="tags"></div>
+        </section>
+
       </aside>
 
+      <!-- MAIN CONTENT -->
       <section class="content">
+
         <div class="content-head">
-          <h1 class="content-title">Latest Articles</h1>
-          <div class="content-meta"><span id="articleCount">0</span> articles</div>
-        </div>
+          <div>
+            <h1 class="content-title">Latest Articles</h1>
+          </div>
 
-        <div class="filters">
-          <label class="field">
-            <span class="field-label">Search</span>
-            <input id="searchInput" class="input" type="search" placeholder="Title, tag, excerpt…" autocomplete="off" />
-          </label>
-
-          <div class="field">
-            <span class="field-label">Tag</span>
-
-            <div class="dd" id="tagDD">
-              <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
-                <span class="dd-value" id="tagDDValue">All</span>
-                <span class="dd-caret" aria-hidden="true">▾</span>
-              </button>
-
-              <div class="dd-menu" id="tagDDMenu" role="listbox" tabindex="-1" aria-label="Tag filter" hidden></div>
-            </div>
+          <div class="content-meta">
+            <span id="articlesCount">0 articles</span>
           </div>
         </div>
 
-        <div id="cards" class="cards" aria-live="polite"></div>
+        <!-- Filters -->
+        <div class="panel" style="padding:14px;">
+          <div class="filters">
+            <div class="field">
+              <div class="field-label">Search</div>
+              <input id="searchInput" class="input" placeholder="Title, tag, excerpt…" />
+            </div>
 
-        <div id="emptyState" class="empty" hidden>
-          <h3>No articles found</h3>
-          <p>Clear filters or add more posts.</p>
-        </div>
+            <div class="field">
+              <div class="field-label">Tag</div>
 
-        <!-- Constrained footer to match About/Post width -->
-        <div class="footer-wrap">
-          <footer class="site-footer">
-            <div class="site-footer-wrap">
-              <div class="site-footer-top">
-                <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
-                  <span class="sf-badge">TP</span>
-                  <span class="sf-name">Tech<span class="sf-accent">Blog</span></span>
-                </a>
-
-                <div class="sf-links" aria-label="Footer">
-                  <a class="sf-link" href="./index.html">Articles</a>
-                  <a class="sf-link" href="./about.html">About</a>
-                  <a class="sf-link" href="#articles">Back to top</a>
-                </div>
-              </div>
-
-              <div class="site-footer-bottom">
-                <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
-
-                <div class="sf-meta">
-                  <span>© <span id="year"></span> TechBlog</span>
-                  <span class="sf-sep">•</span>
-                  <span class="sf-muted">Hosted on GitHub Pages</span>
-                </div>
+              <!-- Custom dropdown -->
+              <div class="dd" id="tagDropdown">
+                <button class="dd-btn" id="tagBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="dd-value" id="tagValue">All</span>
+                  <span class="dd-caret">▾</span>
+                </button>
+                <div class="dd-menu" id="tagMenu" role="listbox" hidden></div>
               </div>
             </div>
-          </footer>
+          </div>
+
+          <!-- Active filter chips -->
+          <div id="activeFilters" class="chips" aria-label="Active filters"></div>
         </div>
+
+        <!-- Cards -->
+        <div id="cardsGrid" class="cards"></div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+          <div class="site-footer-wrap">
+            <div class="site-footer-top">
+              <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
+                <span class="sf-badge">TP</span>
+                <span class="sf-name">Tech<span class="sf-accent">Blog</span></span>
+              </a>
+
+              <div class="sf-links" aria-label="Footer">
+                <a class="sf-link" href="./index.html">Articles</a>
+                <a class="sf-link" href="./about.html">About</a>
+                <a class="sf-link" href="#articles">Back to top</a>
+              </div>
+            </div>
+
+            <div class="site-footer-bottom">
+              <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
+
+              <div class="sf-meta">
+                <span>© <span id="year"></span> TechBlog</span>
+                <span class="sf-sep">•</span>
+                <span class="sf-muted">Hosted on GitHub Pages</span>
+              </div>
+            </div>
+          </div>
+        </footer>
 
       </section>
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=8"></script>
+  <script src="./assets/js/app.js?v=12"></script>
 </body>
 </html>
