@@ -1,280 +1,561 @@
 (function () {
+  const archiveEl = document.getElementById("archiveList");
+  const categoriesEl = document.getElementById("categoriesList");
+  const tagsEl = document.getElementById("tagsList");
+  const cardsEl = document.getElementById("cardsGrid");
+  const countEl = document.getElementById("articlesCount");
   const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  const categoriesEl = document.getElementById("categories");
-  const cardsEl = document.getElementById("cards");
-  const emptyEl = document.getElementById("emptyState");
-  const countEl = document.getElementById("articleCount");
   const searchInput = document.getElementById("searchInput");
 
-  // Custom dropdown
-  const tagDD = document.getElementById("tagDD");
-  const tagDDButton = document.getElementById("tagDDButton");
-  const tagDDValue = document.getElementById("tagDDValue");
-  const tagDDMenu = document.getElementById("tagDDMenu");
+  // Tag dropdown
+  const tagBtn = document.getElementById("tagBtn");
+  const tagValue = document.getElementById("tagValue");
+  const tagMenu = document.getElementById("tagMenu");
 
-  let allPosts = [];
-  let state = { q: "", category: "All Articles", tag: "" };
+  const chipsEl = document.getElementById("activeFilters");
 
-  const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const fmt = new Intl.DateTimeFormat(undefined, { year:"numeric", month:"short", day:"2-digit" });
+
+  const state = {
+    posts: [],
+    // filters
+    q: "",
+    category: "All Articles",
+    tag: "All",
+    archive: null, // { year: 2025, month: 11 } month is 0-index
+    // UI expand/collapse
+    openYears: new Set(),
+    openMonths: new Set(), // key = `${year}-${month}`
+    // dropdown
+    tagOpen: false,
+  };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
-  function escapeHtml(str) {
+  function escapeHtml(str){
     return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-  function initials(name) {
-    const parts = String(name || "").split(" ").filter(Boolean);
-    return ((parts[0]?.[0] || "A") + (parts[1]?.[0] || "")).toUpperCase();
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
   }
 
-  function openDD() {
-    tagDDMenu.hidden = false;
-    tagDDButton.setAttribute("aria-expanded", "true");
-    const selected = tagDDMenu.querySelector('.dd-item[aria-selected="true"]');
-    (selected || tagDDMenu.querySelector(".dd-item"))?.focus();
+  function parseDateSafe(d){
+    const dt = d ? new Date(d) : null;
+    return (dt && !Number.isNaN(dt.getTime())) ? dt : null;
   }
 
-  function closeDD() {
-    tagDDMenu.hidden = true;
-    tagDDButton.setAttribute("aria-expanded", "false");
+  function getReadTimeMinutes(p){
+    if (p.readTime) return p.readTime;
+    const text = `${p.title || ""} ${p.excerpt || ""}`.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    return Math.max(1, Math.round(words / 180));
   }
 
-  function toggleDD() {
-    if (tagDDMenu.hidden) openDD();
-    else closeDD();
-  }
-
-  function syncDDSelection() {
-    const items = tagDDMenu.querySelectorAll(".dd-item");
-    items.forEach(el => {
-      const v = el.dataset.value || "";
-      el.setAttribute("aria-selected", v === state.tag ? "true" : "false");
+  function enrichPosts(posts){
+    return (posts || []).map(p => {
+      const dt = parseDateSafe(p.date);
+      const year = dt ? dt.getFullYear() : 0;
+      const month = dt ? dt.getMonth() : 0;
+      return {
+        ...p,
+        _dt: dt,
+        _year: year,
+        _month: month,
+        _monthLabel: monthNames[month] || "—",
+      };
+    }).sort((a,b) => {
+      const ta = a._dt ? a._dt.getTime() : 0;
+      const tb = b._dt ? b._dt.getTime() : 0;
+      return tb - ta; // newest first
     });
-    tagDDValue.textContent = state.tag || "All";
   }
 
-  function setTag(tag) {
-    state.tag = tag || "";
-    syncDDSelection();
-    applyAndRender();
-    closeDD();
+  function getQueryParams(){
+    const url = new URL(window.location.href);
+    return {
+      q: url.searchParams.get("q") || "",
+      tag: url.searchParams.get("tag") || "",
+      category: url.searchParams.get("category") || "",
+      year: url.searchParams.get("year") || "",
+      month: url.searchParams.get("month") || "",
+    };
   }
 
-  function buildCategories(posts) {
-    const counts = new Map();
-    for (const p of posts) {
+  function applyQueryParams(){
+    const qp = getQueryParams();
+    if (qp.q) state.q = qp.q;
+    if (qp.tag) state.tag = qp.tag;
+    if (qp.category) state.category = qp.category;
+
+    if (qp.year && qp.month){
+      const y = Number(qp.year);
+      const m = Number(qp.month);
+      if (!Number.isNaN(y) && !Number.isNaN(m)){
+        state.archive = { year: y, month: m };
+        state.openYears.add(y);
+        state.openMonths.add(`${y}-${m}`);
+      }
+    }
+  }
+
+  function buildCategories(posts){
+    const map = new Map();
+    for (const p of posts){
       const c = p.category || "Uncategorized";
-      counts.set(c, (counts.get(c) || 0) + 1);
+      map.set(c, (map.get(c) || 0) + 1);
     }
-
-    const categories = [
-      { name: "All Articles", count: posts.length },
-      ...Array.from(counts.entries())
-        .sort((a,b) => b[1] - a[1])
-        .map(([name,count]) => ({ name, count }))
-    ];
-
-    categoriesEl.innerHTML = "";
-    for (const c of categories) {
-      const div = document.createElement("div");
-      div.className = "cat" + (state.category === c.name ? " active" : "");
-      div.setAttribute("role", "button");
-      div.setAttribute("tabindex", "0");
-
-      div.innerHTML = `
-        <div class="cat-left"><span>${escapeHtml(c.name)}</span></div>
-        <div class="cat-count">${c.count}</div>
-      `;
-
-      div.addEventListener("click", () => {
-        state.category = c.name;
-        applyAndRender();
-        buildCategories(allPosts);
-      });
-
-      div.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") div.click();
-      });
-
-      categoriesEl.appendChild(div);
-    }
+    const items = Array.from(map.entries())
+      .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const total = posts.length;
+    return [{ name:"All Articles", count: total }, ...items.map(([name,count]) => ({name,count}))];
   }
 
-  function buildTagDropdown(posts) {
-    const tagCounts = new Map();
-    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-    const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
-
-    tagDDMenu.innerHTML = "";
-
-    function addItem(label, value, count) {
-      const item = document.createElement("div");
-      item.className = "dd-item";
-      item.setAttribute("role", "option");
-      item.setAttribute("tabindex", "0");
-      item.dataset.value = value;
-      item.setAttribute("aria-selected", value === state.tag ? "true" : "false");
-
-      item.innerHTML = `
-        <div class="dd-item-left">
-          <div class="dd-item-label">${escapeHtml(label)}</div>
-        </div>
-        <div class="dd-item-count">${count}</div>
-      `;
-
-      item.addEventListener("click", () => setTag(value));
-      tagDDMenu.appendChild(item);
+  function buildTags(posts){
+    const map = new Map();
+    for (const p of posts){
+      for (const t of (p.tags || [])){
+        const key = String(t);
+        map.set(key, (map.get(key) || 0) + 1);
+      }
     }
-
-    addItem("All", "", posts.length);
-    for (const t of allTagNames) addItem(t, t, tagCounts.get(t));
-
-    syncDDSelection();
-
-    // Dropdown interactions
-    tagDDButton.addEventListener("click", toggleDD);
-
-    document.addEventListener("click", (e) => {
-      if (!tagDD.contains(e.target) && !tagDDMenu.hidden) closeDD();
-    });
-
-    tagDDButton.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-        e.preventDefault(); openDD();
-      }
-      if (e.key === "Escape") { e.preventDefault(); closeDD(); }
-    });
-
-    tagDDMenu.addEventListener("keydown", (e) => {
-      const items = Array.from(tagDDMenu.querySelectorAll(".dd-item"));
-      const idx = items.indexOf(document.activeElement);
-
-      if (e.key === "Escape") {
-        e.preventDefault();
-        closeDD();
-        tagDDButton.focus();
-        return;
-      }
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        (items[Math.min(idx + 1, items.length - 1)] || items[0])?.focus();
-        return;
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        (items[Math.max(idx - 1, 0)] || items[0])?.focus();
-        return;
-      }
-      if (e.key === "Enter") {
-        e.preventDefault();
-        const v = document.activeElement?.dataset?.value ?? "";
-        setTag(v);
-        tagDDButton.focus();
-      }
-    });
+    return Array.from(map.entries())
+      .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([name,count]) => ({ name, count }));
   }
 
-  function matchesFilters(p) {
+  function buildArchive(posts){
+    // years -> months -> posts
+    const years = new Map(); // year -> { total, months: Map(month -> {count, posts:[]}) }
+
+    for (const p of posts){
+      const y = p._year || 0;
+      const m = p._month || 0;
+      if (!years.has(y)) years.set(y, { total: 0, months: new Map() });
+      const yObj = years.get(y);
+      yObj.total += 1;
+
+      if (!yObj.months.has(m)) yObj.months.set(m, { count: 0, posts: [] });
+      const mObj = yObj.months.get(m);
+      mObj.count += 1;
+      mObj.posts.push(p);
+    }
+
+    // Sort years desc, months desc
+    const yearList = Array.from(years.entries())
+      .sort((a,b) => b[0] - a[0])
+      .map(([year, obj]) => {
+        const months = Array.from(obj.months.entries())
+          .sort((a,b) => b[0] - a[0])
+          .map(([month, mObj]) => ({
+            year,
+            month,
+            monthLabel: monthNames[month] || "—",
+            count: mObj.count,
+            posts: mObj.posts.sort((a,b) => (b._dt?.getTime()||0) - (a._dt?.getTime()||0)),
+          }));
+        return { year, total: obj.total, months };
+      });
+
+    return yearList;
+  }
+
+  function setCategory(name){
+    state.category = name;
+    // archive remains if selected; user can clear via chip
+    renderAll();
+  }
+
+  function setTag(name){
+    state.tag = name || "All";
+    renderAll();
+  }
+
+  function setArchive(year, month){
+    state.archive = { year, month };
+    state.openYears.add(year);
+    state.openMonths.add(`${year}-${month}`);
+    renderAll();
+  }
+
+  function clearArchive(){
+    state.archive = null;
+    renderAll();
+  }
+
+  function clearCategory(){
+    state.category = "All Articles";
+    renderAll();
+  }
+
+  function clearTag(){
+    state.tag = "All";
+    renderAll();
+  }
+
+  function clearSearch(){
+    state.q = "";
+    searchInput.value = "";
+    renderAll();
+  }
+
+  function toggleYear(year){
+    if (state.openYears.has(year)) state.openYears.delete(year);
+    else state.openYears.add(year);
+    renderArchive();
+  }
+
+  function toggleMonth(year, month){
+    const key = `${year}-${month}`;
+    if (state.openMonths.has(key)) state.openMonths.delete(key);
+    else state.openMonths.add(key);
+    renderArchive();
+  }
+
+  function filteredPosts(){
     const q = normalize(state.q);
-    const tag = normalize(state.tag);
-    const cat = normalize(state.category);
+    const cat = state.category;
+    const tag = state.tag;
+    const arch = state.archive;
 
-    const hay = normalize([p.title, p.excerpt, p.category, ...(p.tags || [])].join(" "));
-    const okQ = q ? hay.includes(q) : true;
-    const okT = tag ? (p.tags || []).some(t => normalize(t) === tag) : true;
-    const okC = (cat && cat !== normalize("All Articles")) ? normalize(p.category || "") === cat : true;
+    return state.posts.filter(p => {
+      const pCat = p.category || "Uncategorized";
 
-    return okQ && okT && okC;
+      if (cat !== "All Articles" && pCat !== cat) return false;
+
+      if (tag !== "All") {
+        const tags = (p.tags || []).map(t => String(t));
+        if (!tags.includes(tag)) return false;
+      }
+
+      if (arch) {
+        if (p._year !== arch.year) return false;
+        if (p._month !== arch.month) return false;
+      }
+
+      if (q) {
+        const hay = normalize(`${p.title||""} ${p.excerpt||""} ${(p.tags||[]).join(" ")} ${pCat}`);
+        if (!hay.includes(q)) return false;
+      }
+
+      return true;
+    });
   }
 
-  function renderCards(posts) {
-    cardsEl.innerHTML = "";
-    if (!posts.length) { emptyEl.hidden = false; return; }
-    emptyEl.hidden = true;
+  // -------- Rendering --------
 
-    for (const p of posts) {
-      const a = document.createElement("a");
-      a.className = "card";
-      a.href = `./post.html?slug=${encodeURIComponent(p.slug)}`;
-
-      const dateText = p.date ? fmt.format(new Date(p.date)) : "";
-      const hashTags = (p.tags || []).slice(0, 3).map(t => `#${t}`).join("  ");
-      const authorName = p.author?.name || "Author";
-      const time = p.readTime || "";
-
-      a.innerHTML = `
-        <div class="card-media">
-          <div class="placeholder" aria-hidden="true"></div>
-          <div class="pill">${escapeHtml(p.category || "Article")}</div>
+  function renderCategories(){
+    const cats = buildCategories(state.posts);
+    categoriesEl.innerHTML = cats.map(c => {
+      const active = (state.category === c.name) ? "active" : "";
+      return `
+        <div class="cat ${active}" role="button" tabindex="0" data-cat="${escapeHtml(c.name)}">
+          <div class="cat-left">
+            <span>${escapeHtml(c.name)}</span>
+          </div>
+          <div class="cat-count">${c.count}</div>
         </div>
+      `;
+    }).join("");
 
-        <div class="card-body">
-          <h3 class="card-title">${escapeHtml(p.title || "Untitled")}</h3>
-          <p class="card-excerpt">${escapeHtml(p.excerpt || "")}</p>
-          <div class="hashes">${escapeHtml(hashTags)}</div>
-          <div class="divider"></div>
+    categoriesEl.querySelectorAll("[data-cat]").forEach(el => {
+      el.addEventListener("click", () => setCategory(el.getAttribute("data-cat")));
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter") setCategory(el.getAttribute("data-cat")); });
+    });
+  }
 
-          <div class="card-foot">
-            <div class="author">
-              <div class="avatar"><span>${escapeHtml(initials(authorName))}</span></div>
-              <div>
-                <div style="font-weight:950; color: rgba(255,255,255,0.88); line-height:1.1;">${escapeHtml(authorName)}</div>
-                <div style="color: rgba(255,255,255,0.62); font-size:12px;">${escapeHtml(dateText)}</div>
-              </div>
-            </div>
+  function renderTags(){
+    const tags = buildTags(state.posts).slice(0, 10);
+    tagsEl.innerHTML = tags.map(t => {
+      const active = (state.tag === t.name) ? "active" : "";
+      return `
+        <button class="tagpill-btn ${active}" type="button" data-tag="${escapeHtml(t.name)}">
+          <span>#${escapeHtml(t.name)}</span>
+          <span class="tagpill-count">(${t.count})</span>
+        </button>
+      `;
+    }).join("");
 
-            <div class="readtime" title="Estimated read time">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-              <span>${escapeHtml(time)}</span>
-            </div>
+    tagsEl.querySelectorAll("[data-tag]").forEach(btn => {
+      btn.addEventListener("click", () => setTag(btn.getAttribute("data-tag")));
+    });
+  }
+
+  function renderTagDropdown(){
+    const tags = buildTags(state.posts);
+    const opts = [{ name:"All", count: state.posts.length }, ...tags.map(t => ({ name:t.name, count:t.count }))];
+
+    tagValue.textContent = state.tag;
+
+    tagMenu.innerHTML = opts.map(o => {
+      const selected = (state.tag === o.name) ? `aria-selected="true"` : `aria-selected="false"`;
+      return `
+        <div class="dd-item" role="option" ${selected} data-tag="${escapeHtml(o.name)}">
+          <span>${escapeHtml(o.name)}</span>
+          <span style="opacity:.7;font-weight:900;">${o.count}</span>
+        </div>
+      `;
+    }).join("");
+
+    tagMenu.querySelectorAll("[data-tag]").forEach(item => {
+      item.addEventListener("click", () => {
+        setTag(item.getAttribute("data-tag"));
+        closeTagMenu();
+      });
+    });
+  }
+
+  function openTagMenu(){
+    state.tagOpen = true;
+    tagMenu.hidden = false;
+    tagBtn.setAttribute("aria-expanded", "true");
+  }
+
+  function closeTagMenu(){
+    state.tagOpen = false;
+    tagMenu.hidden = true;
+    tagBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleTagMenu(){
+    if (state.tagOpen) closeTagMenu();
+    else openTagMenu();
+  }
+
+  function renderArchive(){
+    const archive = buildArchive(state.posts);
+
+    // default open current year if nothing set
+    if (state.openYears.size === 0 && archive.length){
+      state.openYears.add(archive[0].year);
+    }
+
+    archiveEl.innerHTML = archive.map(y => {
+      const yearOpen = state.openYears.has(y.year);
+      return `
+        <div class="arch-year">
+          <button class="arch-year-btn" type="button" data-year="${y.year}" aria-expanded="${yearOpen}">
+            <span class="arch-left">
+              <span class="arch-chevron">${yearOpen ? "▾" : "▸"}</span>
+              <span class="arch-year-label">${y.year}</span>
+            </span>
+            <span class="arch-count">${y.total}</span>
+          </button>
+
+          <div class="arch-months" ${yearOpen ? "" : "hidden"}>
+            ${y.months.map(m => {
+              const key = `${m.year}-${m.month}`;
+              const monthOpen = state.openMonths.has(key);
+              const active = (state.archive && state.archive.year === m.year && state.archive.month === m.month) ? "active" : "";
+              return `
+                <div class="arch-month ${active}">
+                  <button class="arch-month-btn" type="button" data-month="${key}" aria-expanded="${monthOpen}">
+                    <span class="arch-left">
+                      <span class="arch-chevron">${monthOpen ? "▾" : "▸"}</span>
+                      <span class="arch-month-label">${escapeHtml(m.monthLabel)}</span>
+                      <span class="arch-month-count">(${m.count})</span>
+                    </span>
+                    <span class="arch-action">View</span>
+                  </button>
+
+                  <div class="arch-posts" ${monthOpen ? "" : "hidden"}>
+                    ${m.posts.map(p => {
+                      const dt = p._dt ? fmt.format(p._dt) : "";
+                      return `
+                        <a class="arch-post" href="./post.html?slug=${encodeURIComponent(p.slug)}" title="${escapeHtml(p.title||"")}">
+                          <span class="arch-post-title">${escapeHtml(p.title || "Untitled")}</span>
+                          <span class="arch-post-date">${escapeHtml(dt)}</span>
+                        </a>
+                      `;
+                    }).join("")}
+                  </div>
+                </div>
+              `;
+            }).join("")}
           </div>
         </div>
       `;
+    }).join("");
 
-      cardsEl.appendChild(a);
+    // Year toggles
+    archiveEl.querySelectorAll("[data-year]").forEach(btn => {
+      btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
+    });
+
+    // Month toggles + also set archive filter
+    archiveEl.querySelectorAll("[data-month]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const [y, m] = btn.getAttribute("data-month").split("-").map(Number);
+        toggleMonth(y, m);
+        setArchive(y, m);
+      });
+    });
+  }
+
+  function renderCards(){
+    const posts = filteredPosts();
+    countEl.textContent = `${posts.length} article${posts.length === 1 ? "" : "s"}`;
+
+    if (!posts.length){
+      cardsEl.innerHTML = `
+        <div class="empty">
+          <strong>No matches.</strong>
+          <div class="muted" style="margin-top:6px;">Try clearing filters or adjusting search.</div>
+        </div>
+      `;
+      return;
     }
+
+    cardsEl.innerHTML = posts.map(p => {
+      const dt = p._dt ? fmt.format(p._dt) : "";
+      const cat = p.category || "Article";
+      const rt = getReadTimeMinutes(p);
+      const tags = (p.tags || []).slice(0, 4).map(t => `#${t}`).join("  ");
+      const author = p.author || "Author";
+      const avatar = (author[0] || "A").toUpperCase();
+
+      return `
+        <a class="card" href="./post.html?slug=${encodeURIComponent(p.slug)}">
+          <div class="card-media">
+            <div class="placeholder"></div>
+            <div class="pill">${escapeHtml(cat)}</div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title">${escapeHtml(p.title || "Untitled")}</div>
+            <div class="card-excerpt">${escapeHtml(p.excerpt || "")}</div>
+
+            <div class="hashes">${escapeHtml(tags)}</div>
+
+            <div class="divider"></div>
+
+            <div class="card-foot">
+              <div class="author">
+                <div class="avatar"><span>${escapeHtml(avatar)}</span></div>
+                <div>
+                  <div style="font-weight:900;">${escapeHtml(author)}</div>
+                  <div style="opacity:.75;font-size:12px;">${escapeHtml(dt)}</div>
+                </div>
+              </div>
+
+              <div class="readtime" title="Estimated reading time">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>${rt} min</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+    }).join("");
   }
 
-  function applyAndRender() {
-    const filtered = allPosts.filter(matchesFilters);
-    countEl.textContent = String(filtered.length);
-    renderCards(filtered);
+  function renderChips(){
+    const chips = [];
+
+    if (state.archive){
+      chips.push({
+        key: "archive",
+        label: `${monthNames[state.archive.month]} ${state.archive.year}`,
+        clear: clearArchive
+      });
+    }
+    if (state.category !== "All Articles"){
+      chips.push({
+        key: "category",
+        label: state.category,
+        clear: clearCategory
+      });
+    }
+    if (state.tag !== "All"){
+      chips.push({
+        key: "tag",
+        label: `#${state.tag}`,
+        clear: clearTag
+      });
+    }
+    if (state.q){
+      chips.push({
+        key: "search",
+        label: `Search: "${state.q}"`,
+        clear: clearSearch
+      });
+    }
+
+    if (!chips.length){
+      chipsEl.innerHTML = "";
+      return;
+    }
+
+    chipsEl.innerHTML = chips.map(c => `
+      <button class="chip" type="button" data-chip="${escapeHtml(c.key)}">
+        <span class="chip-label">${escapeHtml(c.label)}</span>
+        <span class="chip-x">×</span>
+      </button>
+    `).join("");
+
+    chipsEl.querySelectorAll("[data-chip]").forEach(btn => {
+      const key = btn.getAttribute("data-chip");
+      btn.addEventListener("click", () => {
+        const match = chips.find(x => x.key === key);
+        if (match) match.clear();
+      });
+    });
   }
 
-  async function init() {
+  function renderAll(){
+    // Sync inputs
+    if (searchInput.value !== state.q) searchInput.value = state.q;
+    tagValue.textContent = state.tag;
+
+    renderArchive();
+    renderCategories();
+    renderTags();
+    renderTagDropdown();
+    renderChips();
+    renderCards();
+  }
+
+  async function init(){
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
     const res = await fetch("./content/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
     const data = await res.json();
 
-    allPosts = (data.posts || []).slice().sort((a,b) => {
-      const da = a.date ? new Date(a.date).getTime() : 0;
-      const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da;
-    });
+    state.posts = enrichPosts(data.posts || []);
+    applyQueryParams();
 
-    buildCategories(allPosts);
-    buildTagDropdown(allPosts);
-
+    // input wiring
     searchInput.addEventListener("input", (e) => {
       state.q = e.target.value || "";
-      applyAndRender();
+      renderAll();
     });
 
-    applyAndRender();
+    tagBtn.addEventListener("click", toggleTagMenu);
+    document.addEventListener("click", (e) => {
+      if (!state.tagOpen) return;
+      const dd = document.getElementById("tagDropdown");
+      if (!dd.contains(e.target)) closeTagMenu();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeTagMenu();
+    });
+
+    renderAll();
   }
 
   init().catch((e) => {
     console.error(e);
-    emptyEl.hidden = false;
-    emptyEl.innerHTML = `<h3>Load error</h3><p>Could not load <code>content/posts.json</code>.</p>`;
+    cardsEl.innerHTML = `
+      <div class="empty">
+        <strong>Could not load posts.</strong>
+        <div class="muted" style="margin-top:6px;">Check that <code>content/posts.json</code> exists and is valid JSON.</div>
+      </div>
+    `;
   });
 })();
