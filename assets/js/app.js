@@ -4,10 +4,9 @@
 
   const categoriesEl = document.getElementById("categories");
   const tagsEl = document.getElementById("tags");
-
-  const articlesEl = document.getElementById("articles");
-  const emptyStateEl = document.getElementById("emptyState");
-  const articleCountEl = document.getElementById("articleCount");
+  const cardsEl = document.getElementById("cards");
+  const emptyEl = document.getElementById("emptyState");
+  const countEl = document.getElementById("articleCount");
 
   const searchInput = document.getElementById("searchInput");
   const tagSelect = document.getElementById("tagSelect");
@@ -29,16 +28,6 @@
   function initials(name) {
     const parts = String(name || "").split(" ").filter(Boolean);
     return ((parts[0]?.[0] || "A") + (parts[1]?.[0] || "")).toUpperCase();
-  }
-  function iconSvg(kind){
-    const common = `fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"`;
-    if (kind === "all") return `<svg viewBox="0 0 24 24"><path ${common} d="M5 4h14v16H5z"/><path ${common} d="M8 8h8M8 12h8M8 16h6"/></svg>`;
-    return `<svg viewBox="0 0 24 24"><path ${common} d="M7 7h10v10H7z"/><path ${common} d="M9 4h6M9 20h6"/></svg>`;
-  }
-  function categoryKey(cat){
-    const c = normalize(cat);
-    if (c.includes("all")) return "all";
-    return "default";
   }
 
   function buildSidebar(posts) {
@@ -64,7 +53,6 @@
 
       div.innerHTML = `
         <div class="cat-left">
-          <span class="cat-icon" aria-hidden="true">${iconSvg(categoryKey(c.name))}</span>
           <span>${escapeHtml(c.name)}</span>
         </div>
         <div class="cat-count">${c.count}</div>
@@ -92,7 +80,11 @@
       const chip = document.createElement("div");
       chip.className = "chip";
       chip.innerHTML = `<span>#${escapeHtml(t)}</span> <strong>(${n})</strong>`;
-      chip.addEventListener("click", () => { state.tag = t; tagSelect.value = t; applyAndRender(); });
+      chip.addEventListener("click", () => {
+        state.tag = t;
+        tagSelect.value = t;
+        applyAndRender();
+      });
       tagsEl.appendChild(chip);
     }
 
@@ -116,9 +108,9 @@
   }
 
   function renderCards(posts) {
-    articlesEl.innerHTML = "";
-    if (!posts.length) { emptyStateEl.hidden = false; return; }
-    emptyStateEl.hidden = true;
+    cardsEl.innerHTML = "";
+    if (!posts.length) { emptyEl.hidden = false; return; }
+    emptyEl.hidden = true;
 
     for (const p of posts) {
       const a = document.createElement("a");
@@ -128,16 +120,11 @@
       const dateText = p.date ? fmt.format(new Date(p.date)) : "";
       const hashTags = (p.tags || []).slice(0, 3).map(t => `#${t}`).join("  ");
       const authorName = p.author?.name || "Author";
-      const authorAvatar = p.author?.avatar || "";
       const time = p.readTime || "";
-
-      const coverHtml = p.cover
-        ? `<img alt="" src="${escapeHtml(p.cover)}" loading="lazy" />`
-        : `<div class="placeholder" aria-hidden="true"></div>`;
 
       a.innerHTML = `
         <div class="card-media">
-          ${coverHtml}
+          <div class="placeholder" aria-hidden="true"></div>
           <div class="pill">${escapeHtml(p.category || "Article")}</div>
         </div>
 
@@ -149,19 +136,10 @@
 
           <div class="card-foot">
             <div class="author">
-              <div class="avatar">
-                ${authorAvatar
-                  ? `<img alt="" src="${escapeHtml(authorAvatar)}" loading="lazy" />`
-                  : `<span>${escapeHtml(initials(authorName))}</span>`
-                }
-              </div>
+              <div class="avatar"><span>${escapeHtml(initials(authorName))}</span></div>
               <div>
-                <div style="font-weight:900; color: rgba(255,255,255,0.88); line-height:1.1;">
-                  ${escapeHtml(authorName)}
-                </div>
-                <div style="color: rgba(255,255,255,0.62); font-size:12px;">
-                  ${escapeHtml(dateText)}
-                </div>
+                <div style="font-weight:950; color: rgba(255,255,255,0.88); line-height:1.1;">${escapeHtml(authorName)}</div>
+                <div style="color: rgba(255,255,255,0.62); font-size:12px;">${escapeHtml(dateText)}</div>
               </div>
             </div>
 
@@ -176,18 +154,19 @@
         </div>
       `;
 
-      articlesEl.appendChild(a);
+      cardsEl.appendChild(a);
     }
   }
 
   function applyAndRender() {
     const filtered = allPosts.filter(matchesFilters);
-    articleCountEl.textContent = String(filtered.length);
+    countEl.textContent = String(filtered.length);
     renderCards(filtered);
   }
 
   async function init() {
     const res = await fetch("./content/posts.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
     const data = await res.json();
 
     allPosts = (data.posts || []).slice().sort((a,b) => {
@@ -206,7 +185,7 @@
 
   init().catch((e) => {
     console.error(e);
-    emptyStateEl.hidden = false;
-    emptyStateEl.innerHTML = `<h3>Load error</h3><p>Could not load <code>content/posts.json</code>.</p>`;
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = `<h3>Load error</h3><p>Could not load <code>content/posts.json</code>.</p>`;
   });
 })();
