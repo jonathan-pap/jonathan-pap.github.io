@@ -11,14 +11,10 @@
   const navSection = document.getElementById("postNavSection");
   const navEl = document.getElementById("postNav");
 
-  const relatedSection = document.getElementById("relatedSection");
-  const relatedEl = document.getElementById("relatedPosts");
-
   const yearEl = document.getElementById("year");
 
   const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
 
-  function normalize(s) { return String(s || "").toLowerCase().trim(); }
   function escapeHtml(str) {
     return String(str)
       .replaceAll("&", "&amp;")
@@ -60,7 +56,7 @@
     return posts.slice().sort((a, b) => {
       const da = a.date ? new Date(a.date).getTime() : 0;
       const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da;
+      return db - da; // newest first
     });
   }
 
@@ -77,42 +73,6 @@
         <div class="navcard-meta">${escapeHtml(dt)}</div>
       </a>
     `;
-  }
-
-  function relatedCard(post) {
-    const dt = post.date ? fmt.format(new Date(post.date)) : "";
-    const cat = post.category || "Article";
-    const tags = (post.tags || []).slice(0, 3).map(t => `#${t}`).join("  ");
-    return `
-      <a class="relcard" href="./post.html?slug=${encodeURIComponent(post.slug)}">
-        <div class="relcard-media" aria-hidden="true"></div>
-        <div class="relcard-body">
-          <div class="relcard-pill">${escapeHtml(cat)}</div>
-          <div class="relcard-title">${escapeHtml(post.title || "Untitled")}</div>
-          <div class="relcard-excerpt">${escapeHtml(post.excerpt || "")}</div>
-          <div class="relcard-foot">
-            <span class="relcard-tags">${escapeHtml(tags)}</span>
-            <span class="relcard-date">${escapeHtml(dt)}</span>
-          </div>
-        </div>
-      </a>
-    `;
-  }
-
-  function scoreRelated(current, candidate) {
-    if (!candidate || candidate.slug === current.slug) return -1;
-
-    const cTags = (current.tags || []).map(normalize);
-    const xTags = (candidate.tags || []).map(normalize);
-
-    let shared = 0;
-    if (cTags.length && xTags.length) {
-      const set = new Set(cTags);
-      for (const t of xTags) if (set.has(t)) shared += 1;
-    }
-
-    const catMatch = normalize(candidate.category) && normalize(candidate.category) === normalize(current.category) ? 1 : 0;
-    return (shared * 10) + (catMatch * 3);
   }
 
   async function init() {
@@ -146,7 +106,7 @@
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
 
-    // Prev/Next: previous = newer, next = older (because list is newest first)
+    // Prev/Next: previous = newer, next = older (newest-first list)
     const idx = posts.findIndex(p => p.slug === current.slug);
     const prev = idx > 0 ? posts[idx - 1] : null;
     const next = idx < posts.length - 1 ? posts[idx + 1] : null;
@@ -158,32 +118,6 @@
     if (navCards.length) {
       navEl.innerHTML = navCards.join("");
       navSection.hidden = false;
-    }
-
-    // Related
-    const scored = posts
-      .filter(p => p.slug !== current.slug)
-      .map(p => ({ p, s: scoreRelated(current, p) }))
-      .filter(x => x.s > 0)
-      .sort((a, b) => b.s - a.s);
-
-    const related = scored.slice(0, 3).map(x => x.p);
-
-    // Top up with newest posts if not enough matches
-    if (related.length < 3) {
-      const used = new Set(related.map(p => p.slug));
-      for (const p of posts) {
-        if (p.slug === current.slug) continue;
-        if (used.has(p.slug)) continue;
-        related.push(p);
-        used.add(p.slug);
-        if (related.length === 3) break;
-      }
-    }
-
-    if (related.length) {
-      relatedEl.innerHTML = related.map(relatedCard).join("");
-      relatedSection.hidden = false;
     }
   }
 
