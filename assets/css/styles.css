@@ -28,6 +28,10 @@ body{
     linear-gradient(180deg, var(--bg1), var(--bg0));
 }
 
+/* Prevent default purple/underline links everywhere */
+a{ color: inherit; text-decoration: none; }
+a:visited{ color: inherit; }
+
 /* Top nav */
 .topnav{
   position: sticky;
@@ -353,17 +357,9 @@ body{
   color: rgba(255,255,255,0.95);
 }
 
-/* ------------------ Footer width fix for Articles ------------------ */
-
-.footer-wrap{
-  max-width: 980px;
-  margin: 18px auto 0;
-}
-
 /* ------------------ Site Footer (fixed layout) ------------------ */
 
 .site-footer{
-  margin-top: 0;
   border-radius: var(--radius);
   overflow: hidden;
 
@@ -485,42 +481,33 @@ body{
     white-space: normal;
   }
 }
-/* ------------------ Post navigation + related ------------------ */
+
+/* ------------------ Post navigation + related (robust cards) ------------------ */
 
 .post-nav, .related{
   margin-top: 18px;
-}
-
-.post-nav-head, .related-head{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  margin-bottom: 10px;
 }
 
 .post-nav-title, .related-title{
   font-weight: 950;
   font-size: 14px;
   color: rgba(255,255,255,0.88);
+  margin-bottom: 10px;
 }
 
 .post-nav-grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 12px;
 }
 
 .navcard{
   display:block;
-  text-decoration:none;
-  color: rgba(255,255,255,0.92);
-
   padding: 14px;
   border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05);
   box-shadow: var(--shadow2);
-
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
@@ -541,7 +528,7 @@ body{
 .navcard-label{
   font-weight: 900;
   font-size: 12px;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.72);
 }
 
 .navcard-pill{
@@ -559,7 +546,8 @@ body{
   font-weight: 950;
   font-size: 16px;
   line-height: 1.3;
-  margin-bottom: 6px;
+  margin: 0 0 6px;
+  color: rgba(255,255,255,0.92);
 }
 
 .navcard-meta{
@@ -569,21 +557,17 @@ body{
 
 .related-grid{
   display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
 
 .relcard{
   display:block;
-  text-decoration:none;
-  color: rgba(255,255,255,0.92);
-
   border-radius: var(--radius);
   overflow:hidden;
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05);
   box-shadow: var(--shadow2);
-
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
@@ -594,7 +578,7 @@ body{
 }
 
 .relcard-media{
-  height: 86px;
+  height: 92px;
   background:
     radial-gradient(320px 180px at 25% 40%, rgba(59,130,246,0.32), transparent 55%),
     radial-gradient(320px 180px at 75% 40%, rgba(139,92,246,0.28), transparent 55%),
@@ -620,15 +604,17 @@ body{
 
 .relcard-title{
   font-weight: 950;
-  line-height: 1.3;
-  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  color: rgba(255,255,255,0.92);
 }
 
 .relcard-excerpt{
   color: rgba(255,255,255,0.72);
   font-size: 13px;
   line-height: 1.55;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .relcard-foot{
@@ -645,12 +631,4 @@ body{
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 70%;
-}
-
-@media (max-width: 980px){
-  .related-grid{ grid-template-columns: 1fr; }
-}
-
-@media (max-width: 760px){
-  .post-nav-grid{ grid-template-columns: 1fr; }
 }
