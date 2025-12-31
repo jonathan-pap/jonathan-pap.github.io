@@ -51,12 +51,21 @@
             <input id="searchInput" class="input" type="search" placeholder="Title, tag, excerpt…" autocomplete="off" />
           </label>
 
-          <label class="field">
-            <span class="field-label">Tag</span>
-            <select id="tagSelect" class="select">
-              <option value="">All</option>
-            </select>
-          </label>
+<div class="field">
+  <span class="field-label">Tag</span>
+
+  <div class="dd" id="tagDD">
+    <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
+      <span class="dd-value" id="tagDDValue">All</span>
+      <span class="dd-caret" aria-hidden="true">▾</span>
+    </button>
+
+    <div class="dd-menu" id="tagDDMenu" role="listbox" tabindex="-1" aria-label="Tag filter" hidden>
+      <!-- items injected by JS -->
+    </div>
+  </div>
+</div>
+
         </div>
 
         <div id="cards" class="cards" aria-live="polite"></div>
