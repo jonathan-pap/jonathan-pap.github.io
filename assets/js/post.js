@@ -34,7 +34,6 @@
   }
 
   function mdPathForPost(p) {
-    // supports either explicit file/path in posts.json or default convention
     return p.file || p.path || `./content/posts/${p.slug}.md`;
   }
 
@@ -61,12 +60,11 @@
     return posts.slice().sort((a, b) => {
       const da = a.date ? new Date(a.date).getTime() : 0;
       const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da; // newest first
+      return db - da;
     });
   }
 
   function navCard(post, label, dir) {
-    // dir: "prev" or "next" (purely for styling hooks)
     const dt = post.date ? fmt.format(new Date(post.date)) : "";
     const cat = post.category || "Article";
     return `
@@ -114,8 +112,6 @@
     }
 
     const catMatch = normalize(candidate.category) && normalize(candidate.category) === normalize(current.category) ? 1 : 0;
-
-    // Weight shared tags higher than category match
     return (shared * 10) + (catMatch * 3);
   }
 
@@ -144,31 +140,27 @@
 
     setMeta(current);
 
-    // Load markdown
     const mdRes = await fetch(mdPathForPost(current), { cache: "no-store" });
     if (!mdRes.ok) throw new Error(`Markdown fetch failed: ${mdRes.status}`);
     const md = await mdRes.text();
 
-    // Render markdown (marked is loaded globally)
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
 
-    // Prev/Next (newest first list)
+    // Prev/Next: previous = newer, next = older (because list is newest first)
     const idx = posts.findIndex(p => p.slug === current.slug);
-
-    // "Previous" = newer post (idx - 1), "Next" = older post (idx + 1)
     const prev = idx > 0 ? posts[idx - 1] : null;
     const next = idx < posts.length - 1 ? posts[idx + 1] : null;
 
     const navCards = [];
-    if (prev) navCards.push(navCard(prev, "← Previous (newer)", "prev"));
-    if (next) navCards.push(navCard(next, "Next (older) →", "next"));
+    if (prev) navCards.push(navCard(prev, "← Previous", "prev"));
+    if (next) navCards.push(navCard(next, "Next →", "next"));
 
     if (navCards.length) {
       navEl.innerHTML = navCards.join("");
       navSection.hidden = false;
     }
 
-    // Related posts (tag-first, then category, then newest)
+    // Related
     const scored = posts
       .filter(p => p.slug !== current.slug)
       .map(p => ({ p, s: scoreRelated(current, p) }))
@@ -177,7 +169,7 @@
 
     const related = scored.slice(0, 3).map(x => x.p);
 
-    // If not enough matches, top up with newest posts (excluding current + duplicates)
+    // Top up with newest posts if not enough matches
     if (related.length < 3) {
       const used = new Set(related.map(p => p.slug));
       for (const p of posts) {
