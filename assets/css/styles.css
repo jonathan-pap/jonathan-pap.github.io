@@ -809,3 +809,96 @@ a:visited{ color: inherit; }
   color: rgba(255,255,255,0.62);
   font-size: 12px;
 }
+/* ================== Compact UI: sidebar + chips ================== */
+
+/* Categories */
+.list .cat{
+  padding: 10px 12px;
+}
+.list .cat-left{
+  font-size: 13px;
+  font-weight: 900;
+}
+.list .cat-count{
+  font-size: 12px;
+  font-weight: 950;
+}
+
+/* Popular tags */
+.sidebar-tags{
+  gap: 8px;
+}
+.sidebar-tagbtn{
+  padding: 7px 9px;
+  font-size: 12px;
+  font-weight: 900;
+}
+.sidebar-tagcount{
+  font-size: 12px;
+}
+
+/* Archive */
+.archive-nav{
+  gap: 8px;
+}
+.arch-year-btn{
+  padding: 10px 10px;
+  font-size: 12.5px;
+}
+.arch-year-label{
+  font-size: 12.5px;
+}
+.arch-count{
+  font-size: 12px;
+}
+.arch-months{
+  padding: 7px;
+  gap: 7px;
+}
+.arch-month-btn{
+  padding: 8px 9px;
+  font-size: 12px;
+}
+.arch-month-label{
+  font-size: 12px;
+}
+.arch-month-count{
+  font-size: 12px;
+}
+.arch-action{
+  font-size: 11px;
+  padding: 5px 9px;
+}
+.arch-posts{
+  padding: 7px 9px 9px;
+  gap: 7px;
+}
+.arch-post{
+  padding: 7px 9px;
+}
+.arch-post-title{
+  font-size: 12.5px;
+}
+.arch-post-date{
+  font-size: 11px;
+}
+
+/* Filter chips */
+.filterchips{
+  gap: 8px;
+}
+.filterchip{
+  padding: 7px 9px;
+}
+.filterchip-label{
+  font-size: 12px;
+}
+.filterchip-x{
+  font-size: 12px;
+}
+
+/* Optional: slightly smaller panel titles in sidebar only */
+.sidebar .panel-title{
+  font-size: 14px;
+  margin-bottom: 10px;
+}
