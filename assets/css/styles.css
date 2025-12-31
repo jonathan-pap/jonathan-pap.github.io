@@ -902,3 +902,11 @@ a:visited{ color: inherit; }
   font-size: 14px;
   margin-bottom: 10px;
 }
+/* Articles page: single filter row */
+.filters--single .field--wide{
+  min-width: 100%;
+}
+
+.filters--single{
+  display: flex;
+}
