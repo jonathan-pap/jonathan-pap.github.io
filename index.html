@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=3" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=4" />
 </head>
 
 <body>
@@ -54,7 +54,6 @@
           <div class="field">
             <span class="field-label">Tag</span>
 
-            <!-- Custom dropdown (single) -->
             <div class="dd" id="tagDD">
               <button class="dd-btn" id="tagDDButton" type="button" aria-haspopup="listbox" aria-expanded="false">
                 <span class="dd-value" id="tagDDValue">All</span>
@@ -70,25 +69,38 @@
 
         <div id="emptyState" class="empty" hidden>
           <h3>No articles found</h3>
-          <p>Clear filters or update <code>content/posts.json</code>.</p>
+          <p>Clear filters or add more posts.</p>
         </div>
 
-        <section class="panel about">
-          <div class="panel-title">About</div>
-          <p class="muted">
-            Static blog for GitHub Pages. Posts live in <code>content/posts/</code> and are registered in <code>content/posts.json</code>.
-          </p>
-        </section>
+        <!-- Proper footer (no posts.json link) -->
+        <footer class="site-footer">
+          <div class="site-footer-inner">
+            <div class="sf-left">
+              <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
+                <span class="sf-badge">TP</span>
+                <span class="sf-name">Tech<span class="brand-accent">Blog</span></span>
+              </a>
+              <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
+            </div>
 
-        <footer class="footer">
-          <span>© <span id="year"></span> TechBlog</span>
-          <span class="dot">•</span>
-          <a class="footer-link" href="./content/posts.json" target="_blank" rel="noreferrer">posts.json</a>
+            <nav class="sf-nav" aria-label="Footer">
+              <a class="sf-link" href="./index.html">Articles</a>
+              <a class="sf-link" href="./about.html">About</a>
+              <a class="sf-link" href="#articles">Back to top</a>
+            </nav>
+          </div>
+
+          <div class="sf-bottom">
+            <span>© <span id="year"></span> TechBlog</span>
+            <span class="sf-sep">•</span>
+            <span class="sf-muted">Hosted on GitHub Pages</span>
+          </div>
         </footer>
+
       </section>
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=3"></script>
+  <script src="./assets/js/app.js?v=4"></script>
 </body>
 </html>
