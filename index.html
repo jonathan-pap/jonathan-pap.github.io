@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=4" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=6" />
 </head>
 
 <body>
@@ -72,28 +72,31 @@
           <p>Clear filters or add more posts.</p>
         </div>
 
-        <!-- Proper footer (no posts.json link) -->
+        <!-- Consistent footer -->
         <footer class="site-footer">
-          <div class="site-footer-inner">
-            <div class="sf-left">
+          <div class="site-footer-wrap">
+            <div class="site-footer-top">
               <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
                 <span class="sf-badge">TP</span>
-                <span class="sf-name">Tech<span class="brand-accent">Blog</span></span>
+                <span class="sf-name">Tech<span class="sf-accent">Blog</span></span>
               </a>
-              <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
+
+              <div class="sf-links" aria-label="Footer">
+                <a class="sf-link" href="./index.html">Articles</a>
+                <a class="sf-link" href="./about.html">About</a>
+                <a class="sf-link" href="#articles">Back to top</a>
+              </div>
             </div>
 
-            <nav class="sf-nav" aria-label="Footer">
-              <a class="sf-link" href="./index.html">Articles</a>
-              <a class="sf-link" href="./about.html">About</a>
-              <a class="sf-link" href="#articles">Back to top</a>
-            </nav>
-          </div>
+            <div class="site-footer-bottom">
+              <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
 
-          <div class="sf-bottom">
-            <span>© <span id="year"></span> TechBlog</span>
-            <span class="sf-sep">•</span>
-            <span class="sf-muted">Hosted on GitHub Pages</span>
+              <div class="sf-meta">
+                <span>© <span id="year"></span> TechBlog</span>
+                <span class="sf-sep">•</span>
+                <span class="sf-muted">Hosted on GitHub Pages</span>
+              </div>
+            </div>
           </div>
         </footer>
 
@@ -101,6 +104,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=4"></script>
+  <script src="./assets/js/app.js?v=6"></script>
 </body>
 </html>
