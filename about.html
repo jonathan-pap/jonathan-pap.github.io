@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TechBlog • About</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body>
+  <header class="topnav">
+    <div class="topnav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-badge">TP</span>
+        <span class="brand-name">Tech<span class="brand-accent">Blog</span></span>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a class="navlink" href="./index.html">Articles</a>
+        <a class="navlink" href="./about.html">About</a>
+      </nav>
+
+      <a class="cta" href="./index.html#articles">Read</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="panel" style="max-width: 900px; margin: 0 auto;">
+      <div class="panel-title">About</div>
+      <p class="muted">
+        This is a static blog hosted on GitHub Pages. Articles are written in Markdown under
+        <code>content/posts/</code> and registered in <code>content/posts.json</code>.
+      </p>
+
+      <div class="empty" style="margin-top: 14px;">
+        <h3 style="margin:0 0 6px;">How to publish a new post</h3>
+        <ol style="margin:0; color: rgba(255,255,255,0.78); line-height:1.8;">
+          <li>Create <code>content/posts/my-new-post.md</code></li>
+          <li>Add a matching entry with <code>"slug": "my-new-post"</code> in <code>content/posts.json</code></li>
+          <li>Push to GitHub → GitHub Pages updates automatically</li>
+        </ol>
+      </div>
+
+      <footer class="footer">
+        <span>© <span id="year"></span> TechBlog</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>
