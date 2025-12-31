@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=14" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=15" />
 </head>
 
 <body class="page-articles">
@@ -29,19 +29,16 @@
       <!-- LEFT SIDEBAR -->
       <aside class="sidebar">
 
-        <!-- Categories -->
         <section class="panel">
           <div class="panel-title">Categories</div>
           <div id="categoriesList" class="list"></div>
         </section>
 
-        <!-- Popular Tags -->
         <section class="panel">
           <div class="panel-title">Popular Tags</div>
           <div id="tagsList" class="sidebar-tags"></div>
         </section>
 
-        <!-- Archive (moved below) -->
         <section class="panel">
           <div class="panel-title">Archive</div>
           <div id="archiveList" class="archive-nav"></div>
@@ -64,35 +61,18 @@
 
         <!-- Filters + chips -->
         <div class="panel" style="padding:14px;">
-
-          <!-- Active filter chips (moved ABOVE search/dropdown) -->
           <div id="activeFilters" class="filterchips" aria-label="Active filters"></div>
 
-          <div class="filters" style="margin-top: 12px;">
-            <div class="field">
+          <div class="filters filters--single" style="margin-top: 12px;">
+            <div class="field field--wide">
               <div class="field-label">Search</div>
-              <input id="searchInput" class="input" placeholder="Title, tag, excerpt…" />
-            </div>
-
-            <div class="field">
-              <div class="field-label">Tag</div>
-
-              <!-- Custom dropdown -->
-              <div class="dd" id="tagDropdown">
-                <button class="dd-btn" id="tagBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
-                  <span class="dd-value" id="tagValue">All</span>
-                  <span class="dd-caret">▾</span>
-                </button>
-                <div class="dd-menu" id="tagMenu" role="listbox" hidden></div>
-              </div>
+              <input id="searchInput" class="input" placeholder="Search title, tags, excerpt…" />
             </div>
           </div>
         </div>
 
-        <!-- Cards -->
         <div id="cardsGrid" class="cards"></div>
 
-        <!-- Footer -->
         <footer class="site-footer">
           <div class="site-footer-wrap">
             <div class="site-footer-top">
@@ -124,6 +104,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=14"></script>
+  <script src="./assets/js/app.js?v=15"></script>
 </body>
 </html>
