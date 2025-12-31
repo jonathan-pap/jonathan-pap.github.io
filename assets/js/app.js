@@ -1,3 +1,10 @@
+/* assets/js/app.js (clean, search-only + sidebar browse + clean archive)
+   - No tag dropdown
+   - Sidebar: Categories, Popular Tags, Archive
+   - Chips show active filters (category/tag/archive/search)
+   - Clean archive: month header only, post rows show title + day (no full date)
+*/
+
 (function () {
   const archiveEl = document.getElementById("archiveList");
   const categoriesEl = document.getElementById("categoriesList");
@@ -23,6 +30,7 @@
   };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
+
   function escapeHtml(str){
     return String(str)
       .replaceAll("&","&amp;")
@@ -37,20 +45,31 @@
     return (dt && !Number.isNaN(dt.getTime())) ? dt : null;
   }
 
+  function dayLabel(dt){
+    if (!dt) return "";
+    const d = dt.getDate();
+    return String(d).padStart(2, "0");
+  }
+
   function getReadTimeMinutes(p){
-    if (p.readTime) return p.readTime;
+    // If readTime is provided in posts.json, use it.
+    if (typeof p.readTime === "number") return p.readTime;
+
+    // Estimate from excerpt + title (keeps it lightweight)
     const text = `${p.title || ""} ${p.excerpt || ""}`.trim();
     const words = text ? text.split(/\s+/).length : 0;
     return Math.max(1, Math.round(words / 180));
   }
 
   function enrichPosts(posts){
-    return (posts || []).map(p => {
-      const dt = parseDateSafe(p.date);
-      const year = dt ? dt.getFullYear() : 0;
-      const month = dt ? dt.getMonth() : 0;
-      return { ...p, _dt: dt, _year: year, _month: month };
-    }).sort((a,b) => (b._dt?.getTime()||0) - (a._dt?.getTime()||0));
+    return (posts || [])
+      .map(p => {
+        const dt = parseDateSafe(p.date);
+        const year = dt ? dt.getFullYear() : 0;
+        const month = dt ? dt.getMonth() : 0;
+        return { ...p, _dt: dt, _year: year, _month: month };
+      })
+      .sort((a,b) => (b._dt?.getTime()||0) - (a._dt?.getTime()||0));
   }
 
   function buildCategories(posts){
@@ -78,10 +97,12 @@
   }
 
   function buildArchive(posts){
-    const years = new Map();
+    const years = new Map(); // year -> { total, months: Map(month -> {count, posts:[]}) }
+
     for (const p of posts){
       const y = p._year || 0;
       const m = p._month || 0;
+
       if (!years.has(y)) years.set(y, { total: 0, months: new Map() });
       const yObj = years.get(y);
       yObj.total += 1;
@@ -161,12 +182,16 @@
         const hay = normalize(`${p.title||""} ${p.excerpt||""} ${(p.tags||[]).join(" ")} ${pCat}`);
         if (!hay.includes(q)) return false;
       }
+
       return true;
     });
   }
 
+  // ---------------- Renders ----------------
+
   function renderCategories(){
     const cats = buildCategories(state.posts);
+
     categoriesEl.innerHTML = cats.map(c => {
       const active = (state.category === c.name) ? "active" : "";
       return `
@@ -185,6 +210,7 @@
 
   function renderSidebarTags(){
     const tags = buildTags(state.posts).slice(0, 12);
+
     tagsEl.innerHTML = tags.map(t => {
       const active = (state.tag === t.name) ? "active" : "";
       return `
@@ -203,12 +229,14 @@
   function renderArchive(){
     const archive = buildArchive(state.posts);
 
+    // Default open: newest year
     if (state.openYears.size === 0 && archive.length){
       state.openYears.add(archive[0].year);
     }
 
     archiveEl.innerHTML = archive.map(y => {
       const yearOpen = state.openYears.has(y.year);
+
       return `
         <div class="arch-year">
           <button class="arch-year-btn" type="button" data-year="${y.year}" aria-expanded="${yearOpen}">
@@ -224,6 +252,7 @@
               const key = `${m.year}-${m.month}`;
               const monthOpen = state.openMonths.has(key);
               const active = (state.archive && state.archive.year === m.year && state.archive.month === m.month) ? "active" : "";
+
               return `
                 <div class="arch-month ${active}">
                   <button class="arch-month-btn" type="button" data-month="${key}" aria-expanded="${monthOpen}">
@@ -232,16 +261,16 @@
                       <span class="arch-month-label">${escapeHtml(m.label)}</span>
                       <span class="arch-month-count">(${m.count})</span>
                     </span>
-                    <span class="arch-action">View</span>
                   </button>
 
-                  <div class="arch-posts" ${monthOpen ? "" : "hidden"}>
+                  <div class="arch-posts arch-posts--clean" ${monthOpen ? "" : "hidden"}>
                     ${m.posts.map(p => {
-                      const dt = p._dt ? fmt.format(p._dt) : "";
+                      const day = dayLabel(p._dt);
                       return `
-                        <a class="arch-post" href="./post.html?slug=${encodeURIComponent(p.slug)}" title="${escapeHtml(p.title||"")}">
-                          <span class="arch-post-title">${escapeHtml(p.title || "Untitled")}</span>
-                          <span class="arch-post-date">${escapeHtml(dt)}</span>
+                        <a class="arch-post arch-post--clean" href="./post.html?slug=${encodeURIComponent(p.slug)}"
+                           title="${escapeHtml(p.title||"")}">
+                          <span class="arch-post-title arch-post-title--clean">${escapeHtml(p.title || "Untitled")}</span>
+                          <span class="arch-post-day">${escapeHtml(day)}</span>
                         </a>
                       `;
                     }).join("")}
@@ -260,9 +289,9 @@
 
     archiveEl.querySelectorAll("[data-month]").forEach(btn => {
       btn.addEventListener("click", () => {
-        const [y, m] = btn.getAttribute("data-month").split("-").map(Number);
-        toggleMonth(y, m);
-        setArchive(y, m);
+        const [yy, mm] = btn.getAttribute("data-month").split("-").map(Number);
+        toggleMonth(yy, mm);
+        setArchive(yy, mm);
       });
     });
   }
@@ -286,7 +315,13 @@
       const cat = p.category || "Article";
       const rt = getReadTimeMinutes(p);
       const tags = (p.tags || []).slice(0, 4).map(t => `#${t}`).join("  ");
-      const author = p.author || "Author";
+
+      // Ensure author is a string (avoid [object Object])
+      const authorRaw = p.author;
+      const author = (typeof authorRaw === "string" && authorRaw.trim())
+        ? authorRaw.trim()
+        : "Author";
+
       const avatar = (author[0] || "A").toUpperCase();
 
       return `
@@ -317,7 +352,7 @@
                   <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
                 </svg>
-                <span>${rt} min min</span>
+                <span>${rt} min</span>
               </div>
             </div>
           </div>
@@ -370,9 +405,9 @@
   function renderAll(){
     if (searchInput.value !== state.q) searchInput.value = state.q;
 
-    renderArchive();
     renderCategories();
     renderSidebarTags();
+    renderArchive();
     renderFilterChips();
     renderCards();
   }
