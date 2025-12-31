@@ -398,29 +398,28 @@ body{
   border-color: rgba(255,255,255,0.18);
   color: rgba(255,255,255,0.95);
 }
-
-/* ------------------ Site Footer ------------------ */
+/* ------------------ Site Footer (fixed layout) ------------------ */
 
 .site-footer{
   margin-top: 18px;
-  padding: 18px 16px;
   border-radius: var(--radius);
-  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+
+  background: rgba(9,12,32,0.55);
   border: 1px solid rgba(255,255,255,0.10);
   box-shadow: var(--shadow2);
+  backdrop-filter: blur(16px);
 }
 
-.site-footer-inner{
+.site-footer-wrap{
+  padding: 16px 16px 14px;
+}
+
+.site-footer-top{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   justify-content: space-between;
   gap: 16px;
-}
-
-.sf-left{
-  display:flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .sf-brand{
@@ -438,64 +437,43 @@ body{
   display:grid;
   place-items:center;
   font-weight: 950;
+  color: white;
   background: linear-gradient(135deg, var(--blue), var(--purple));
 }
 
 .sf-name{
   font-weight: 950;
   font-size: 16px;
+  letter-spacing: 0.2px;
 }
 
-.sf-tagline{
-  color: rgba(255,255,255,0.72);
-  line-height: 1.6;
-  max-width: 520px;
+.sf-accent{
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.sf-nav{
+.sf-links{
   display:flex;
   align-items:center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
 
 .sf-link{
   text-decoration:none;
-  color: rgba(255,255,255,0.78);
-  padding: 8px 10px;
+  color: rgba(255,255,255,0.80);
+  font-weight: 800;
+  font-size: 13px;
+
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid transparent;
+
   transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, color 180ms ease;
 }
 
 .sf-link:hover{
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.10);
-  color: rgba(255,255,255,0.92);
-  transform: translateY(-1px);
-}
-
-.sf-bottom{
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.10);
-  display:flex;
-  align-items:center;
-  gap: 10px;
-  color: rgba(255,255,255,0.68);
-}
-
-.sf-sep{ opacity: 0.6; }
-.sf-muted{ color: rgba(255,255,255,0.62); }
-
-@media (max-width: 760px){
-  .site-footer-inner{
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .sf-nav{
-    justify-content: flex-start;
-  }
-}
-
+  background: rgba(255,255,255,
