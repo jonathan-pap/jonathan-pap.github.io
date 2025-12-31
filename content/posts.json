@@ -19,7 +19,7 @@
       "excerpt": "Add a new .md file, update posts.json, and push to main. That is it.",
       "readTime": "2 min",
       "author": { "name": "Author" }
-    }
+    },
     {
       "slug": "third",
       "title": "third",
