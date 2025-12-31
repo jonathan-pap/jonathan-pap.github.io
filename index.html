@@ -3,9 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TechBlog</title>
-
-  <!-- IMPORTANT: use ./ paths so it works on both user pages + project pages -->
+  <title>TechBlog • Articles</title>
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
 
@@ -18,49 +16,15 @@
       </a>
 
       <nav class="navlinks" aria-label="Primary">
-        <a class="navlink" href="./index.html">
-          <span class="navicon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          Home
-        </a>
-
-        <a class="navlink" href="#articles">
-          <span class="navicon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 4h10a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
-              <path d="M9 8h8M9 12h8M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </span>
-          Articles
-        </a>
-
-        <a class="navlink" href="#about">
-          <span class="navicon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="1.6"/>
-              <path d="M4.5 20a7.5 7.5 0 0 1 15 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </span>
-          About
-        </a>
+        <a class="navlink" href="./index.html">Articles</a>
+        <a class="navlink" href="./about.html">About</a>
       </nav>
 
-      <a class="cta" href="#articles">
-        <span class="navicon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M6 4h10a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M6 18V4" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </span>
-        Read Articles
-      </a>
+      <a class="cta" href="#articles">Browse</a>
     </div>
   </header>
 
-  <main class="page">
+  <main class="page" id="articles">
     <div class="layout">
       <aside class="sidebar">
         <section class="panel">
@@ -100,13 +64,6 @@
           <h3>No articles found</h3>
           <p>Clear filters or update <code>content/posts.json</code>.</p>
         </div>
-
-        <section id="about" class="panel about">
-          <div class="panel-title">About</div>
-          <p class="muted">
-            Static blog for GitHub Pages. Posts live in <code>content/posts/</code> and are registered in <code>content/posts.json</code>.
-          </p>
-        </section>
 
         <footer class="footer">
           <span>© <span id="year"></span> TechBlog</span>
