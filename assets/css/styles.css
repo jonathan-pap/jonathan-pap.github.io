@@ -89,21 +89,6 @@ body{
 .navlink:hover{ background: rgba(255,255,255,0.08); color: var(--text); transform: translateY(-1px); }
 .navlink.active{ background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); }
 
-.cta{
-  display:inline-flex;
-  align-items:center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  text-decoration:none;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  background-size: 160% 160%;
-  box-shadow: 0 14px 36px rgba(0,0,0,0.35);
-  transition: transform 180ms ease, background-position 220ms ease, opacity 180ms ease;
-}
-.cta:hover{ transform: translateY(-1px); background-position: 100% 40%; opacity: 0.98; }
-
 /* Page / layout */
 .page{
   width:min(var(--max), calc(100% - 24px));
@@ -368,10 +353,17 @@ body{
   color: rgba(255,255,255,0.95);
 }
 
+/* ------------------ Footer width fix for Articles ------------------ */
+
+.footer-wrap{
+  max-width: 980px;
+  margin: 18px auto 0;
+}
+
 /* ------------------ Site Footer (fixed layout) ------------------ */
 
 .site-footer{
-  margin-top: 18px;
+  margin-top: 0;
   border-radius: var(--radius);
   overflow: hidden;
 
