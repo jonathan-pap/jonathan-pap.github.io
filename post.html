@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=10" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=11" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
     .prose{ line-height: 1.85; color: rgba(255,255,255,0.88); }
     .prose h1,.prose h2,.prose h3{ line-height: 1.25; margin-top: 1.2em; }
-    .prose a{ color: rgba(255,255,255,0.92); }
+    .prose a{ color: rgba(255,255,255,0.92); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); }
+    .prose a:hover{ text-decoration-color: rgba(255,255,255,0.55); }
     .prose pre{
       background: rgba(0,0,0,0.25);
       border: 1px solid rgba(255,255,255,0.12);
@@ -78,16 +79,10 @@
         <p id="postErrorMsg">An error occurred.</p>
       </div>
 
-      <!-- Prev/Next -->
+      <!-- Prev/Next only -->
       <section id="postNavSection" class="post-nav" hidden>
         <div class="post-nav-title">Continue reading</div>
         <div id="postNav" class="post-nav-grid"></div>
-      </section>
-
-      <!-- Related -->
-      <section id="relatedSection" class="related" hidden>
-        <div class="related-title">Related posts</div>
-        <div id="relatedPosts" class="related-grid"></div>
       </section>
 
       <!-- Footer -->
@@ -102,7 +97,7 @@
             <div class="sf-links" aria-label="Footer">
               <a class="sf-link" href="./index.html">Articles</a>
               <a class="sf-link" href="./about.html">About</a>
-              <a class="sf-link" href="./index.html#articles">Browse</a>
+              <a class="sf-link" href="./index.html#articles">Back to top</a>
             </div>
           </div>
 
@@ -121,6 +116,6 @@
     </section>
   </main>
 
-  <script src="./assets/js/post.js?v=10"></script>
+  <script src="./assets/js/post.js?v=11"></script>
 </body>
 </html>
