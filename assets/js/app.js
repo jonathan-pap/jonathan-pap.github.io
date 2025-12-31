@@ -7,14 +7,16 @@
   const cardsEl = document.getElementById("cards");
   const emptyEl = document.getElementById("emptyState");
   const countEl = document.getElementById("articleCount");
-
   const searchInput = document.getElementById("searchInput");
 
-  // Custom dropdown elements
+  // Custom dropdown
   const tagDD = document.getElementById("tagDD");
   const tagDDButton = document.getElementById("tagDDButton");
   const tagDDValue = document.getElementById("tagDDValue");
   const tagDDMenu = document.getElementById("tagDDMenu");
+
+  // Fallback (kept safe; hidden)
+  const tagFallback = document.getElementById("tagSelectFallback");
 
   let allPosts = [];
   let state = { q: "", category: "All Articles", tag: "" };
@@ -35,17 +37,9 @@
     return ((parts[0]?.[0] || "A") + (parts[1]?.[0] || "")).toUpperCase();
   }
 
-  function setTag(tag) {
-    state.tag = tag || "";
-    tagDDValue.textContent = state.tag || "All";
-    applyAndRender();
-    closeDD();
-  }
-
   function openDD() {
     tagDDMenu.hidden = false;
     tagDDButton.setAttribute("aria-expanded", "true");
-    // Focus first selected item or first item
     const selected = tagDDMenu.querySelector('.dd-item[aria-selected="true"]');
     (selected || tagDDMenu.querySelector(".dd-item"))?.focus();
   }
@@ -60,58 +54,21 @@
     else closeDD();
   }
 
-  function buildTagDropdown(posts) {
-    const tagCounts = new Map();
-    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-
-    const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
-
-    // Build listbox items
-    tagDDMenu.innerHTML = "";
-
-    // All option
-    const allItem = document.createElement("div");
-    allItem.className = "dd-item";
-    allItem.setAttribute("role", "option");
-    allItem.setAttribute("tabindex", "0");
-    allItem.dataset.value = "";
-    allItem.setAttribute("aria-selected", state.tag === "" ? "true" : "false");
-    allItem.innerHTML = `
-      <div class="dd-item-left">
-        <div class="dd-item-label">All</div>
-      </div>
-      <div class="dd-item-count">${posts.length}</div>
-    `;
-    allItem.addEventListener("click", () => setTag(""));
-    tagDDMenu.appendChild(allItem);
-
-    for (const t of allTagNames) {
-      const item = document.createElement("div");
-      item.className = "dd-item";
-      item.setAttribute("role", "option");
-      item.setAttribute("tabindex", "0");
-      item.dataset.value = t;
-      item.setAttribute("aria-selected", state.tag === t ? "true" : "false");
-
-      item.innerHTML = `
-        <div class="dd-item-left">
-          <div class="dd-item-label">${escapeHtml(t)}</div>
-        </div>
-        <div class="dd-item-count">${tagCounts.get(t)}</div>
-      `;
-
-      item.addEventListener("click", () => setTag(t));
-      tagDDMenu.appendChild(item);
-    }
-  }
-
-  function syncDropdownSelection() {
+  function syncDDSelection() {
     const items = tagDDMenu.querySelectorAll(".dd-item");
     items.forEach(el => {
       const v = el.dataset.value || "";
       el.setAttribute("aria-selected", v === state.tag ? "true" : "false");
     });
     tagDDValue.textContent = state.tag || "All";
+  }
+
+  function setTag(tag) {
+    state.tag = tag || "";
+    if (tagFallback) tagFallback.value = state.tag;
+    syncDDSelection();
+    applyAndRender();
+    closeDD();
   }
 
   function buildSidebar(posts) {
@@ -136,9 +93,7 @@
       div.setAttribute("tabindex", "0");
 
       div.innerHTML = `
-        <div class="cat-left">
-          <span>${escapeHtml(c.name)}</span>
-        </div>
+        <div class="cat-left"><span>${escapeHtml(c.name)}</span></div>
         <div class="cat-count">${c.count}</div>
       `;
 
@@ -165,9 +120,92 @@
       const chip = document.createElement("div");
       chip.className = "chip";
       chip.innerHTML = `<span>#${escapeHtml(t)}</span> <strong>(${n})</strong>`;
-      chip.addEventListener("click", () => { setTag(t); syncDropdownSelection(); });
+      chip.addEventListener("click", () => setTag(t));
       tagsEl.appendChild(chip);
     }
+  }
+
+  function buildTagDropdown(posts) {
+    const tagCounts = new Map();
+    for (const p of posts) for (const t of (p.tags || [])) tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+
+    const allTagNames = Array.from(tagCounts.keys()).sort((a,b)=>a.localeCompare(b));
+
+    tagDDMenu.innerHTML = "";
+
+    function addItem(label, value, count) {
+      const item = document.createElement("div");
+      item.className = "dd-item";
+      item.setAttribute("role", "option");
+      item.setAttribute("tabindex", "0");
+      item.dataset.value = value;
+      item.setAttribute("aria-selected", value === state.tag ? "true" : "false");
+
+      item.innerHTML = `
+        <div class="dd-item-left">
+          <div class="dd-item-label">${escapeHtml(label)}</div>
+        </div>
+        <div class="dd-item-count">${count}</div>
+      `;
+
+      item.addEventListener("click", () => setTag(value));
+      tagDDMenu.appendChild(item);
+    }
+
+    addItem("All", "", posts.length);
+    for (const t of allTagNames) addItem(t, t, tagCounts.get(t));
+
+    // Fallback options (hidden, but safe)
+    if (tagFallback) {
+      tagFallback.innerHTML = `<option value="">All</option>` +
+        allTagNames.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+      tagFallback.value = state.tag;
+      tagFallback.addEventListener("change", (e) => setTag(e.target.value || ""));
+    }
+
+    syncDDSelection();
+
+    // Dropdown interactions
+    tagDDButton.addEventListener("click", toggleDD);
+
+    document.addEventListener("click", (e) => {
+      if (!tagDD.contains(e.target) && !tagDDMenu.hidden) closeDD();
+    });
+
+    tagDDButton.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+        e.preventDefault(); openDD();
+      }
+      if (e.key === "Escape") { e.preventDefault(); closeDD(); }
+    });
+
+    tagDDMenu.addEventListener("keydown", (e) => {
+      const items = Array.from(tagDDMenu.querySelectorAll(".dd-item"));
+      const idx = items.indexOf(document.activeElement);
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeDD();
+        tagDDButton.focus();
+        return;
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        (items[Math.min(idx + 1, items.length - 1)] || items[0])?.focus();
+        return;
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        (items[Math.max(idx - 1, 0)] || items[0])?.focus();
+        return;
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const v = document.activeElement?.dataset?.value ?? "";
+        setTag(v);
+        tagDDButton.focus();
+      }
+    });
   }
 
   function matchesFilters(p) {
@@ -240,61 +278,6 @@
     renderCards(filtered);
   }
 
-  // ---- Dropdown interactions ----
-  tagDDButton.addEventListener("click", toggleDD);
-
-  // Close when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!tagDD.contains(e.target) && !tagDDMenu.hidden) closeDD();
-  });
-
-  // Keyboard: button
-  tagDDButton.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openDD();
-    }
-    if (e.key === "Escape") {
-      e.preventDefault();
-      closeDD();
-    }
-  });
-
-  // Keyboard: menu navigation
-  tagDDMenu.addEventListener("keydown", (e) => {
-    const items = Array.from(tagDDMenu.querySelectorAll(".dd-item"));
-    const idx = items.indexOf(document.activeElement);
-
-    if (e.key === "Escape") {
-      e.preventDefault();
-      closeDD();
-      tagDDButton.focus();
-      return;
-    }
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      const next = items[Math.min(idx + 1, items.length - 1)] || items[0];
-      next?.focus();
-      return;
-    }
-
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      const prev = items[Math.max(idx - 1, 0)] || items[0];
-      prev?.focus();
-      return;
-    }
-
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const v = document.activeElement?.dataset?.value;
-      setTag(v || "");
-      syncDropdownSelection();
-      tagDDButton.focus();
-    }
-  });
-
   async function init() {
     const res = await fetch("./content/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
@@ -308,7 +291,6 @@
 
     buildSidebar(allPosts);
     buildTagDropdown(allPosts);
-    syncDropdownSelection();
 
     searchInput.addEventListener("input", (e) => {
       state.q = e.target.value || "";
