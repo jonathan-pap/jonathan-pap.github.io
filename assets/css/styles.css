@@ -35,6 +35,16 @@ body::before{
   z-index: -2;
   pointer-events: none;
 
+  /* Articles page: single filter row */
+.filters--single .field--wide{
+  min-width: 100%;
+}
+
+.filters--single{
+  display: flex;
+}
+
+
   background:
     radial-gradient(900px 520px at 18% 12%, rgba(59,130,246,0.22), transparent 60%),
     radial-gradient(860px 520px at 82% 18%, rgba(139,92,246,0.20), transparent 60%),
