@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=2" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=6" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
@@ -79,12 +79,37 @@
         <p id="postErrorMsg">An error occurred.</p>
       </div>
 
-      <footer class="footer">
-        <span>© <span id="year"></span> TechBlog</span>
+      <!-- Consistent footer -->
+      <footer class="site-footer" style="margin-top: 18px;">
+        <div class="site-footer-wrap">
+          <div class="site-footer-top">
+            <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
+              <span class="sf-badge">TP</span>
+              <span class="sf-name">Tech<span class="sf-accent">Blog</span></span>
+            </a>
+
+            <div class="sf-links" aria-label="Footer">
+              <a class="sf-link" href="./index.html">Articles</a>
+              <a class="sf-link" href="./about.html">About</a>
+              <a class="sf-link" href="./index.html#articles">Browse</a>
+            </div>
+          </div>
+
+          <div class="site-footer-bottom">
+            <div class="sf-tagline">Readable posts with fast navigation and a blue→purple aesthetic.</div>
+
+            <div class="sf-meta">
+              <span>© <span id="year"></span> TechBlog</span>
+              <span class="sf-sep">•</span>
+              <span class="sf-muted">Hosted on GitHub Pages</span>
+            </div>
+          </div>
+        </div>
       </footer>
+
     </section>
   </main>
 
-  <script src="./assets/js/post.js?v=2"></script>
+  <script src="./assets/js/post.js?v=6"></script>
 </body>
 </html>
