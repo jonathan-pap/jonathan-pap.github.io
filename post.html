@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css" />
-
-  <!-- Markdown renderer -->
+  <link rel="stylesheet" href="./assets/css/styles.css?v=1" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
-    /* Small additions for post layout, keeping your theme */
-    .prose{ line-height: 1.8; color: rgba(255,255,255,0.88); }
-    .prose h1,.prose h2,.prose h3{ line-height: 1.25; }
+    .prose{ line-height: 1.85; color: rgba(255,255,255,0.88); }
+    .prose h1,.prose h2,.prose h3{ line-height: 1.25; margin-top: 1.2em; }
     .prose a{ color: rgba(255,255,255,0.92); }
     .prose pre{
       background: rgba(0,0,0,0.25);
@@ -28,9 +25,8 @@
       border-radius: 8px;
       padding: 2px 6px;
     }
-    .post-head{ margin-bottom: 14px; }
     .post-title{ margin: 0 0 6px; font-size: clamp(24px, 3.2vw, 38px); }
-    .post-meta{ color: rgba(255,255,255,0.68); display:flex; gap:10px; flex-wrap:wrap; }
+    .post-meta{ color: rgba(255,255,255,0.68); display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px; }
     .tagpill{
       display:inline-flex;
       align-items:center;
@@ -40,7 +36,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       color: rgba(255,255,255,0.85);
       font-size: 12px;
-      font-weight: 750;
+      font-weight: 800;
     }
     .backlink{
       display:inline-block;
@@ -50,46 +46,35 @@
       transition: transform 180ms ease, opacity 180ms ease;
     }
     .backlink:hover{ transform: translateX(-2px); opacity: 0.95; }
-    .debug{
-      margin-top: 12px;
-      color: rgba(255,255,255,0.7);
-      font-size: 12px;
-      border-top: 1px solid rgba(255,255,255,0.10);
-      padding-top: 10px;
-      display:none;
-    }
-    .debug code{ font-size: 12px; }
   </style>
 </head>
 
 <body>
   <header class="topnav">
     <div class="topnav-inner">
-      <a class="brand" href="./index.html">
+      <a class="brand" href="./index.html" aria-label="TechBlog">
         <span class="brand-badge">TP</span>
         <span class="brand-name">Tech<span class="brand-accent">Blog</span></span>
       </a>
 
       <nav class="navlinks" aria-label="Primary">
-        <a class="navlink" href="./index.html#articles">Articles</a>
-        <a class="navlink" href="./index.html#about">About</a>
+        <a class="navlink" href="./index.html">Articles</a>
+        <a class="navlink" href="./about.html">About</a>
       </nav>
 
-      <a class="cta" href="./index.html#articles">Back to list</a>
+      <a class="cta" href="./index.html#articles">Back</a>
     </div>
   </header>
 
   <main class="page">
-    <section class="panel">
+    <section class="panel" style="max-width: 980px; margin: 0 auto;">
       <a class="backlink" href="./index.html#articles">← Back to posts</a>
 
-      <div class="post-head">
-        <h1 id="postTitle" class="post-title">Loading…</h1>
-        <div class="post-meta">
-          <span id="postDate"></span>
-          <span id="postCategory"></span>
-          <span id="postTags"></span>
-        </div>
+      <h1 id="postTitle" class="post-title">Loading…</h1>
+      <div class="post-meta">
+        <span id="postDate"></span>
+        <span id="postCategory"></span>
+        <span id="postTags"></span>
       </div>
 
       <article id="postBody" class="prose"></article>
@@ -99,14 +84,12 @@
         <p id="postErrorMsg">An error occurred.</p>
       </div>
 
-      <div id="debug" class="debug"></div>
+      <footer class="footer">
+        <span>© <span id="year"></span> TechBlog</span>
+      </footer>
     </section>
-
-    <footer class="footer">
-      <span>© <span id="year"></span> TechBlog</span>
-    </footer>
   </main>
 
-  <script src="./assets/js/post.js"></script>
+  <script src="./assets/js/post.js?v=1"></script>
 </body>
 </html>
