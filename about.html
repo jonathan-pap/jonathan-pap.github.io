@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TechBlog • About</title>
+  <title>About • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=6" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=13" />
 </head>
 
-<body>
+<body class="page-about">
   <header class="topnav">
     <div class="topnav-inner">
       <a class="brand" href="./index.html" aria-label="TechBlog">
@@ -20,29 +20,16 @@
         <a class="navlink" href="./index.html">Articles</a>
         <a class="navlink active" href="./about.html">About</a>
       </nav>
-
-      
     </div>
   </header>
 
   <main class="page">
     <section class="panel" style="max-width: 980px; margin: 0 auto;">
-      <div class="panel-title">About</div>
-      <p class="muted">
-        This site is a static blog for GitHub Pages. Posts are written in Markdown under
-        <code>content/posts/</code> and registered in <code>content/posts.json</code>.
+      <h1 style="margin:0 0 10px;">About</h1>
+      <p class="muted" style="margin:0;">
+        Static blog for GitHub Pages. Posts live in <code>content/posts/</code> and are registered in <code>content/posts.json</code>.
       </p>
 
-      <div class="empty" style="margin-top: 14px;">
-        <h3 style="margin:0 0 8px;">Publishing workflow</h3>
-        <ol style="margin:0; color: rgba(255,255,255,0.78); line-height:1.8;">
-          <li>Create <code>content/posts/my-post.md</code></li>
-          <li>Add an entry with <code>"slug": "my-post"</code> in <code>content/posts.json</code></li>
-          <li>Commit + push to GitHub</li>
-        </ol>
-      </div>
-
-      <!-- Consistent footer -->
       <footer class="site-footer" style="margin-top: 18px;">
         <div class="site-footer-wrap">
           <div class="site-footer-top">
@@ -59,7 +46,7 @@
           </div>
 
           <div class="site-footer-bottom">
-            <div class="sf-tagline">A minimal, fast, GitHub Pages-friendly blog.</div>
+            <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
 
             <div class="sf-meta">
               <span>© <span id="year"></span> TechBlog</span>
@@ -69,6 +56,7 @@
           </div>
         </div>
       </footer>
+
     </section>
   </main>
 
