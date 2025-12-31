@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • About</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=2" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=6" />
 </head>
 
 <body>
@@ -26,11 +26,11 @@
   </header>
 
   <main class="page">
-    <section class="panel" style="max-width: 920px; margin: 0 auto;">
+    <section class="panel" style="max-width: 980px; margin: 0 auto;">
       <div class="panel-title">About</div>
       <p class="muted">
-        This site is a static blog for GitHub Pages. Write posts in Markdown under
-        <code>content/posts/</code> and register them in <code>content/posts.json</code>.
+        This site is a static blog for GitHub Pages. Posts are written in Markdown under
+        <code>content/posts/</code> and registered in <code>content/posts.json</code>.
       </p>
 
       <div class="empty" style="margin-top: 14px;">
@@ -42,8 +42,32 @@
         </ol>
       </div>
 
-      <footer class="footer">
-        <span>© <span id="year"></span> TechBlog</span>
+      <!-- Consistent footer -->
+      <footer class="site-footer" style="margin-top: 18px;">
+        <div class="site-footer-wrap">
+          <div class="site-footer-top">
+            <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
+              <span class="sf-badge">TP</span>
+              <span class="sf-name">Tech<span class="sf-accent">Blog</span></span>
+            </a>
+
+            <div class="sf-links" aria-label="Footer">
+              <a class="sf-link" href="./index.html">Articles</a>
+              <a class="sf-link" href="./about.html">About</a>
+              <a class="sf-link" href="./index.html#articles">Browse</a>
+            </div>
+          </div>
+
+          <div class="site-footer-bottom">
+            <div class="sf-tagline">A minimal, fast, GitHub Pages-friendly blog.</div>
+
+            <div class="sf-meta">
+              <span>© <span id="year"></span> TechBlog</span>
+              <span class="sf-sep">•</span>
+              <span class="sf-muted">Hosted on GitHub Pages</span>
+            </div>
+          </div>
+        </div>
       </footer>
     </section>
   </main>
