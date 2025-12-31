@@ -4,20 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechBlog • About</title>
-  <link rel="stylesheet" href="./assets/css/styles.css" />
+
+  <link rel="stylesheet" href="./assets/css/styles.css?v=1" />
 </head>
 
 <body>
   <header class="topnav">
     <div class="topnav-inner">
-      <a class="brand" href="./index.html">
+      <a class="brand" href="./index.html" aria-label="TechBlog">
         <span class="brand-badge">TP</span>
         <span class="brand-name">Tech<span class="brand-accent">Blog</span></span>
       </a>
 
       <nav class="navlinks" aria-label="Primary">
         <a class="navlink" href="./index.html">Articles</a>
-        <a class="navlink" href="./about.html">About</a>
+        <a class="navlink active" href="./about.html">About</a>
       </nav>
 
       <a class="cta" href="./index.html#articles">Read</a>
@@ -25,19 +26,19 @@
   </header>
 
   <main class="page">
-    <section class="panel" style="max-width: 900px; margin: 0 auto;">
+    <section class="panel" style="max-width: 920px; margin: 0 auto;">
       <div class="panel-title">About</div>
       <p class="muted">
-        This is a static blog hosted on GitHub Pages. Articles are written in Markdown under
-        <code>content/posts/</code> and registered in <code>content/posts.json</code>.
+        This site is a static blog designed for GitHub Pages. Write posts in Markdown under
+        <code>content/posts/</code> and register them in <code>content/posts.json</code>.
       </p>
 
       <div class="empty" style="margin-top: 14px;">
-        <h3 style="margin:0 0 6px;">How to publish a new post</h3>
+        <h3 style="margin:0 0 8px;">Publishing workflow</h3>
         <ol style="margin:0; color: rgba(255,255,255,0.78); line-height:1.8;">
-          <li>Create <code>content/posts/my-new-post.md</code></li>
-          <li>Add a matching entry with <code>"slug": "my-new-post"</code> in <code>content/posts.json</code></li>
-          <li>Push to GitHub → GitHub Pages updates automatically</li>
+          <li>Create <code>content/posts/my-post.md</code></li>
+          <li>Add an entry with <code>"slug": "my-post"</code> in <code>content/posts.json</code></li>
+          <li>Commit + push to GitHub</li>
         </ol>
       </div>
 
