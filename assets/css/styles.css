@@ -920,3 +920,46 @@ a:visited{ color: inherit; }
 .filters--single{
   display: flex;
 }
+/* ================== Wider layout on large screens ================== */
+
+/* 1) Make the overall page container wider (or fluid) */
+.page{
+  /* keep existing padding if any; this only affects max width */
+  max-width: 1320px; /* was likely ~1100-1200 */
+}
+
+/* On very wide screens, allow it to grow further (still centered) */
+@media (min-width: 1400px){
+  .page{
+    max-width: 1560px;
+  }
+}
+
+/* 2) Ensure the main layout uses available width */
+.layout{
+  width: 100%;
+}
+
+/* 3) Sidebar + content column sizing:
+      - slightly slimmer sidebar
+      - more space to cards */
+@media (min-width: 1100px){
+  .layout{
+    grid-template-columns: 320px 1fr; /* adjust if your sidebar feels too wide */
+    gap: 22px;
+  }
+}
+
+/* 4) Cards grid: use 3 columns on large screens */
+@media (min-width: 1400px){
+  .cards{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* 5) Optional: keep search panel from becoming absurdly wide */
+@media (min-width: 1400px){
+  .filters{
+    max-width: 980px;
+  }
+}
