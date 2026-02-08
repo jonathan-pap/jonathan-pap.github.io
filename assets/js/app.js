@@ -9,9 +9,13 @@
   const yearEl = document.getElementById("year");
 
   const searchInput = document.getElementById("searchInput");
+  const filtersPanelEl = document.getElementById("filtersPanel");
   const chipsEl = document.getElementById("activeFilters");
+  const loadMoreWrapEl = document.getElementById("loadMoreWrap");
+  const loadMoreBtnEl = document.getElementById("loadMoreBtn");
 
   const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const LOAD_MORE_STEP = 6;
   const fmt = new Intl.DateTimeFormat(undefined, { year:"numeric", month:"short", day:"2-digit" });
 
   const state = {
@@ -22,6 +26,7 @@
     archive: null,            // {year, month} or null
     openYears: new Set(),     // we enforce only 1 open year
     openMonths: new Set(),    // we enforce only 1 open month: key `${year}-${month}`
+    visibleBelowCount: LOAD_MORE_STEP,
   };
 
   function normalize(s){ return String(s || "").toLowerCase().trim(); }
@@ -123,18 +128,46 @@
 
   // ---- setters / clearers ----
 
-  function setCategory(name){ state.category = name; renderAll(); }
-  function setTag(name){ state.tag = name || "All"; renderAll(); }
+  function resetVisibleBelow(){ state.visibleBelowCount = LOAD_MORE_STEP; }
 
-  function setArchive(year, month){
-    state.archive = { year, month };
+  function setCategory(name){
+    state.category = name;
+    resetVisibleBelow();
+    renderAll();
+  }
+  function setTag(name){
+    state.tag = name || "All";
+    resetVisibleBelow();
     renderAll();
   }
 
-  function clearArchive(){ state.archive = null; renderAll(); }
-  function clearCategory(){ state.category = "All Articles"; renderAll(); }
-  function clearTag(){ state.tag = "All"; renderAll(); }
-  function clearSearch(){ state.q = ""; searchInput.value = ""; renderAll(); }
+  function setArchive(year, month){
+    state.archive = { year, month };
+    resetVisibleBelow();
+    renderAll();
+  }
+
+  function clearArchive(){
+    state.archive = null;
+    resetVisibleBelow();
+    renderAll();
+  }
+  function clearCategory(){
+    state.category = "All Articles";
+    resetVisibleBelow();
+    renderAll();
+  }
+  function clearTag(){
+    state.tag = "All";
+    resetVisibleBelow();
+    renderAll();
+  }
+  function clearSearch(){
+    state.q = "";
+    if (searchInput) searchInput.value = "";
+    resetVisibleBelow();
+    renderAll();
+  }
 
   // ---- archive open/close (auto-close others) ----
 
@@ -157,14 +190,23 @@
   }
 
   function toggleMonth(year, month){
-    openOnlyYear(year);
-
     const key = `${year}-${month}`;
-    const isOpen = state.openMonths.has(key);
+    const isOpen = state.openYears.has(year) && state.openMonths.has(key);
 
+    state.openYears = new Set([year]);
     state.openMonths = isOpen ? new Set() : new Set([key]);
 
-    renderArchive();
+    // open month -> apply archive filter, close same month -> clear it
+    if (isOpen){
+      if (state.archive && state.archive.year === year && state.archive.month === month){
+        state.archive = null;
+      }
+    } else {
+      state.archive = { year, month };
+    }
+
+    resetVisibleBelow();
+    renderAll();
   }
 
   // ---- filtering ----
@@ -301,31 +343,41 @@
       btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
     });
 
-    // month toggles + set filter
+    // month toggles
     archiveEl.querySelectorAll("[data-month]").forEach(btn => {
       btn.addEventListener("click", () => {
         const [yy, mm] = btn.getAttribute("data-month").split("-").map(Number);
         toggleMonth(yy, mm);
-        setArchive(yy, mm);
       });
     });
   }
 
   function renderCards(){
     const posts = filteredPosts();
-    countEl.textContent = `${posts.length} article${posts.length === 1 ? "" : "s"}`;
+    const [headliner, ...restPosts] = posts;
+    const belowPosts = restPosts.slice(0, state.visibleBelowCount);
+    const visibleCount = (headliner ? 1 : 0) + belowPosts.length;
 
-    if (!posts.length){
+    if (countEl){
+      if (posts.length > visibleCount){
+        countEl.textContent = `Showing ${visibleCount} of ${posts.length} articles`;
+      } else {
+        countEl.textContent = `${visibleCount} article${visibleCount === 1 ? "" : "s"}`;
+      }
+    }
+
+    if (!headliner){
+      if (loadMoreWrapEl) loadMoreWrapEl.hidden = true;
       cardsEl.innerHTML = `
         <div class="empty">
           <strong>No matches.</strong>
-          <div class="muted" style="margin-top:6px;">Try clearing filters or adjusting search.</div>
+          <div class="muted" style="margin-top:6px;">Try clearing filters and browse the latest posts.</div>
         </div>
       `;
       return;
     }
 
-    cardsEl.innerHTML = posts.map(p => {
+    const renderCard = (p, isHeadliner) => {
       const dt = p._dt ? fmt.format(p._dt) : "";
       const cat = p.category || "Article";
       const rt = getReadTimeMinutes(p);
@@ -338,12 +390,17 @@
         if (typeof p.author.name === "string" && p.author.name.trim()) author = p.author.name.trim();
       }
       const avatar = (author[0] || "A").toUpperCase();
+      const headlinerFlag = isHeadliner
+        ? `<div class="headliner-flag" aria-label="New headliner article">NEW</div>`
+        : "";
+      const classes = isHeadliner ? "card card--headliner" : "card";
 
       return `
-        <a class="card" href="./post.html?slug=${encodeURIComponent(p.slug)}">
+        <a class="${classes}" href="./post.html?slug=${encodeURIComponent(p.slug)}">
           <div class="card-media">
             <div class="placeholder"></div>
             <div class="pill">${escapeHtml(cat)}</div>
+            ${headlinerFlag}
           </div>
 
           <div class="card-body">
@@ -373,10 +430,28 @@
           </div>
         </a>
       `;
-    }).join("");
+    };
+
+    cardsEl.innerHTML = [
+      headliner ? renderCard(headliner, true) : "",
+      ...belowPosts.map(p => renderCard(p, false))
+    ].join("");
+
+    if (loadMoreWrapEl && loadMoreBtnEl){
+      const remaining = Math.max(0, restPosts.length - belowPosts.length);
+      if (remaining > 0){
+        const nextCount = Math.min(LOAD_MORE_STEP, remaining);
+        loadMoreBtnEl.textContent = `Show ${nextCount} more article${nextCount === 1 ? "" : "s"}`;
+        loadMoreWrapEl.hidden = false;
+      } else {
+        loadMoreWrapEl.hidden = true;
+      }
+    }
   }
 
   function renderFilterChips(){
+    if (!chipsEl) return;
+
     const chips = [];
 
     if (state.archive){
@@ -398,8 +473,11 @@
 
     if (!chips.length){
       chipsEl.innerHTML = "";
+      if (filtersPanelEl) filtersPanelEl.hidden = true;
       return;
     }
+
+    if (filtersPanelEl) filtersPanelEl.hidden = false;
 
     chipsEl.innerHTML = chips.map(c => `
       <button class="filterchip" type="button" data-chip="${escapeHtml(c.key)}">
@@ -418,7 +496,7 @@
   }
 
   function renderAll(){
-    if (searchInput.value !== state.q) searchInput.value = state.q;
+    if (searchInput && searchInput.value !== state.q) searchInput.value = state.q;
 
     renderCategories();
     renderSidebarTags();
@@ -436,10 +514,20 @@
 
     state.posts = enrichPosts(data.posts || []);
 
-    searchInput.addEventListener("input", (e) => {
-      state.q = e.target.value || "";
-      renderAll();
-    });
+    if (searchInput){
+      searchInput.addEventListener("input", (e) => {
+        state.q = e.target.value || "";
+        resetVisibleBelow();
+        renderAll();
+      });
+    }
+
+    if (loadMoreBtnEl){
+      loadMoreBtnEl.addEventListener("click", () => {
+        state.visibleBelowCount += LOAD_MORE_STEP;
+        renderCards();
+      });
+    }
 
     renderAll();
   }

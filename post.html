@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Post • TechBlog</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=13" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=33" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
@@ -60,31 +60,43 @@
     </div>
   </header>
 
-  <main class="page">
-    <section class="panel" style="max-width: 980px; margin: 0 auto;">
-      <a class="backlink" href="./index.html#articles">← Back to posts</a>
+  <div class="reading-progress" aria-hidden="true">
+    <div id="readingProgressBar" class="reading-progress-bar"></div>
+  </div>
 
-      <h1 id="postTitle" class="post-title">Loading…</h1>
+  <main class="page page-post-layout">
+    <aside id="postTocSection" class="post-toc post-toc--rail" hidden>
+      <div class="post-toc-title">On this page</div>
+      <nav id="postToc" class="post-toc-list" aria-label="On this page"></nav>
+    </aside>
 
-      <div class="post-meta">
-        <span id="postDate"></span>
-        <span id="postCategory"></span>
-        <span id="postTags"></span>
-      </div>
+    <section class="post-column">
+      <section class="panel post-panel">
+        <a class="backlink" href="./index.html#articles">← Back to posts</a>
 
-      <article id="postBody" class="prose"></article>
+        <h1 id="postTitle" class="post-title">Loading…</h1>
 
-      <div id="postError" class="empty" hidden>
-        <h3>Could not load this post</h3>
-        <p id="postErrorMsg">An error occurred.</p>
-      </div>
+        <div class="post-meta">
+          <span id="postDate"></span>
+          <span id="postCategory"></span>
+          <span id="postTags"></span>
+        </div>
+        <div class="post-head-divider" aria-hidden="true"></div>
 
-      <section id="postNavSection" class="post-nav" hidden>
+        <article id="postBody" class="prose post-main"></article>
+
+        <div id="postError" class="empty" hidden>
+          <h3>Could not load this post</h3>
+          <p id="postErrorMsg">An error occurred.</p>
+        </div>
+      </section>
+
+      <section id="postNavSection" class="panel post-nav post-nav-section" hidden>
         <div class="post-nav-title">Continue reading</div>
         <div id="postNav" class="post-nav-grid"></div>
       </section>
 
-      <footer class="site-footer" style="margin-top: 18px;">
+      <footer class="site-footer post-footer">
         <div class="site-footer-wrap">
           <div class="site-footer-top">
             <a class="sf-brand" href="./index.html" aria-label="TechBlog home">
@@ -100,7 +112,7 @@
           </div>
 
           <div class="site-footer-bottom">
-            <div class="sf-tagline">Readable posts with fast navigation and a blue→purple aesthetic.</div>
+            <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
 
             <div class="sf-meta">
               <span>© <span id="year"></span> TechBlog</span>
@@ -113,6 +125,6 @@
     </section>
   </main>
 
-  <script src="./assets/js/post.js?v=13"></script>
+  <script src="./assets/js/post.js?v=21"></script>
 </body>
 </html>
