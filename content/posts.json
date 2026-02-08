@@ -2,16 +2,17 @@
   "posts": [
     {
       "slug": "power-bi-performance-optimization-playbook",
-      "title": "Power BI Performance Optimization Playbook",
+      "title": "Power BI Measure Standards Playbook",
       "date": "2026-02-08",
       "category": "Power BI",
       "tags": [
         "DAX",
-        "Modeling",
-        "Performance"
+        "Readability",
+        "Naming",
+        "Formatting"
       ],
-      "excerpt": "A practical framework to improve Power BI model and report performance through semantic model design, DAX patterns, visual strategy, and validation workflow.",
-      "readTime": 9,
+      "excerpt": "A practical standard for Power BI measures built on three pillars: documentation and readability, naming and nomenclature, and formatting and organization.",
+      "readTime": 8,
       "author": {
         "name": "Jonathan Pap"
       }

@@ -54,6 +54,11 @@
     return Math.max(1, Math.round(words / 180));
   }
 
+  function getCardImageSrc(p){
+    const candidate = p?.image || p?.coverImage || p?.cover || p?.thumbnail || "";
+    return typeof candidate === "string" ? candidate.trim() : "";
+  }
+
   function enrichPosts(posts){
     return (posts || [])
       .map(p => {
@@ -382,6 +387,7 @@
       const cat = p.category || "Article";
       const rt = getReadTimeMinutes(p);
       const tags = (p.tags || []).slice(0, 4).map(t => `#${t}`).join("  ");
+      const imgSrc = getCardImageSrc(p);
 
       // author can be string OR object in some inputs; guard it
       let author = "Author";
@@ -394,10 +400,14 @@
         ? `<div class="headliner-flag" aria-label="New headliner article">NEW</div>`
         : "";
       const classes = isHeadliner ? "card card--headliner" : "card";
+      const mediaImage = imgSrc
+        ? `<img class="card-cover" src="${escapeHtml(imgSrc)}" alt="" loading="${isHeadliner ? "eager" : "lazy"}" decoding="async" onerror="this.remove()">`
+        : "";
 
       return `
         <a class="${classes}" href="./post.html?slug=${encodeURIComponent(p.slug)}">
           <div class="card-media">
+            ${mediaImage}
             <div class="placeholder"></div>
             <div class="pill">${escapeHtml(cat)}</div>
             ${headlinerFlag}
