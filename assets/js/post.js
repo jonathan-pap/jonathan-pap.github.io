@@ -30,6 +30,210 @@
       .replaceAll("'", "&#039;");
   }
 
+  function isLetter(ch) {
+    return !!ch && /[A-Za-z_]/.test(ch);
+  }
+
+  function isDigit(ch) {
+    return !!ch && /[0-9]/.test(ch);
+  }
+
+  function isWord(ch) {
+    return !!ch && /[A-Za-z0-9_]/.test(ch);
+  }
+
+  const DAX_KEYWORDS = new Set([
+    "VAR", "RETURN", "IF", "SWITCH", "TRUE", "FALSE", "BLANK", "IN", "NOT", "AND", "OR"
+  ]);
+
+  const DAX_FUNCTIONS = new Set([
+    // Date & time
+    "CALENDAR", "DATE", "DATEDIFF", "DATEVALUE", "DAY", "WEEKNUM", "MONTH", "QUARTER",
+
+    // Time intelligence
+    "DATEADD", "DATESBETWEEN", "TOTALYTD", "SAMEPERIODLASTYEAR",
+    "STARTOFMONTH", "ENDOFMONTH", "STARTOFQUARTER", "ENDOFQUARTER", "STARTOFYEAR", "ENDOFYEAR",
+    "PARALLELPERIOD",
+
+    // Information
+    "COLUMNSTATISTICS", "HASONEVALUE", "ISBLANK", "ISLOGICAL", "ISNUMBER",
+    "ISFILTERED", "ISCROSSFILTERED", "USERPRINCIPALNAME",
+
+    // Math & statistical
+    "SUM", "SUMX", "AVERAGE", "AVERAGEX", "MEDIAN", "MEDIANX", "GEOMEAN", "GEOMEANX",
+    "COUNT", "COUNTX", "DIVIDE", "MIN", "MAX", "COUNTROWS", "DISTINCTCOUNT", "RANKX",
+
+    // Filter
+    "FILTER", "CALCULATE", "ALL", "ALLEXCEPT", "ALLSELECTED", "REMOVEFILTERS",
+
+    // Relationship
+    "CROSSFILTER", "RELATED",
+
+    // Table manipulation
+    "SUMMARIZE", "DISTINCT", "ADDCOLUMNS", "SELECTCOLUMNS", "GROUPBY", "INTERSECT",
+    "NATURALINNERJOIN", "NATURALLEFTOUTERJOIN", "UNION",
+
+    // Text
+    "EXACT", "FIND", "FORMAT", "LEFT", "RIGHT", "LEN", "LOWER", "UPPER",
+    "TRIM", "CONCATENATE", "SUBSTITUTE", "REPLACE"
+  ]);
+
+  function wrapToken(cls, value) {
+    return `<span class="${cls}">${escapeHtml(value)}</span>`;
+  }
+
+  function highlightDax(source) {
+    const s = String(source || "");
+    let i = 0;
+    let out = "";
+    let expectVarName = false;
+
+    while (i < s.length) {
+      const ch = s[i];
+      const next = s[i + 1] || "";
+
+      // line comment
+      if (ch === "/" && next === "/") {
+        const start = i;
+        i += 2;
+        while (i < s.length && s[i] !== "\n") i++;
+        out += wrapToken("dax-c", s.slice(start, i));
+        continue;
+      }
+
+      // block comment
+      if (ch === "/" && next === "*") {
+        const start = i;
+        i += 2;
+        while (i < s.length - 1 && !(s[i] === "*" && s[i + 1] === "/")) i++;
+        if (i < s.length - 1) i += 2;
+        out += wrapToken("dax-c", s.slice(start, i));
+        continue;
+      }
+
+      // string literal (supports doubled quotes)
+      if (ch === "\"") {
+        const start = i;
+        i++;
+        while (i < s.length) {
+          if (s[i] === "\"") {
+            if (s[i + 1] === "\"") {
+              i += 2;
+              continue;
+            }
+            i++;
+            break;
+          }
+          i++;
+        }
+        out += wrapToken("dax-s", s.slice(start, i));
+        continue;
+      }
+
+      // quoted table + optional [column] reference
+      if (ch === "'") {
+        const start = i;
+        i++;
+        while (i < s.length) {
+          if (s[i] === "'") {
+            if (s[i + 1] === "'") {
+              i += 2;
+              continue;
+            }
+            i++;
+            break;
+          }
+          i++;
+        }
+        if (s[i] === "[") {
+          i++;
+          while (i < s.length && s[i] !== "]") i++;
+          if (s[i] === "]") i++;
+          out += wrapToken("dax-r", s.slice(start, i));
+        } else {
+          out += escapeHtml(s.slice(start, i));
+        }
+        continue;
+      }
+
+      // [Measure or Column] reference
+      if (ch === "[") {
+        const start = i;
+        i++;
+        while (i < s.length && s[i] !== "]") i++;
+        if (s[i] === "]") i++;
+        out += wrapToken("dax-m", s.slice(start, i));
+        continue;
+      }
+
+      // numeric literal
+      if (isDigit(ch)) {
+        const start = i;
+        i++;
+        while (i < s.length && (isDigit(s[i]) || s[i] === ".")) i++;
+        out += wrapToken("dax-n", s.slice(start, i));
+        continue;
+      }
+
+      // identifier / keyword / function / variable
+      if (isLetter(ch)) {
+        const start = i;
+        i++;
+        while (i < s.length && isWord(s[i])) i++;
+        const ident = s.slice(start, i);
+        const upper = ident.toUpperCase();
+
+        if (expectVarName) {
+          out += wrapToken("dax-v", ident);
+          expectVarName = false;
+          continue;
+        }
+
+        if (DAX_KEYWORDS.has(upper)) {
+          out += wrapToken("dax-k", ident);
+          if (upper === "VAR") expectVarName = true;
+          continue;
+        }
+
+        if (ident.startsWith("_")) {
+          out += wrapToken("dax-v", ident);
+          continue;
+        }
+
+        let j = i;
+        while (j < s.length && /\s/.test(s[j])) j++;
+        if (s[j] === "(") {
+          if (DAX_FUNCTIONS.has(upper)) {
+            out += wrapToken("dax-f", ident);
+          } else {
+            out += escapeHtml(ident);
+          }
+        } else {
+          out += escapeHtml(ident);
+        }
+        continue;
+      }
+
+      out += escapeHtml(ch);
+      i++;
+    }
+
+    return out;
+  }
+
+  function highlightDaxBlocks() {
+    if (!bodyEl) return;
+
+    bodyEl.querySelectorAll("pre code").forEach((codeEl) => {
+      const cls = String(codeEl.className || "").toLowerCase();
+      if (!cls.includes("language-dax") && !cls.includes("lang-dax")) return;
+
+      const raw = codeEl.textContent || "";
+      codeEl.innerHTML = highlightDax(raw);
+      codeEl.classList.add("code-dax");
+    });
+  }
+
   function getSlug() {
     const url = new URL(window.location.href);
     return url.searchParams.get("slug") || "";
@@ -45,7 +249,7 @@
   }
 
   function setMeta(p) {
-    document.title = `${p.title || "Post"} • TechBlog`;
+    document.title = `${p.title || "Post"} • BluPulse`;
 
     titleEl.textContent = p.title || "Untitled";
 
@@ -233,6 +437,7 @@
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
     removeDuplicateLeadTitle(current.title || "");
+    highlightDaxBlocks();
 
     // Prev/Next: previous = newer, next = older (newest-first list)
     const idx = posts.findIndex(p => p.slug === current.slug);
@@ -272,3 +477,5 @@
     showError("Please check the slug and that the Markdown file exists under content/posts/.");
   });
 })();
+
+

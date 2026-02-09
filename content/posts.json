@@ -1,21 +1,21 @@
 {
   "posts": [
     {
-      "slug": "power-bi-performance-optimization-playbook",
-      "title": "Power BI Measure Standards Playbook",
-      "date": "2026-02-08",
+      "slug": "dax-readability-formatting-guide",
+      "title": "Better DAX Readability: Syntax, Formatting, and Tools",
+      "date": "2026-02-09",
       "category": "Power BI",
       "tags": [
         "DAX",
-        "Readability",
-        "Naming",
-        "Formatting"
+        "Formatting",
+        "Tabular Editor"
       ],
-      "excerpt": "A practical standard for Power BI measures built on three pillars: documentation and readability, naming and nomenclature, and formatting and organization.",
+      "excerpt": "A practical guide to writing readable DAX with consistent syntax, short-line formatting, and tool-based workflows using Bravo and Tabular Editor.",
       "readTime": 8,
       "author": {
         "name": "Jonathan Pap"
-      }
+      },
+      "image": "./assets/img/posts/dax-readability-formatting-guide.png"
     }
   ]
 }
