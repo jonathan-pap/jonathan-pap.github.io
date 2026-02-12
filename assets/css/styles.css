@@ -231,6 +231,7 @@ a:visited{ color: inherit; }
   position:relative;
   height: 170px;
   background: rgba(255,255,255,0.06);
+  overflow: hidden;
 }
 .card--headliner .card-media{
   height: 240px;
@@ -343,12 +344,13 @@ a:visited{ color: inherit; }
 @media (min-width: 900px){
   .card--headliner{
     display:grid;
-    grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
-    align-items: start;
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+    align-items: stretch;
   }
   .card--headliner .card-media{
-    height: clamp(185px, 16vw, 210px);
-    min-height: 0;
+    height: 100%;
+    min-height: clamp(170px, 14vw, 190px);
+    align-self: stretch;
   }
   .card--headliner .card-body{
     padding: 20px 18px 16px;
@@ -1295,3 +1297,5 @@ a:visited{ color: inherit; }
     margin: 0 0 14px;
   }
 }
+
+
