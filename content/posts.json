@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "slug": "dax-measure-definition-standards",
+      "title": "DAX Measure Definition Standards",
+      "date": "2026-02-14",
+      "category": "Power BI",
+      "tags": [
+        "DAX",
+        "Standards",
+        "Modeling"
+      ],
+      "excerpt": "A practical standard for naming, formatting, and organizing DAX measures so teams can keep models clear and maintainable.",
+      "readTime": 4,
+      "author": {
+        "name": "Jonathan Pap"
+      }
+    },
+    {
       "slug": "dax-readability-formatting-guide",
       "title": "Better DAX Readability: Syntax, Formatting, and Tools",
       "date": "2026-02-09",
