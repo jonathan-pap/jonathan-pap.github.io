@@ -1,6 +1,4 @@
 (function () {
-  console.log("APP.JS LOADED ✅ v2025-12-31-archive-clean");
-
   const archiveEl = document.getElementById("archiveList");
   const categoriesEl = document.getElementById("categoriesList");
   const tagsEl = document.getElementById("tagsList");
@@ -251,9 +249,10 @@
     const cats = buildCategories(state.posts);
 
     categoriesEl.innerHTML = cats.map(c => {
-      const active = (state.category === c.name) ? "active" : "";
+      const isActive = state.category === c.name;
       return `
-        <div class="cat ${active}" role="button" tabindex="0" data-cat="${escapeHtml(c.name)}">
+        <div class="cat ${isActive ? "active" : ""}" role="button" tabindex="0"
+             aria-pressed="${isActive}" data-cat="${escapeHtml(c.name)}">
           <div class="cat-left"><span>${escapeHtml(c.name)}</span></div>
           <div class="cat-count">${c.count}</div>
         </div>
@@ -270,11 +269,12 @@
     const tags = buildTags(state.posts).slice(0, 12);
 
     tagsEl.innerHTML = tags.map(t => {
-      const active = (state.tag === t.name) ? "active" : "";
+      const isActive = state.tag === t.name;
       return `
-        <button class="sidebar-tagbtn ${active}" type="button" data-tag="${escapeHtml(t.name)}">
+        <button class="sidebar-tagbtn ${isActive ? "active" : ""}" type="button"
+                aria-pressed="${isActive}" data-tag="${escapeHtml(t.name)}">
           <span>#${escapeHtml(t.name)}</span>
-          <span class="sidebar-tagcount">(${t.count})</span>
+          <span class="sidebar-tagcount">${t.count}</span>
         </button>
       `;
     }).join("");
@@ -397,7 +397,7 @@
       }
       const avatar = (author[0] || "A").toUpperCase();
       const headlinerFlag = isHeadliner
-        ? `<div class="headliner-flag" aria-label="New headliner article">NEW</div>`
+        ? `<div class="headliner-flag" aria-label="Featured article">Featured</div>`
         : "";
       const classes = isHeadliner ? "card card--headliner" : "card";
       const mediaImage = imgSrc
@@ -424,8 +424,8 @@
               <div class="author">
                 <div class="avatar"><span>${escapeHtml(avatar)}</span></div>
                 <div>
-                  <div style="font-weight:900;">${escapeHtml(author)}</div>
-                  <div style="opacity:.75;font-size:12px;">${escapeHtml(dt)}</div>
+                  <div class="author-name">${escapeHtml(author)}</div>
+                  <div class="author-date">${escapeHtml(dt)}</div>
                 </div>
               </div>
 
