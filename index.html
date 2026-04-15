@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BluPulse • Articles</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=44" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=45" />
 </head>
 
 <body class="page-articles">
+  <a class="skip-link" href="#articles">Skip to articles</a>
+
   <header class="topnav">
     <div class="topnav-inner">
-      <a class="brand" href="./index.html" aria-label="BluPulse">
+      <a class="brand" href="./index.html" aria-label="BluPulse home">
         <span class="brand-badge">BP</span>
         <span class="brand-name">Blu<span class="brand-accent">Pulse</span></span>
       </a>
 
       <nav class="navlinks" aria-label="Primary">
-        <a class="navlink active" href="./index.html">Articles</a>
+        <a class="navlink active" href="./index.html" aria-current="page">Articles</a>
         <a class="navlink" href="./about.html">About</a>
       </nav>
     </div>
@@ -27,7 +29,7 @@
     <div class="layout">
 
       <!-- LEFT SIDEBAR -->
-      <aside class="sidebar">
+      <aside class="sidebar" aria-label="Filters">
 
         <section class="panel">
           <div class="panel-title">Categories</div>
@@ -50,17 +52,31 @@
       <section class="content">
 
         <div class="content-head">
-          <div>
+          <div class="content-head-left">
             <h1 class="content-title">Latest Articles</h1>
+            <div class="content-meta">
+              <span id="articlesCount">0 articles</span>
+            </div>
           </div>
 
-          <div class="content-meta">
-            <span id="articlesCount">0 articles</span>
-          </div>
+          <label class="search-field" aria-label="Search articles">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <input
+              id="searchInput"
+              class="search-input"
+              type="search"
+              placeholder="Search articles, tags, authors…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
         </div>
 
         <!-- Active filters -->
-        <div id="filtersPanel" class="panel" style="padding:14px;" hidden>
+        <div id="filtersPanel" class="panel" style="padding:12px 14px;" hidden>
           <div id="activeFilters" class="filterchips" aria-label="Active filters"></div>
         </div>
 
@@ -100,8 +116,6 @@
     </div>
   </main>
 
-  <script src="./assets/js/app.js?v=23"></script>
+  <script src="./assets/js/app.js?v=24"></script>
 </body>
 </html>
-
-
