@@ -20,7 +20,7 @@
     posts: [],
     q: "",
     category: "All Articles",
-    tag: "All",
+    tags: new Set(),          // multi-select: posts match if they have ANY selected tag
     archive: null,            // {year, month} or null
     openYears: new Set(),     // we enforce only 1 open year
     openMonths: new Set(),    // we enforce only 1 open month: key `${year}-${month}`
@@ -137,7 +137,8 @@
     if (syncingFromUrl) return;
     const params = new URLSearchParams();
     if (state.category && state.category !== "All Articles") params.set("category", state.category);
-    if (state.tag && state.tag !== "All") params.set("tag", state.tag);
+    // Multiple tags serialize as repeated ?tag=foo&tag=bar for standard getAll() parsing.
+    for (const t of state.tags) params.append("tag", t);
     if (state.archive) params.set("archive", `${state.archive.year}-${state.archive.month}`);
     if (state.q) params.set("q", state.q);
 
@@ -154,8 +155,8 @@
     const cat = params.get("category");
     state.category = cat || "All Articles";
 
-    const tag = params.get("tag");
-    state.tag = tag || "All";
+    // getAll handles both ?tag=a&tag=b AND a single ?tag=a.
+    state.tags = new Set(params.getAll("tag").filter(Boolean));
 
     const arch = params.get("archive");
     if (arch && /^\d+-\d+$/.test(arch)) {
@@ -181,8 +182,10 @@
     serializeStateToUrl();
     renderAll();
   }
-  function setTag(name){
-    state.tag = name || "All";
+  function toggleTag(name){
+    if (!name) return;
+    if (state.tags.has(name)) state.tags.delete(name);
+    else state.tags.add(name);
     resetVisibleBelow();
     serializeStateToUrl();
     renderAll();
@@ -207,8 +210,10 @@
     serializeStateToUrl();
     renderAll();
   }
-  function clearTag(){
-    state.tag = "All";
+  // Clears a specific tag; clearTag() with no arg clears them all.
+  function clearTag(name){
+    if (name) state.tags.delete(name);
+    else state.tags.clear();
     resetVisibleBelow();
     serializeStateToUrl();
     renderAll();
@@ -266,16 +271,18 @@
   function filteredPosts(){
     const q = normalize(state.q);
     const cat = state.category;
-    const tag = state.tag;
+    const tags = state.tags;
     const arch = state.archive;
 
     return state.posts.filter(p => {
       const pCat = p.category || "Uncategorized";
       if (cat !== "All Articles" && pCat !== cat) return false;
 
-      if (tag !== "All") {
-        const tags = (p.tags || []).map(String);
-        if (!tags.includes(tag)) return false;
+      // Tags are OR-combined: post passes if it has AT LEAST ONE selected tag.
+      if (tags.size > 0) {
+        const postTags = (p.tags || []).map(String);
+        const hit = postTags.some(t => tags.has(t));
+        if (!hit) return false;
       }
 
       if (arch) {
@@ -311,10 +318,25 @@
   }
 
   function renderSidebarTags(){
-    const tags = buildTags(state.posts).slice(0, 12);
+    const all = buildTags(state.posts);
+    // De-noise: on small-ish blogs every post drops new unique tags; the panel
+    // fills with count=1 chips that add little signal. Prefer tags with
+    // count >= 2, but keep a minimum of 6 entries so the panel always
+    // feels populated. Always keep currently-selected tags visible even if
+    // count=1 (so users can see and un-select them).
+    const repeated = all.filter(t => t.count >= 2);
+    const base = repeated.length >= 6 ? repeated : all.slice(0, 10);
+    const visible = new Map(base.map(t => [t.name, t]));
+    for (const t of state.tags) {
+      if (!visible.has(t)) {
+        const found = all.find(x => x.name === t);
+        if (found) visible.set(t, found);
+      }
+    }
+    const tags = Array.from(visible.values()).slice(0, 12);
 
     tagsEl.innerHTML = tags.map(t => {
-      const isActive = state.tag === t.name;
+      const isActive = state.tags.has(t.name);
       return `
         <button class="sidebar-tagbtn ${isActive ? "active" : ""}" type="button"
                 aria-pressed="${isActive}" data-tag="${escapeHtml(t.name)}">
@@ -520,13 +542,14 @@
       });
     }
     if (state.category !== "All Articles"){
-      chips.push({ key: "category", label: state.category, clear: clearCategory });
+      chips.push({ key: "category", label: state.category });
     }
-    if (state.tag !== "All"){
-      chips.push({ key: "tag", label: `#${state.tag}`, clear: clearTag });
+    // One chip per active tag, each independently clearable.
+    for (const t of state.tags) {
+      chips.push({ key: "tag", value: t, label: `#${t}` });
     }
     if (state.q){
-      chips.push({ key: "search", label: `Search: "${state.q}"`, clear: clearSearch });
+      chips.push({ key: "search", label: `Search: "${state.q}"` });
     }
 
     if (!chips.length){
@@ -538,7 +561,8 @@
     if (filtersPanelEl) filtersPanelEl.hidden = false;
 
     chipsEl.innerHTML = chips.map(c => `
-      <button class="filterchip" type="button" data-chip="${escapeHtml(c.key)}">
+      <button class="filterchip" type="button"
+              data-chip="${escapeHtml(c.key)}"${c.value ? ` data-chip-value="${escapeHtml(c.value)}"` : ""}>
         <span class="filterchip-label">${escapeHtml(c.label)}</span>
         <span class="filterchip-x">×</span>
       </button>
@@ -547,11 +571,12 @@
   }
 
   // Chip-key → clear function (used by the delegated click handler).
+  // Each clearer accepts an optional value (used for per-tag chips).
   const chipClearers = {
-    archive: clearArchive,
-    category: clearCategory,
-    tag: clearTag,
-    search: clearSearch,
+    archive: () => clearArchive(),
+    category: () => clearCategory(),
+    tag: (value) => clearTag(value),
+    search: () => clearSearch(),
   };
 
   // Attach one click handler per list container instead of one per button.
@@ -569,7 +594,7 @@
       tagsEl.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-tag]");
         if (btn && tagsEl.contains(btn)) {
-          setTag(btn.getAttribute("data-tag"));
+          toggleTag(btn.getAttribute("data-tag"));
         }
       });
     }
@@ -592,7 +617,7 @@
         const btn = e.target.closest("[data-chip]");
         if (!btn || !chipsEl.contains(btn)) return;
         const fn = chipClearers[btn.getAttribute("data-chip")];
-        if (fn) fn();
+        if (fn) fn(btn.getAttribute("data-chip-value") || undefined);
       });
     }
   }
