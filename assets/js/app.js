@@ -307,10 +307,7 @@
         </button>
       `;
     }).join("");
-
-    categoriesEl.querySelectorAll("[data-cat]").forEach(el => {
-      el.addEventListener("click", () => setCategory(el.getAttribute("data-cat")));
-    });
+    // Handlers attached once via setupEventDelegation().
   }
 
   function renderSidebarTags(){
@@ -326,10 +323,7 @@
         </button>
       `;
     }).join("");
-
-    tagsEl.querySelectorAll("[data-tag]").forEach(btn => {
-      btn.addEventListener("click", () => setTag(btn.getAttribute("data-tag")));
-    });
+    // Handlers attached once via setupEventDelegation().
   }
 
   function renderArchive(){
@@ -391,18 +385,7 @@
       `;
     }).join("");
 
-    // year toggles
-    archiveEl.querySelectorAll("[data-year]").forEach(btn => {
-      btn.addEventListener("click", () => toggleYear(Number(btn.getAttribute("data-year"))));
-    });
-
-    // month toggles
-    archiveEl.querySelectorAll("[data-month]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const [yy, mm] = btn.getAttribute("data-month").split("-").map(Number);
-        toggleMonth(yy, mm);
-      });
-    });
+    // Handlers attached once via setupEventDelegation().
   }
 
   function renderCards(){
@@ -543,14 +526,58 @@
         <span class="filterchip-x">×</span>
       </button>
     `).join("");
+    // Handlers attached once via setupEventDelegation().
+  }
 
-    chipsEl.querySelectorAll("[data-chip]").forEach(btn => {
-      const key = btn.getAttribute("data-chip");
-      btn.addEventListener("click", () => {
-        const match = chips.find(x => x.key === key);
-        if (match) match.clear();
+  // Chip-key → clear function (used by the delegated click handler).
+  const chipClearers = {
+    archive: clearArchive,
+    category: clearCategory,
+    tag: clearTag,
+    search: clearSearch,
+  };
+
+  // Attach one click handler per list container instead of one per button.
+  // Saves re-wiring on every render and keeps handler count bounded.
+  function setupEventDelegation(){
+    if (categoriesEl){
+      categoriesEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-cat]");
+        if (btn && categoriesEl.contains(btn)) {
+          setCategory(btn.getAttribute("data-cat"));
+        }
       });
-    });
+    }
+    if (tagsEl){
+      tagsEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-tag]");
+        if (btn && tagsEl.contains(btn)) {
+          setTag(btn.getAttribute("data-tag"));
+        }
+      });
+    }
+    if (archiveEl){
+      archiveEl.addEventListener("click", (e) => {
+        const monthBtn = e.target.closest("[data-month]");
+        if (monthBtn && archiveEl.contains(monthBtn)) {
+          const [yy, mm] = monthBtn.getAttribute("data-month").split("-").map(Number);
+          toggleMonth(yy, mm);
+          return;
+        }
+        const yearBtn = e.target.closest("[data-year]");
+        if (yearBtn && archiveEl.contains(yearBtn)) {
+          toggleYear(Number(yearBtn.getAttribute("data-year")));
+        }
+      });
+    }
+    if (chipsEl){
+      chipsEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-chip]");
+        if (!btn || !chipsEl.contains(btn)) return;
+        const fn = chipClearers[btn.getAttribute("data-chip")];
+        if (fn) fn();
+      });
+    }
   }
 
   function renderAll(){
@@ -571,6 +598,9 @@
     const data = await res.json();
 
     state.posts = enrichPosts(data.posts || []);
+
+    // One-time event delegation setup (handlers stay bound across re-renders).
+    setupEventDelegation();
 
     // Hydrate initial state from URL (deep-link support).
     readStateFromUrl();
