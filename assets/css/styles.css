@@ -422,6 +422,46 @@ a:visited{ color: inherit; }
   backdrop-filter: blur(10px);
 }
 
+/* AI-drafted disclosure note on the post page itself. */
+.ai-disclosure{
+  margin: 4px 0 16px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+.ai-disclosure a{
+  color: var(--text-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+/* AI-drafted chip — bottom-right, distinct from the Featured flag. */
+.ai-flag{
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  background: rgba(9,12,32,0.55);
+  backdrop-filter: blur(10px);
+  cursor: help;
+}
+.ai-flag::before{
+  content: "✨ ";
+  opacity: 0.78;
+  margin-right: 2px;
+}
+
 .card-body{ padding: 16px 16px 14px; }
 .card-title{ margin: 0 0 10px; font-size: 19px; line-height: 1.3; font-weight: 700; letter-spacing: -0.1px; }
 .card-excerpt{ margin: 0 0 14px; color: var(--text-secondary); line-height: 1.6; font-size: 14px; }
