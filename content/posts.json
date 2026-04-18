@@ -7,8 +7,9 @@
       "category": "Craft",
       "tags": ["Review", "Power BI", "Modeling"],
       "excerpt": "A structured approach to picking up an unfamiliar Power BI or tabular model — what to read first, what to measure, and which smells to treat as red flags.",
-      "readTime": 7,
-      "author": { "name": "Jonathan Pap" }
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" },
+      "drafted_with_ai": true
     },
     {
       "slug": "claude-code-for-pbi-refactor",
@@ -17,8 +18,9 @@
       "category": "AI",
       "tags": ["Claude", "Power BI", "Refactoring"],
       "excerpt": "A practical note on using an agentic coding tool for tabular model work — where it helps, where it makes things worse, and how to keep a human in the loop.",
-      "readTime": 7,
-      "author": { "name": "Jonathan Pap" }
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" },
+      "drafted_with_ai": true
     },
     {
       "slug": "ai-for-dax-without-losing-control",
@@ -27,8 +29,9 @@
       "category": "AI",
       "tags": ["DAX", "AI", "Workflow"],
       "excerpt": "A workflow for getting high-quality DAX out of an LLM without letting it silently reshape your semantic model.",
-      "readTime": 6,
-      "author": { "name": "Jonathan Pap" }
+      "readTime": 4,
+      "author": { "name": "Jonathan Pap" },
+      "drafted_with_ai": true
     },
     {
       "slug": "all-allexcept-allselected-mental-model",
@@ -37,8 +40,9 @@
       "category": "DAX",
       "tags": ["DAX", "Filter Context", "Reference"],
       "excerpt": "A one-page mental model for DAX's three filter-removal functions — when each one applies and why picking the wrong one silently breaks totals.",
-      "readTime": 6,
-      "author": { "name": "Jonathan Pap" }
+      "readTime": 4,
+      "author": { "name": "Jonathan Pap" },
+      "drafted_with_ai": true
     },
     {
       "slug": "display-folders-vs-naming-conventions",
@@ -47,8 +51,9 @@
       "category": "Power BI",
       "tags": ["Power BI", "Governance", "Standards"],
       "excerpt": "A mid-size Power BI model needs both display folders and naming conventions. Here's how each earns its keep, and where they tend to collide.",
-      "readTime": 5,
-      "author": { "name": "Jonathan Pap" }
+      "readTime": 4,
+      "author": { "name": "Jonathan Pap" },
+      "drafted_with_ai": true
     },
     {
       "slug": "dax-measure-definition-standards",

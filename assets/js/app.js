@@ -428,9 +428,27 @@
       const headlinerFlag = isHeadliner
         ? `<div class="headliner-flag" aria-label="Featured article">Featured</div>`
         : "";
+      const aiFlag = p.drafted_with_ai
+        ? `<div class="ai-flag" title="Drafted with AI, reviewed by the author" aria-label="Drafted with AI">AI-drafted</div>`
+        : "";
       const classes = isHeadliner ? "card card--headliner" : "card";
+      // If a .png/.jpg/.jpeg cover is listed, assume a sibling .webp variant
+      // exists and offer it via <picture>. Falls back to the original format
+      // if the browser or the file isn't available. A solo .webp in posts.json
+      // is used directly.
+      const webpSibling = imgSrc.replace(/\.(png|jpg|jpeg)$/i, ".webp");
+      const hasWebpSibling = imgSrc && webpSibling !== imgSrc;
       const mediaImage = imgSrc
-        ? `<img class="card-cover" src="${escapeHtml(imgSrc)}" alt="" loading="${isHeadliner ? "eager" : "lazy"}" decoding="async" onerror="this.remove()">`
+        ? (hasWebpSibling
+            ? `<picture>
+                 <source srcset="${escapeHtml(webpSibling)}" type="image/webp">
+                 <img class="card-cover" src="${escapeHtml(imgSrc)}" alt=""
+                      loading="${isHeadliner ? "eager" : "lazy"}" decoding="async"
+                      onerror="this.closest('picture').remove()">
+               </picture>`
+            : `<img class="card-cover" src="${escapeHtml(imgSrc)}" alt=""
+                    loading="${isHeadliner ? "eager" : "lazy"}" decoding="async"
+                    onerror="this.remove()">`)
         : "";
 
       return `
@@ -440,6 +458,7 @@
             <div class="placeholder"></div>
             <div class="pill">${escapeHtml(cat)}</div>
             ${headlinerFlag}
+            ${aiFlag}
           </div>
 
           <div class="card-body">

@@ -101,6 +101,22 @@
 
     const tags = (p.tags || []).map(t => `<span class="tagpill">#${escapeHtml(t)}</span>`).join(" ");
     tagsEl.innerHTML = tags || "";
+
+    // AI-drafted disclosure, rendered once below the post header
+    // (idempotent — safe even if setMeta runs twice).
+    const existing = document.getElementById("aiDisclosure");
+    if (existing) existing.remove();
+    if (p.drafted_with_ai) {
+      const divider = document.querySelector(".post-head-divider");
+      if (divider) {
+        const note = document.createElement("p");
+        note.id = "aiDisclosure";
+        note.className = "ai-disclosure";
+        note.innerHTML = "✨ This post was drafted with AI and reviewed by the author. "
+          + "See the <a href=\"./about.html#ai-disclosure\">About page</a> for why that's noted.";
+        divider.insertAdjacentElement("beforebegin", note);
+      }
+    }
   }
 
   function sortedPosts(posts) {
