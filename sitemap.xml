@@ -11,15 +11,38 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=reviewing-a-data-model-you-didnt-build</loc>
+    <lastmod>2026-04-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=claude-code-for-pbi-refactor</loc>
+    <lastmod>2026-04-17</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=ai-for-dax-without-losing-control</loc>
+    <lastmod>2026-04-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=all-allexcept-allselected-mental-model</loc>
+    <lastmod>2026-04-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=display-folders-vs-naming-conventions</loc>
+    <lastmod>2026-04-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://jonathan-pap.github.io/post.html?slug=dax-measure-definition-standards</loc>
     <lastmod>2026-02-14</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://jonathan-pap.github.io/post.html?slug=dax-readability-formatting-guide</loc>
     <lastmod>2026-02-09</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>

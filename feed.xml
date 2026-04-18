@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>BluPulse</title>
+  <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
+  <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
+  <link href="https://jonathan-pap.github.io/" />
+  <updated>2026-04-18T00:00:00Z</updated>
+  <id>https://jonathan-pap.github.io/</id>
+  <author>
+    <name>Jonathan Papworth</name>
+  </author>
+
+  <entry>
+    <title>Reviewing a data model you didn't build</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=reviewing-a-data-model-you-didnt-build" />
+    <id>https://jonathan-pap.github.io/post.html?slug=reviewing-a-data-model-you-didnt-build</id>
+    <updated>2026-04-18T00:00:00Z</updated>
+    <summary>A structured approach to picking up an unfamiliar Power BI or tabular model — what to read first, what to measure, and which smells to treat as red flags.</summary>
+    <category term="Craft" />
+  </entry>
+
+  <entry>
+    <title>Using Claude Code to refactor a Power BI project</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=claude-code-for-pbi-refactor" />
+    <id>https://jonathan-pap.github.io/post.html?slug=claude-code-for-pbi-refactor</id>
+    <updated>2026-04-17T00:00:00Z</updated>
+    <summary>A practical note on using an agentic coding tool for tabular model work — where it helps, where it makes things worse, and how to keep a human in the loop.</summary>
+    <category term="AI" />
+  </entry>
+
+  <entry>
+    <title>Using AI to write DAX without losing control of your model</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=ai-for-dax-without-losing-control" />
+    <id>https://jonathan-pap.github.io/post.html?slug=ai-for-dax-without-losing-control</id>
+    <updated>2026-04-16T00:00:00Z</updated>
+    <summary>A workflow for getting high-quality DAX out of an LLM without letting it silently reshape your semantic model.</summary>
+    <category term="AI" />
+  </entry>
+
+  <entry>
+    <title>ALL, ALLEXCEPT, ALLSELECTED: a mental model for filter context removal</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=all-allexcept-allselected-mental-model" />
+    <id>https://jonathan-pap.github.io/post.html?slug=all-allexcept-allselected-mental-model</id>
+    <updated>2026-04-15T00:00:00Z</updated>
+    <summary>A one-page mental model for DAX's three filter-removal functions — when each one applies and why picking the wrong one silently breaks totals.</summary>
+    <category term="DAX" />
+  </entry>
+
+  <entry>
+    <title>Display folders vs. naming conventions: organizing a growing measure model</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=display-folders-vs-naming-conventions" />
+    <id>https://jonathan-pap.github.io/post.html?slug=display-folders-vs-naming-conventions</id>
+    <updated>2026-04-14T00:00:00Z</updated>
+    <summary>A mid-size Power BI model needs both display folders and naming conventions. Here's how each earns its keep, and where they tend to collide.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>DAX Measure Definition Standards</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=dax-measure-definition-standards" />
+    <id>https://jonathan-pap.github.io/post.html?slug=dax-measure-definition-standards</id>
+    <updated>2026-02-14T00:00:00Z</updated>
+    <summary>A practical standard for naming, formatting, and organizing DAX measures so teams can keep models clear and maintainable.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>Better DAX Readability: Syntax, Formatting, and Tools</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=dax-readability-formatting-guide" />
+    <id>https://jonathan-pap.github.io/post.html?slug=dax-readability-formatting-guide</id>
+    <updated>2026-02-09T00:00:00Z</updated>
+    <summary>A practical guide to writing readable DAX with consistent syntax, short-line formatting, and tool-based workflows using Bravo and Tabular Editor.</summary>
+    <category term="Power BI" />
+  </entry>
+</feed>

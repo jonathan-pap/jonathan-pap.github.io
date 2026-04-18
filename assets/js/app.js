@@ -328,12 +328,10 @@
 
   function renderArchive(){
     const archive = buildArchive(state.posts);
-
-    // default open newest year (no month open)
-    if (state.openYears.size === 0 && archive.length){
-      state.openYears = new Set([archive[0].year]);
-      state.openMonths = new Set();
-    }
+    // Archive starts fully collapsed — Categories and Tags are the primary
+    // filter affordances, Archive is for occasional deep-drilling. If a user
+    // deep-links via ?archive=YYYY-M, readStateFromUrl() has already
+    // populated openYears/openMonths to expose that month.
 
     archiveEl.innerHTML = archive.map(y => {
       const yearOpen = state.openYears.has(y.year);
