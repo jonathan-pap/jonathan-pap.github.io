@@ -233,6 +233,7 @@ a:visited{ color: inherit; }
   margin-bottom: 14px;
 }
 .muted{ color: var(--text-muted); line-height: 1.65; }
+.muted--flush{ margin: 0; }
 
 /* Categories list */
 .list{ display:flex; flex-direction:column; gap: 10px; }
@@ -679,7 +680,7 @@ a:visited{ color: inherit; }
 
 .arch-post{
   display:flex;
-  align-items:baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
 
@@ -702,10 +703,18 @@ a:visited{ color: inherit; }
   font-weight: 500;
   font-size: var(--fs-sm);
   color: var(--text-secondary);
-  overflow:hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 72%;
+  line-height: 1.35;
+  min-width: 0;          /* allow flex-child to shrink properly */
+  flex: 1 1 auto;        /* consume full width now that no date follows */
+
+  /* Two-line clamp: shows full title up to 2 lines, elides after.
+     Full title available via the `title` attribute on the <a>. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .arch-post-date{
@@ -1057,7 +1066,7 @@ a:visited{ color: inherit; }
   line-height: 1.55;
 }
 
-.code-dax .dax-k{ color: #8ab4ff; font-weight: 850; }
+.code-dax .dax-k{ color: #8ab4ff; font-weight: 700; }
 .code-dax .dax-f{ color: #7fd1ff; font-weight: 800; }
 .code-dax .dax-v{ color: #f7c97a; font-weight: 800; }
 .code-dax .dax-m{ color: #c4b5fd; }
