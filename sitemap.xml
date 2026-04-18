@@ -11,38 +11,33 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=reviewing-a-data-model-you-didnt-build</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=model-review-playbook</loc>
+    <lastmod>2026-04-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=claude-code-for-pbi-refactor</loc>
-    <lastmod>2026-04-17</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=filter-context-mental-model</loc>
+    <lastmod>2026-03-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=ai-for-dax-without-losing-control</loc>
-    <lastmod>2026-04-16</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=m-patterns-for-messy-sources</loc>
+    <lastmod>2026-03-12</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=all-allexcept-allselected-mental-model</loc>
-    <lastmod>2026-04-15</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=ai-on-analytics-work</loc>
+    <lastmod>2026-02-28</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=display-folders-vs-naming-conventions</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=tabular-editor-workflows</loc>
+    <lastmod>2026-02-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=dax-measure-definition-standards</loc>
-    <lastmod>2026-02-14</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=dax-readability-formatting-guide</loc>
-    <lastmod>2026-02-09</lastmod>
+    <loc>https://jonathan-pap.github.io/post.html?slug=notes-on-analytics-engineering</loc>
+    <lastmod>2026-02-02</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

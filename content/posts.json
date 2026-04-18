@@ -1,75 +1,64 @@
 {
   "posts": [
     {
-      "slug": "reviewing-a-data-model-you-didnt-build",
-      "title": "Reviewing a data model you didn't build",
-      "date": "2026-04-18",
-      "category": "Craft",
-      "tags": ["Review", "Power BI", "Modeling"],
-      "excerpt": "A structured approach to picking up an unfamiliar Power BI or tabular model — what to read first, what to measure, and which smells to treat as red flags.",
-      "readTime": 7,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "claude-code-for-pbi-refactor",
-      "title": "Using Claude Code to refactor a Power BI project",
-      "date": "2026-04-17",
-      "category": "AI",
-      "tags": ["Claude", "Power BI", "Refactoring"],
-      "excerpt": "A practical note on using an agentic coding tool for tabular model work — where it helps, where it makes things worse, and how to keep a human in the loop.",
-      "readTime": 7,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "ai-for-dax-without-losing-control",
-      "title": "Using AI to write DAX without losing control of your model",
-      "date": "2026-04-16",
-      "category": "AI",
-      "tags": ["DAX", "AI", "Workflow"],
-      "excerpt": "A workflow for getting high-quality DAX out of an LLM without letting it silently reshape your semantic model.",
-      "readTime": 6,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "all-allexcept-allselected-mental-model",
-      "title": "ALL, ALLEXCEPT, ALLSELECTED: a mental model for filter context removal",
-      "date": "2026-04-15",
-      "category": "DAX",
-      "tags": ["DAX", "Filter Context", "Reference"],
-      "excerpt": "A one-page mental model for DAX's three filter-removal functions — when each one applies and why picking the wrong one silently breaks totals.",
-      "readTime": 6,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "display-folders-vs-naming-conventions",
-      "title": "Display folders vs. naming conventions: organizing a growing measure model",
-      "date": "2026-04-14",
+      "slug": "model-review-playbook",
+      "title": "Model review playbook",
+      "date": "2026-04-10",
       "category": "Power BI",
-      "tags": ["Power BI", "Governance", "Standards"],
-      "excerpt": "A mid-size Power BI model needs both display folders and naming conventions. Here's how each earns its keep, and where they tend to collide.",
+      "tags": ["Power BI", "Review", "Governance"],
+      "excerpt": "Draft — a working checklist for reviewing a Power BI model, whether you built it or inherited it.",
       "readTime": 5,
       "author": { "name": "Jonathan Pap" }
     },
     {
-      "slug": "dax-measure-definition-standards",
-      "title": "DAX Measure Definition Standards",
-      "date": "2026-02-14",
-      "category": "Power BI",
-      "tags": ["DAX", "Standards", "Modeling"],
-      "excerpt": "A practical standard for naming, formatting, and organizing DAX measures so teams can keep models clear and maintainable.",
+      "slug": "filter-context-mental-model",
+      "title": "A working mental model for filter context",
+      "date": "2026-03-25",
+      "category": "DAX",
+      "tags": ["DAX", "Filter Context"],
+      "excerpt": "Draft — the explanation of filter context I wish I'd had early on, with worked examples.",
+      "readTime": 6,
+      "author": { "name": "Jonathan Pap" }
+    },
+    {
+      "slug": "m-patterns-for-messy-sources",
+      "title": "M patterns for messy source data",
+      "date": "2026-03-12",
+      "category": "Power Query",
+      "tags": ["Power Query", "M", "Patterns"],
+      "excerpt": "Draft — Power Query patterns I reach for when the source was built for something other than analytics.",
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" }
+    },
+    {
+      "slug": "ai-on-analytics-work",
+      "title": "Using AI on analytics work",
+      "date": "2026-02-28",
+      "category": "AI",
+      "tags": ["AI", "Workflow"],
+      "excerpt": "Draft — where LLMs genuinely help on analytics tasks, where they quietly hurt, and the workflow changes that tilt the ratio.",
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" }
+    },
+    {
+      "slug": "tabular-editor-workflows",
+      "title": "Tabular Editor workflows worth knowing",
+      "date": "2026-02-15",
+      "category": "Tooling",
+      "tags": ["Tabular Editor", "Tooling", "Power BI"],
+      "excerpt": "Draft — the Tabular Editor scripts and habits that earn back their learning cost.",
       "readTime": 4,
       "author": { "name": "Jonathan Pap" }
     },
     {
-      "slug": "dax-readability-formatting-guide",
-      "title": "Better DAX Readability: Syntax, Formatting, and Tools",
-      "date": "2026-02-09",
-      "category": "Power BI",
-      "tags": ["DAX", "Formatting", "Tabular Editor"],
-      "excerpt": "A practical guide to writing readable DAX with consistent syntax, short-line formatting, and tool-based workflows using Bravo and Tabular Editor.",
-      "readTime": 8,
-      "author": { "name": "Jonathan Pap" },
-      "image": "./assets/img/posts/dax-readability-formatting-guide.png"
+      "slug": "notes-on-analytics-engineering",
+      "title": "Notes on analytics engineering",
+      "date": "2026-02-02",
+      "category": "Craft",
+      "tags": ["Craft", "Career"],
+      "excerpt": "Draft — short reflections on what the role actually involves once the initial tooling decisions are behind you.",
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" }
     }
   ]
 }
