@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>dax-highlight · demo</title>
+  <link rel="stylesheet" href="./dax-highlight.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 24px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #0b1030;
+      color: rgba(255,255,255,0.92);
+    }
+    main { max-width: 780px; margin: 0 auto; }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    p  { color: rgba(255,255,255,0.72); line-height: 1.6; }
+    pre {
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      padding: 16px 18px;
+      overflow: auto;
+      font-size: 13.5px;
+      margin: 14px 0 20px;
+    }
+    code:not(pre code) {
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>dax-highlight · demo</h1>
+    <p>
+      The blocks below use <code>&lt;pre&gt;&lt;code class="language-dax"&gt;</code>.
+      The <code>highlightAll()</code> call at the bottom finds and colorizes them.
+    </p>
+
+    <pre><code class="language-dax">// Total sales (with blank guard)
+Total Sales :=
+VAR _salesRows = COUNTROWS( 'Sales' )
+RETURN
+    IF (
+        _salesRows = 0,
+        BLANK(),
+        SUMX( 'Sales', 'Sales'[Quantity] * 'Sales'[Unit Price] )
+    )</code></pre>
+
+    <pre><code class="language-dax">/* YoY growth vs previous year */
+YoY Growth % :=
+VAR _current  = [Total Sales]
+VAR _previous = CALCULATE( [Total Sales], SAMEPERIODLASTYEAR( 'Date'[Date] ) )
+RETURN
+    DIVIDE( _current - _previous, _previous )</code></pre>
+
+    <script src="./dax-highlight.js"></script>
+    <script>
+      // Register project-specific measures/functions if needed:
+      // DaxHighlight.addFunctions(["MYCOMPANY_KPI"]);
+
+      DaxHighlight.highlightAll();
+    </script>
+  </main>
+</body>
+</html>
