@@ -3,9 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Post • BluPulse</title>
+  <title>Post · BluPulse</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=47" />
+  <!-- Description / canonical / OG are injected by post.js once the post JSON loads -->
+  <meta name="description" id="metaDescription" content="BluPulse article." />
+  <meta name="author" content="Jonathan Papworth" />
+  <meta name="theme-color" content="#0B1030" />
+  <link rel="canonical" id="metaCanonical" href="https://jonathan-pap.github.io/" />
+
+  <meta property="og:site_name" content="BluPulse" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" id="metaOgTitle" content="BluPulse" />
+  <meta property="og:description" id="metaOgDesc" content="BluPulse article." />
+  <meta property="og:url" id="metaOgUrl" content="https://jonathan-pap.github.io/" />
+  <meta property="og:image" id="metaOgImage" content="https://jonathan-pap.github.io/favicon.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=48" />
   <script
     src="https://cdn.jsdelivr.net/npm/marked@14.1.3/marked.min.js"
     integrity="sha384-k8o8HikHweyzW55Wd3wl18ovJj6vHVYNQeQbeSM0fxx+0WiH4TcccOG9uz8Xd2JR"
@@ -95,6 +110,7 @@
     </section>
   </main>
 
-  <script src="./assets/js/post.js?v=26"></script>
+  <script src="./dist/dax-highlight/dax-highlight.js"></script>
+  <script src="./assets/js/post.js?v=27"></script>
 </body>
 </html>
