@@ -42,6 +42,11 @@
   --fs-2xl: 26px;
   --fs-3xl: 34px;
 
+  /* Accent (purple — used for focus/active/emphasis states) */
+  --accent-strong: rgba(139,92,246,0.95);  /* focus outline, active bars */
+  --accent:        rgba(139,92,246,0.55);  /* focus border, blockquote rail */
+  --accent-soft:   rgba(139,92,246,0.22);  /* focus glow, skeleton dot */
+
   /* Focus ring (accessibility fix) */
   --focus-ring: 0 0 0 3px rgba(139,92,246,0.70);
 }
@@ -59,8 +64,8 @@ html{ scroll-padding-top: calc(var(--topnav-h, 64px) + 20px); }
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   background: rgba(9,12,32,0.96);
-  border: 1px solid rgba(139,92,246,0.55);
-  box-shadow: 0 0 0 4px rgba(139,92,246,0.20);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
   color: var(--text-strong);
   font-weight: 600;
   font-size: 14px;
@@ -281,9 +286,10 @@ a:visited{ color: inherit; }
 }
 .content-title{
   margin:0;
-  font-size: 32px;
+  font-size: var(--fs-3xl);   /* 34px — out-weighs headliner 26px */
   font-weight: 800;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
 }
 .content-meta{
   color: var(--text-subtle);
@@ -315,9 +321,9 @@ a:visited{ color: inherit; }
   border-color: var(--border-strong);
 }
 .search-input:focus-visible{
-  outline: 2px solid rgba(139,92,246,0.95);
+  outline: 2px solid var(--accent-strong);
   outline-offset: 2px;
-  border-color: rgba(139,92,246,0.55);
+  border-color: var(--accent);
   background: var(--surface-2);
   box-shadow: var(--focus-ring);
 }
@@ -356,10 +362,11 @@ a:visited{ color: inherit; }
 .card--headliner{
   grid-column: 1 / -1;
   border-color: var(--border-strong);
-  background: linear-gradient(135deg, rgba(59,130,246,0.14), rgba(139,92,246,0.12));
+  /* Subtle tint — signals "featured" without pulling focus away from the H1. */
+  background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.06));
 }
 .card--headliner:hover{
-  background: linear-gradient(135deg, rgba(59,130,246,0.20), rgba(139,92,246,0.16));
+  background: linear-gradient(135deg, rgba(59,130,246,0.11), rgba(139,92,246,0.09));
   border-color: var(--border-strong);
 }
 
@@ -483,7 +490,7 @@ a:visited{ color: inherit; }
 }
 
 .loadmore-btn:focus-visible{
-  outline: 2px solid rgba(139,92,246,0.95);
+  outline: 2px solid var(--accent-strong);
   outline-offset: 2px;
   box-shadow: var(--focus-ring);
 }
@@ -1147,8 +1154,8 @@ a:visited{ color: inherit; }
   background: linear-gradient(90deg, rgba(139,92,246,0.10), transparent 70%);
 }
 .post-toc-link--active.post-toc-link--l3::before{
-  background: rgba(139,92,246,1);
-  box-shadow: 0 0 0 4px rgba(139,92,246,0.22);
+  background: var(--purple);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
 /* Post-body loading skeleton */
@@ -1163,9 +1170,9 @@ a:visited{ color: inherit; }
   border-radius: 6px;
   background: linear-gradient(
     90deg,
-    rgba(255,255,255,0.04) 0%,
-    rgba(255,255,255,0.10) 40%,
-    rgba(255,255,255,0.04) 80%
+    var(--surface-1) 0%,
+    var(--surface-hover) 40%,
+    var(--surface-1) 80%
   );
   background-size: 200% 100%;
   animation: post-skeleton-shimmer 1.4s ease-in-out infinite;
@@ -1348,9 +1355,9 @@ a:visited{ color: inherit; }
 .post-toc-link:focus-visible,
 .brand:focus-visible,
 .aq-btn:focus-visible{
-  outline: 2px solid rgba(139,92,246,0.95);
+  outline: 2px solid var(--accent-strong);
   outline-offset: 2px;
-  border-color: rgba(139,92,246,0.55);
+  border-color: var(--accent);
   box-shadow: var(--focus-ring);
 }
 
@@ -1398,7 +1405,7 @@ a:visited{ color: inherit; }
 .prose blockquote{
   margin: 1.2em 0;
   padding: 8px 0 8px 18px;
-  border-left: 3px solid rgba(139,92,246,0.55);
+  border-left: 3px solid var(--accent);
   color: var(--text-secondary);
   font-style: italic;
 }
