@@ -248,6 +248,22 @@
     errMsg.textContent = message || "An error occurred.";
   }
 
+  function showSkeleton() {
+    if (!bodyEl) return;
+    bodyEl.innerHTML = `
+      <div class="post-skeleton" aria-hidden="true">
+        <div class="post-skeleton-line post-skeleton-line--wide"></div>
+        <div class="post-skeleton-line post-skeleton-line--med"></div>
+        <div class="post-skeleton-line post-skeleton-line--wide"></div>
+        <div class="post-skeleton-line post-skeleton-line--short"></div>
+        <div class="post-skeleton-gap"></div>
+        <div class="post-skeleton-line post-skeleton-line--wide"></div>
+        <div class="post-skeleton-line post-skeleton-line--med"></div>
+        <div class="post-skeleton-line post-skeleton-line--wide"></div>
+      </div>
+    `;
+  }
+
   function setMeta(p) {
     document.title = `${p.title || "Post"} • BluPulse`;
 
@@ -343,23 +359,74 @@
     });
 
     tocEl.innerHTML = items.map((item) => `
-      <a class="post-toc-link post-toc-link--l${item.level}" href="#${item.id}" title="${escapeHtml(item.text)}">
+      <a class="post-toc-link post-toc-link--l${item.level}" href="#${item.id}" title="${escapeHtml(item.text)}" data-toc-target="${item.id}">
         ${escapeHtml(item.text)}
       </a>
     `).join("");
 
     tocSectionEl.hidden = false;
+    initTocActiveHighlight(items.map(i => i.id));
     return true;
   }
 
-  function getDocumentTop(el) {
+  // Highlight the nearest heading as the user scrolls.
+  function initTocActiveHighlight(ids) {
+    if (!ids.length || !("IntersectionObserver" in window)) return;
+
+    const linkFor = new Map();
+    tocEl.querySelectorAll("[data-toc-target]").forEach(a => {
+      linkFor.set(a.getAttribute("data-toc-target"), a);
+    });
+
+    const visible = new Set();
+
+    const setActive = (id) => {
+      tocEl.querySelectorAll(".post-toc-link--active")
+        .forEach(a => a.classList.remove("post-toc-link--active"));
+      if (!id) return;
+      const el = linkFor.get(id);
+      if (el) el.classList.add("post-toc-link--active");
+    };
+
+    const pickActive = () => {
+      if (!visible.size) return;
+      // Pick whichever visible heading appears first in document order.
+      const firstId = ids.find(id => visible.has(id));
+      setActive(firstId);
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const id = entry.target.id;
+        if (entry.isIntersecting) visible.add(id);
+        else visible.delete(id);
+      }
+      pickActive();
+    }, {
+      rootMargin: "-20% 0px -65% 0px",
+      threshold: 0,
+    });
+
+    ids.forEach(id => {
+      const heading = document.getElementById(id);
+      if (heading) io.observe(heading);
+    });
+  }
+
+  // Cached layout metrics — invalidated on resize and by ResizeObserver.
+  let cachedArticleTop = 0;
+  let cachedArticleHeight = 0;
+
+  function measureArticle() {
+    if (!bodyEl) return;
     let top = 0;
-    let node = el;
+    let node = bodyEl;
     while (node) {
       top += node.offsetTop || 0;
       node = node.offsetParent;
     }
-    return top;
+    cachedArticleTop = top;
+    cachedArticleHeight = Math.max(bodyEl.scrollHeight, bodyEl.getBoundingClientRect().height);
   }
 
   function syncLayoutMetrics() {
@@ -372,18 +439,29 @@
       progressWrapEl.style.width = `${Math.max(0, rect.width)}px`;
       progressWrapEl.style.right = "auto";
     }
+
+    measureArticle();
   }
 
   function updateReadingProgress() {
     if (!progressBarEl || !bodyEl) return;
 
-    const articleTop = getDocumentTop(bodyEl);
-    const articleHeight = Math.max(bodyEl.scrollHeight, bodyEl.getBoundingClientRect().height);
     const viewportOffset = 120;
-    const progress = (window.scrollY + viewportOffset - articleTop) / Math.max(1, articleHeight);
+    const progress = (window.scrollY + viewportOffset - cachedArticleTop) / Math.max(1, cachedArticleHeight);
     const clamped = Math.max(0, Math.min(1, progress));
 
     progressBarEl.style.transform = `scaleX(${clamped})`;
+  }
+
+  // rAF-gated scroll handler: reads are cached, only writes happen per frame.
+  let rafScheduled = false;
+  function onScrollRaf() {
+    if (rafScheduled) return;
+    rafScheduled = true;
+    requestAnimationFrame(() => {
+      rafScheduled = false;
+      updateReadingProgress();
+    });
   }
 
   function initReadingProgress() {
@@ -391,10 +469,11 @@
 
     syncLayoutMetrics();
     updateReadingProgress();
+
     window.addEventListener("load", syncLayoutMetrics);
     window.addEventListener("resize", syncLayoutMetrics);
-    window.addEventListener("scroll", updateReadingProgress, { passive: true });
-    window.addEventListener("resize", updateReadingProgress);
+    window.addEventListener("scroll", onScrollRaf, { passive: true });
+    window.addEventListener("resize", onScrollRaf);
 
     if ("ResizeObserver" in window) {
       const ro = new ResizeObserver(() => {
@@ -416,7 +495,7 @@
       return;
     }
 
-    const res = await fetch("./content/posts.json", { cache: "no-store" });
+    const res = await fetch("./content/posts.json");
     if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
 
     const data = await res.json();
@@ -430,8 +509,9 @@
     }
 
     setMeta(current);
+    showSkeleton();
 
-    const mdRes = await fetch(mdPathForPost(current), { cache: "no-store" });
+    const mdRes = await fetch(mdPathForPost(current));
     if (!mdRes.ok) throw new Error(`Markdown fetch failed: ${mdRes.status}`);
     const md = await mdRes.text();
 

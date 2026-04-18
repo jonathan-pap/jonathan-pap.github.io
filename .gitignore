@@ -1,0 +1,14 @@
+# Claude Code: ignore local session state, but keep committed settings.
+.claude/*
+!.claude/settings.local.json
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temp PR/tooling files
+.pr-*.tmp.*
+*.tmp
+*.log

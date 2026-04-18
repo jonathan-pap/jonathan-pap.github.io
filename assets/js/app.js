@@ -129,6 +129,48 @@
       }));
   }
 
+  // ---- URL state sync (filters live in ?query) ----
+
+  let syncingFromUrl = false;
+
+  function serializeStateToUrl(){
+    if (syncingFromUrl) return;
+    const params = new URLSearchParams();
+    if (state.category && state.category !== "All Articles") params.set("category", state.category);
+    if (state.tag && state.tag !== "All") params.set("tag", state.tag);
+    if (state.archive) params.set("archive", `${state.archive.year}-${state.archive.month}`);
+    if (state.q) params.set("q", state.q);
+
+    const qs = params.toString();
+    const next = qs ? `?${qs}${window.location.hash || ""}` : window.location.pathname + (window.location.hash || "");
+    const currentQs = window.location.search.slice(1);
+    if (currentQs === qs) return;
+    history.pushState(null, "", next || window.location.pathname);
+  }
+
+  function readStateFromUrl(){
+    const params = new URLSearchParams(window.location.search);
+
+    const cat = params.get("category");
+    state.category = cat || "All Articles";
+
+    const tag = params.get("tag");
+    state.tag = tag || "All";
+
+    const arch = params.get("archive");
+    if (arch && /^\d+-\d+$/.test(arch)) {
+      const [y, m] = arch.split("-").map(Number);
+      state.archive = { year: y, month: m };
+      state.openYears = new Set([y]);
+      state.openMonths = new Set([`${y}-${m}`]);
+    } else {
+      state.archive = null;
+    }
+
+    state.q = params.get("q") || "";
+    resetVisibleBelow();
+  }
+
   // ---- setters / clearers ----
 
   function resetVisibleBelow(){ state.visibleBelowCount = LOAD_MORE_STEP; }
@@ -136,39 +178,46 @@
   function setCategory(name){
     state.category = name;
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
   function setTag(name){
     state.tag = name || "All";
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
 
   function setArchive(year, month){
     state.archive = { year, month };
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
 
   function clearArchive(){
     state.archive = null;
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
   function clearCategory(){
     state.category = "All Articles";
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
   function clearTag(){
     state.tag = "All";
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
   function clearSearch(){
     state.q = "";
     if (searchInput) searchInput.value = "";
     resetVisibleBelow();
+    serializeStateToUrl();
     renderAll();
   }
 
@@ -251,17 +300,16 @@
     categoriesEl.innerHTML = cats.map(c => {
       const isActive = state.category === c.name;
       return `
-        <div class="cat ${isActive ? "active" : ""}" role="button" tabindex="0"
-             aria-pressed="${isActive}" data-cat="${escapeHtml(c.name)}">
-          <div class="cat-left"><span>${escapeHtml(c.name)}</span></div>
-          <div class="cat-count">${c.count}</div>
-        </div>
+        <button class="cat ${isActive ? "active" : ""}" type="button"
+                aria-pressed="${isActive}" data-cat="${escapeHtml(c.name)}">
+          <span class="cat-left"><span>${escapeHtml(c.name)}</span></span>
+          <span class="cat-count">${c.count}</span>
+        </button>
       `;
     }).join("");
 
     categoriesEl.querySelectorAll("[data-cat]").forEach(el => {
       el.addEventListener("click", () => setCategory(el.getAttribute("data-cat")));
-      el.addEventListener("keydown", (e) => { if (e.key === "Enter") setCategory(el.getAttribute("data-cat")); });
     });
   }
 
@@ -518,17 +566,24 @@
   async function init(){
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-    const res = await fetch("./content/posts.json", { cache: "no-store" });
+    const res = await fetch("./content/posts.json");
     if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
     const data = await res.json();
 
     state.posts = enrichPosts(data.posts || []);
 
+    // Hydrate initial state from URL (deep-link support).
+    readStateFromUrl();
+
     if (searchInput){
+      // Debounce URL writes so typing doesn't flood history.
+      let searchTimer = null;
       searchInput.addEventListener("input", (e) => {
         state.q = e.target.value || "";
         resetVisibleBelow();
         renderAll();
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(serializeStateToUrl, 400);
       });
     }
 
@@ -538,6 +593,14 @@
         renderCards();
       });
     }
+
+    // Back/forward navigation re-reads URL state.
+    window.addEventListener("popstate", () => {
+      syncingFromUrl = true;
+      readStateFromUrl();
+      renderAll();
+      syncingFromUrl = false;
+    });
 
     renderAll();
   }
