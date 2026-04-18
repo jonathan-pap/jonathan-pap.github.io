@@ -237,6 +237,26 @@ a:visited{ color: inherit; }
   color: var(--text-subtle);
   margin-bottom: 14px;
 }
+
+/* Panel header row — lets a small hint sit next to the title (e.g. "pick any"
+   on multi-select panels) without adding vertical space. */
+.panel-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.panel-head .panel-title{ margin-bottom: 0; }
+.panel-hint{
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--text-subtle);
+  opacity: 0.72;
+  font-weight: 500;
+  text-transform: lowercase;
+  user-select: none;
+}
 .muted{ color: var(--text-muted); line-height: 1.65; }
 .muted--flush{ margin: 0; }
 
