@@ -1,63 +1,13 @@
 {
   "posts": [
     {
-      "slug": "model-review-playbook",
-      "title": "Model review playbook",
-      "date": "2026-04-10",
-      "category": "Power BI",
-      "tags": ["Power BI", "Review", "Governance"],
-      "excerpt": "Draft — a working checklist for reviewing a Power BI model, whether you built it or inherited it.",
-      "readTime": 5,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "filter-context-mental-model",
-      "title": "A working mental model for filter context",
-      "date": "2026-03-25",
-      "category": "DAX",
-      "tags": ["DAX", "Filter Context"],
-      "excerpt": "Draft — the explanation of filter context I wish I'd had early on, with worked examples.",
-      "readTime": 6,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "m-patterns-for-messy-sources",
-      "title": "M patterns for messy source data",
-      "date": "2026-03-12",
-      "category": "Power Query",
-      "tags": ["Power Query", "M", "Patterns"],
-      "excerpt": "Draft — Power Query patterns I reach for when the source was built for something other than analytics.",
-      "readTime": 5,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "ai-on-analytics-work",
-      "title": "Using AI on analytics work",
-      "date": "2026-02-28",
-      "category": "AI",
-      "tags": ["AI", "Workflow"],
-      "excerpt": "Draft — where LLMs genuinely help on analytics tasks, where they quietly hurt, and the workflow changes that tilt the ratio.",
-      "readTime": 5,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "tabular-editor-workflows",
-      "title": "Tabular Editor workflows worth knowing",
-      "date": "2026-02-15",
+      "slug": "powerbi-lineage-tool",
+      "title": "A small tool for documenting Power BI models",
+      "date": "2026-04-26",
       "category": "Tooling",
-      "tags": ["Tabular Editor", "Tooling", "Power BI"],
-      "excerpt": "Draft — the Tabular Editor scripts and habits that earn back their learning cost.",
-      "readTime": 4,
-      "author": { "name": "Jonathan Pap" }
-    },
-    {
-      "slug": "notes-on-analytics-engineering",
-      "title": "Notes on analytics engineering",
-      "date": "2026-02-02",
-      "category": "Craft",
-      "tags": ["Craft", "Career"],
-      "excerpt": "Draft — short reflections on what the role actually involves once the initial tooling decisions are behind you.",
-      "readTime": 5,
+      "tags": ["Power BI", "Lineage", "Documentation", "Tooling"],
+      "excerpt": "PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.",
+      "readTime": 3,
       "author": { "name": "Jonathan Pap" }
     }
   ]
