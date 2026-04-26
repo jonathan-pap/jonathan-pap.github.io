@@ -1,6 +1,5 @@
-# Claude Code: ignore local session state, but keep committed settings.
-.claude/*
-!.claude/settings.local.json
+# Claude Code: ignore all local session state.
+.claude/
 
 # Editor / OS noise
 .vscode/
