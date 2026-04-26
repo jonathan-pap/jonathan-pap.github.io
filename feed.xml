@@ -4,63 +4,18 @@
   <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-04-10T00:00:00Z</updated>
+  <updated>2026-04-26T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
 
   <entry>
-    <title>Model review playbook</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=model-review-playbook" />
-    <id>https://jonathan-pap.github.io/post.html?slug=model-review-playbook</id>
-    <updated>2026-04-10T00:00:00Z</updated>
-    <summary>Draft — a working checklist for reviewing a Power BI model, whether you built it or inherited it.</summary>
-    <category term="Power BI" />
-  </entry>
-
-  <entry>
-    <title>A working mental model for filter context</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=filter-context-mental-model" />
-    <id>https://jonathan-pap.github.io/post.html?slug=filter-context-mental-model</id>
-    <updated>2026-03-25T00:00:00Z</updated>
-    <summary>Draft — the explanation of filter context I wish I'd had early on, with worked examples.</summary>
-    <category term="DAX" />
-  </entry>
-
-  <entry>
-    <title>M patterns for messy source data</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=m-patterns-for-messy-sources" />
-    <id>https://jonathan-pap.github.io/post.html?slug=m-patterns-for-messy-sources</id>
-    <updated>2026-03-12T00:00:00Z</updated>
-    <summary>Draft — Power Query patterns I reach for when the source was built for something other than analytics.</summary>
-    <category term="Power Query" />
-  </entry>
-
-  <entry>
-    <title>Using AI on analytics work</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=ai-on-analytics-work" />
-    <id>https://jonathan-pap.github.io/post.html?slug=ai-on-analytics-work</id>
-    <updated>2026-02-28T00:00:00Z</updated>
-    <summary>Draft — where LLMs genuinely help on analytics tasks, where they quietly hurt.</summary>
-    <category term="AI" />
-  </entry>
-
-  <entry>
-    <title>Tabular Editor workflows worth knowing</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=tabular-editor-workflows" />
-    <id>https://jonathan-pap.github.io/post.html?slug=tabular-editor-workflows</id>
-    <updated>2026-02-15T00:00:00Z</updated>
-    <summary>Draft — the Tabular Editor scripts and habits that earn back their learning cost.</summary>
+    <title>A small tool for documenting Power BI models</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=powerbi-lineage-tool" />
+    <id>https://jonathan-pap.github.io/post.html?slug=powerbi-lineage-tool</id>
+    <updated>2026-04-26T00:00:00Z</updated>
+    <summary>PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.</summary>
     <category term="Tooling" />
-  </entry>
-
-  <entry>
-    <title>Notes on analytics engineering</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=notes-on-analytics-engineering" />
-    <id>https://jonathan-pap.github.io/post.html?slug=notes-on-analytics-engineering</id>
-    <updated>2026-02-02T00:00:00Z</updated>
-    <summary>Draft — short reflections on what the role actually involves once the initial tooling decisions are behind you.</summary>
-    <category term="Craft" />
   </entry>
 </feed>
