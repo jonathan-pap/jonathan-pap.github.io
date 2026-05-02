@@ -4,11 +4,20 @@
   <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-04-26T00:00:00Z</updated>
+  <updated>2026-04-27T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>A Power BI icon picker, powered by Iconify</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=power-bi-icon-library" />
+    <id>https://jonathan-pap.github.io/post.html?slug=power-bi-icon-library</id>
+    <updated>2026-04-27T00:00:00Z</updated>
+    <summary>A notebook + .pbix that turns Power BI icon-hunting into one step: search 60,000+ Iconify icons, pick colour and variant, get a DAX-ready measure string in one click.</summary>
+    <category term="Tooling" />
+  </entry>
 
   <entry>
     <title>A small tool for documenting Power BI models</title>
