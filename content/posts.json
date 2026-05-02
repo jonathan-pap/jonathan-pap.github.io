@@ -1,6 +1,17 @@
 {
   "posts": [
     {
+      "slug": "power-bi-icon-library",
+      "title": "A Power BI icon picker, powered by Iconify",
+      "date": "2026-04-27",
+      "category": "Tooling",
+      "tags": ["Power BI", "Icons", "DAX", "Iconify", "Tooling"],
+      "excerpt": "A notebook + .pbix that turns Power BI icon-hunting into one step: search 60,000+ Iconify icons, pick colour and variant, get a DAX-ready measure string in one click.",
+      "readTime": 3,
+      "author": { "name": "Jonathan Pap" },
+      "image": "./assets/img/posts/power-bi-icon-library.svg"
+    },
+    {
       "slug": "powerbi-lineage-tool",
       "title": "A small tool for documenting Power BI models",
       "date": "2026-04-26",
@@ -8,7 +19,8 @@
       "tags": ["Power BI", "Lineage", "Documentation", "Tooling"],
       "excerpt": "PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.",
       "readTime": 3,
-      "author": { "name": "Jonathan Pap" }
+      "author": { "name": "Jonathan Pap" },
+      "image": "./assets/img/posts/powerbi-lineage-tool.svg"
     }
   ]
 }
