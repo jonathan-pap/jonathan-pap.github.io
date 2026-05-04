@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Designing Power BI with Claude as the build partner">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Designing Power BI with Claude Design as the build partner">
   <defs>
     <linearGradient id="bp" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#3B82F6"/>
       <stop offset="1" stop-color="#8B5CF6"/>
     </linearGradient>
     <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#3B82F6" stop-opacity="0.0"/>
-      <stop offset="0.5" stop-color="#8B5CF6" stop-opacity="0.85"/>
-      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0.0"/>
+      <stop offset="0" stop-color="#3B82F6" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#8B5CF6" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
     </linearGradient>
-    <radialGradient id="gA" cx="0.2" cy="0.2" r="0.7">
-      <stop offset="0" stop-color="#3B82F6" stop-opacity="0.20"/>
+    <radialGradient id="gA" cx="0.25" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#3B82F6" stop-opacity="0.18"/>
       <stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="gB" cx="0.85" cy="0.85" r="0.6">
+    <radialGradient id="gB" cx="0.8" cy="0.85" r="0.6">
       <stop offset="0" stop-color="#8B5CF6" stop-opacity="0.18"/>
       <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
     </radialGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
   </defs>
 
   <!-- backdrop -->
@@ -25,178 +28,147 @@
   <rect width="1200" height="630" fill="url(#gA)"/>
   <rect width="1200" height="630" fill="url(#gB)"/>
 
-  <!-- Left: stack of skill-folder cards -->
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-     font-size="14" font-weight="600" fill="rgba(255,255,255,0.92)">
+  <!-- Soft halo behind the action -->
+  <ellipse cx="600" cy="335" rx="540" ry="170" fill="url(#bp)" opacity="0.06"/>
 
-    <!-- card 4 (back) -->
-    <g transform="translate(70 200) rotate(-3)">
-      <rect width="280" height="64" rx="12"
-            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="20" y="29" font-size="10" font-weight="700" fill="rgba(255,255,255,0.55)" letter-spacing="0.6">SKILL · DAX UDF</text>
-      <text x="20" y="50">dax-udf/</text>
-    </g>
-
-    <!-- card 3 -->
-    <g transform="translate(60 160) rotate(-1)">
-      <rect width="280" height="64" rx="12"
-            fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)"/>
-      <text x="20" y="29" font-size="10" font-weight="700" fill="rgba(255,255,255,0.55)" letter-spacing="0.6">SKILL · CALC GROUPS</text>
-      <text x="20" y="50">calc-groups/</text>
-    </g>
-
-    <!-- card 2 -->
-    <g transform="translate(70 120)">
-      <rect width="280" height="64" rx="12"
-            fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.16)"/>
-      <text x="20" y="29" font-size="10" font-weight="700" fill="rgba(255,255,255,0.6)" letter-spacing="0.6">SKILL · MEASURES</text>
-      <text x="20" y="50">measures/</text>
-    </g>
-
-    <!-- card 1 (front, brand-tinted) -->
-    <g transform="translate(80 80)">
-      <rect width="280" height="64" rx="12"
-            fill="url(#bp)" stroke="rgba(255,255,255,0.22)"/>
-      <text x="20" y="29" font-size="10" font-weight="800" fill="rgba(255,255,255,0.92)" letter-spacing="0.6">SKILL · TMDL STANDARDS</text>
-      <text x="20" y="50" fill="#fff">tmdl-standards/</text>
-    </g>
-
-    <!-- design-system stack (lower) -->
-    <g transform="translate(80 360)">
-      <rect width="280" height="56" rx="12"
-            fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)"/>
-      <text x="20" y="26" font-size="10" font-weight="700" fill="rgba(255,255,255,0.55)" letter-spacing="0.6">SKILL · DESIGN SYSTEM</text>
-      <text x="20" y="46">design-system/</text>
-    </g>
-
-    <g transform="translate(70 410)">
-      <rect width="280" height="48" rx="12"
-            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="20" y="26" font-size="10" font-weight="700" fill="rgba(255,255,255,0.5)" letter-spacing="0.6">design-system / iconography/</text>
-    </g>
-
-    <g transform="translate(60 450)">
-      <rect width="280" height="48" rx="12"
-            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="20" y="26" font-size="10" font-weight="700" fill="rgba(255,255,255,0.5)" letter-spacing="0.6">design-system / wordmark/</text>
+  <!-- ============= LEFT: stack of 3 markdown documents ============= -->
+  <!-- back card -->
+  <g transform="translate(150 220) rotate(-6)">
+    <rect width="240" height="200" rx="16"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)" stroke-width="1.5"/>
+    <g stroke="rgba(255,255,255,0.18)" stroke-width="2.2" stroke-linecap="round">
+      <line x1="22" y1="34" x2="180" y2="34"/>
+      <line x1="22" y1="60" x2="160" y2="60"/>
+      <line x1="22" y1="86" x2="200" y2="86"/>
+      <line x1="22" y1="112" x2="170" y2="112"/>
+      <line x1="22" y1="138" x2="190" y2="138"/>
+      <line x1="22" y1="164" x2="130" y2="164"/>
     </g>
   </g>
 
-  <!-- Middle: beam + Claude badge -->
+  <!-- middle card -->
+  <g transform="translate(170 200) rotate(-2)">
+    <rect width="240" height="200" rx="16"
+          fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    <g stroke="rgba(255,255,255,0.32)" stroke-width="2.4" stroke-linecap="round">
+      <line x1="22" y1="34" x2="180" y2="34"/>
+      <line x1="22" y1="60" x2="160" y2="60"/>
+      <line x1="22" y1="86" x2="200" y2="86"/>
+      <line x1="22" y1="112" x2="170" y2="112"/>
+      <line x1="22" y1="138" x2="190" y2="138"/>
+      <line x1="22" y1="164" x2="130" y2="164"/>
+    </g>
+  </g>
+
+  <!-- front card (brand-tinted, "active") -->
+  <g transform="translate(190 184)">
+    <rect width="240" height="200" rx="16"
+          fill="url(#bp)" stroke="rgba(255,255,255,0.30)" stroke-width="1.5"/>
+    <g stroke="rgba(255,255,255,0.85)" stroke-width="2.6" stroke-linecap="round">
+      <line x1="22" y1="34" x2="100" y2="34" stroke-width="3.5"/>
+      <line x1="22" y1="60" x2="200" y2="60"/>
+      <line x1="22" y1="86" x2="170" y2="86"/>
+      <line x1="22" y1="112" x2="190" y2="112"/>
+      <line x1="22" y1="138" x2="155" y2="138"/>
+      <line x1="22" y1="164" x2="180" y2="164"/>
+    </g>
+  </g>
+
+  <!-- ============= MIDDLE: beam + Claude Design badge ============= -->
   <g>
-    <line x1="380" y1="315" x2="780" y2="315"
-          stroke="url(#beam)" stroke-width="3" stroke-linecap="round"/>
+    <!-- main beam -->
+    <line x1="460" y1="290" x2="740" y2="290"
+          stroke="url(#beam)" stroke-width="4" stroke-linecap="round"/>
     <!-- arrowhead -->
-    <path d="M 770 305 L 790 315 L 770 325" fill="none"
-          stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 728 278 L 752 290 L 728 302" fill="none"
+          stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- Claude badge -->
-    <g transform="translate(495 285)">
-      <rect width="170" height="60" rx="30"
-            fill="rgba(9,12,32,0.85)" stroke="rgba(139,92,246,0.6)" stroke-width="1.5"/>
+    <!-- Claude Design badge -->
+    <g transform="translate(495 320)">
+      <rect width="210" height="62" rx="31"
+            fill="rgba(9,12,32,0.88)" stroke="rgba(139,92,246,0.62)" stroke-width="1.5"/>
       <!-- sparkle -->
-      <g transform="translate(28 30)" stroke="url(#bp)" stroke-width="2.4" stroke-linecap="round" fill="none">
-        <path d="M 0 -10 L 0 10 M -10 0 L 10 0"/>
-        <path d="M -7 -7 L 7 7 M -7 7 L 7 -7" stroke-opacity="0.55"/>
+      <g transform="translate(34 31)" stroke="url(#bp)" stroke-width="2.6" stroke-linecap="round" fill="none">
+        <path d="M 0 -12 L 0 12 M -12 0 L 12 0"/>
+        <path d="M -8 -8 L 8 8 M -8 8 L 8 -8" stroke-opacity="0.55"/>
       </g>
-      <text x="60" y="28" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
-            font-size="14" font-weight="800" fill="rgba(255,255,255,0.96)">Claude.ai</text>
-      <text x="60" y="46" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
-            font-size="11" font-weight="500" fill="rgba(255,255,255,0.66)">Design Studio</text>
+      <text x="68" y="38" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
+            font-size="20" font-weight="800" fill="rgba(255,255,255,0.96)">Claude Design</text>
     </g>
   </g>
 
-  <!-- Right: stylized Power BI report canvas -->
-  <g transform="translate(790 95)">
+  <!-- ============= RIGHT: Power BI canvas ============= -->
+  <g transform="translate(770 165)">
+    <!-- soft drop -->
+    <rect x="6" y="8" width="340" height="300" rx="16"
+          fill="rgba(0,0,0,0.35)" filter="url(#soft)"/>
     <!-- canvas frame -->
-    <rect width="350" height="440" rx="14"
-          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+    <rect width="340" height="300" rx="16"
+          fill="#0F1538" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
 
-    <!-- header bar -->
-    <rect x="0" y="0" width="350" height="44" rx="14"
-          fill="url(#bp)" opacity="0.85"/>
-    <rect x="0" y="20" width="350" height="24"
-          fill="url(#bp)" opacity="0.85"/>
-    <text x="20" y="28" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
-          font-size="13" font-weight="700" fill="#fff" letter-spacing="0.3">Sales Overview</text>
+    <!-- header bar (gradient) -->
+    <path d="M 0 16 a 16 16 0 0 1 16 -16 H 324 a 16 16 0 0 1 16 16 V 50 H 0 Z" fill="url(#bp)"/>
+    <circle cx="22" cy="25" r="6" fill="rgba(255,255,255,0.85)"/>
+    <rect x="38" y="20" width="120" height="10" rx="3" fill="rgba(255,255,255,0.85)"/>
 
     <!-- 3 KPI cards row -->
-    <g font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif">
-      <g transform="translate(16 60)">
-        <rect width="100" height="64" rx="8"
-              fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)"/>
-        <text x="10" y="22" font-size="9" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="0.4">$ REVENUE</text>
-        <text x="10" y="44" font-size="18" font-weight="800" fill="rgba(255,255,255,0.95)">$ 4.2M</text>
-        <text x="10" y="58" font-size="9" font-weight="600" fill="#9ae6b4">▲ 12.4%</text>
-      </g>
-      <g transform="translate(125 60)">
-        <rect width="100" height="64" rx="8"
-              fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)"/>
-        <text x="10" y="22" font-size="9" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="0.4"># ORDERS</text>
-        <text x="10" y="44" font-size="18" font-weight="800" fill="rgba(255,255,255,0.95)">12,840</text>
-        <text x="10" y="58" font-size="9" font-weight="600" fill="#9ae6b4">▲ 8.1%</text>
-      </g>
-      <g transform="translate(234 60)">
-        <rect width="100" height="64" rx="8"
-              fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)"/>
-        <text x="10" y="22" font-size="9" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="0.4">% MARGIN</text>
-        <text x="10" y="44" font-size="18" font-weight="800" fill="rgba(255,255,255,0.95)">38.6%</text>
-        <text x="10" y="58" font-size="9" font-weight="600" fill="#f5a97f">▼ 1.2%</text>
-      </g>
+    <g>
+      <rect x="20" y="68" width="93" height="60" rx="10"
+            fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <rect x="30" y="80" width="42" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
+      <rect x="30" y="94" width="55" height="14" rx="3" fill="rgba(255,255,255,0.92)"/>
+      <rect x="30" y="115" width="34" height="6" rx="2" fill="#9ae6b4"/>
+    </g>
+    <g>
+      <rect x="123" y="68" width="93" height="60" rx="10"
+            fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <rect x="133" y="80" width="42" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
+      <rect x="133" y="94" width="60" height="14" rx="3" fill="rgba(255,255,255,0.92)"/>
+      <rect x="133" y="115" width="30" height="6" rx="2" fill="#9ae6b4"/>
+    </g>
+    <g>
+      <rect x="226" y="68" width="93" height="60" rx="10"
+            fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <rect x="236" y="80" width="42" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
+      <rect x="236" y="94" width="50" height="14" rx="3" fill="rgba(255,255,255,0.92)"/>
+      <rect x="236" y="115" width="32" height="6" rx="2" fill="#f5a97f"/>
     </g>
 
     <!-- column chart -->
-    <g transform="translate(16 144)">
-      <rect width="209" height="160" rx="8"
+    <g>
+      <rect x="20" y="140" width="200" height="140" rx="10"
             fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="12" y="20" font-family="ui-sans-serif" font-size="10" font-weight="600"
-            fill="rgba(255,255,255,0.65)" letter-spacing="0.4">REVENUE BY MONTH</text>
-      <g fill="url(#bp)" opacity="0.9">
-        <rect x="14" y="120" width="14" height="22"/>
-        <rect x="34" y="100" width="14" height="42"/>
-        <rect x="54" y="84"  width="14" height="58"/>
-        <rect x="74" y="68"  width="14" height="74"/>
-        <rect x="94" y="56"  width="14" height="86"/>
-        <rect x="114" y="78" width="14" height="64"/>
-        <rect x="134" y="64" width="14" height="78"/>
-        <rect x="154" y="48" width="14" height="94"/>
-        <rect x="174" y="40" width="14" height="102"/>
+      <rect x="30" y="150" width="60" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
+      <g fill="url(#bp)" opacity="0.95">
+        <rect x="32" y="248" width="14" height="22" rx="2"/>
+        <rect x="52" y="226" width="14" height="44" rx="2"/>
+        <rect x="72" y="208" width="14" height="62" rx="2"/>
+        <rect x="92" y="186" width="14" height="84" rx="2"/>
+        <rect x="112" y="170" width="14" height="100" rx="2"/>
+        <rect x="132" y="194" width="14" height="76" rx="2"/>
+        <rect x="152" y="174" width="14" height="96" rx="2"/>
+        <rect x="172" y="158" width="14" height="112" rx="2"/>
+        <rect x="192" y="148" width="14" height="122" rx="2"/>
       </g>
     </g>
 
     <!-- line chart -->
-    <g transform="translate(234 144)">
-      <rect width="100" height="160" rx="8"
+    <g>
+      <rect x="230" y="140" width="90" height="140" rx="10"
             fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="10" y="20" font-family="ui-sans-serif" font-size="10" font-weight="600"
-            fill="rgba(255,255,255,0.65)" letter-spacing="0.4">YOY %</text>
-      <path d="M 12 130 L 28 110 L 44 100 L 60 80 L 76 60 L 92 40"
-            fill="none" stroke="url(#bp)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="92" cy="40" r="3" fill="#8B5CF6"/>
-    </g>
-
-    <!-- table -->
-    <g transform="translate(16 320)">
-      <rect width="318" height="100" rx="8"
-            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-      <text x="12" y="20" font-family="ui-sans-serif" font-size="10" font-weight="600"
-            fill="rgba(255,255,255,0.65)" letter-spacing="0.4">TOP STORES</text>
-      <g font-family="ui-sans-serif" font-size="10" fill="rgba(255,255,255,0.78)">
-        <text x="12" y="40">Store 12</text> <text x="240" y="40" text-anchor="end">$ 1.1M</text>
-        <text x="12" y="60">Store 04</text> <text x="240" y="60" text-anchor="end">$ 0.9M</text>
-        <text x="12" y="80">Store 07</text> <text x="240" y="80" text-anchor="end">$ 0.7M</text>
-      </g>
-      <line x1="12" y1="46" x2="306" y2="46" stroke="rgba(255,255,255,0.06)"/>
-      <line x1="12" y1="66" x2="306" y2="66" stroke="rgba(255,255,255,0.06)"/>
+      <rect x="240" y="150" width="40" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
+      <path d="M 240 250 L 256 232 L 272 220 L 288 198 L 304 175 L 314 158"
+            fill="none" stroke="url(#bp)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="314" cy="158" r="4" fill="#8B5CF6"/>
     </g>
   </g>
 
-  <!-- Title chip lower-left -->
-  <g transform="translate(60 555)">
-    <rect width="380" height="44" rx="22"
-          fill="rgba(9,12,32,0.78)" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
-    <circle cx="22" cy="22" r="5" fill="url(#bp)"/>
-    <text x="40" y="29" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
-          font-size="14" font-weight="700" fill="rgba(255,255,255,0.95)" letter-spacing="0.4">PowerBI-Claude-Design</text>
+  <!-- ============= Title chip lower-left ============= -->
+  <g transform="translate(150 510)">
+    <rect width="380" height="48" rx="24"
+          fill="rgba(9,12,32,0.78)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+    <circle cx="24" cy="24" r="6" fill="url(#bp)"/>
+    <text x="44" y="31" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
+          font-size="15" font-weight="700" fill="rgba(255,255,255,0.96)" letter-spacing="0.4">PowerBI-Claude-Design</text>
   </g>
 </svg>

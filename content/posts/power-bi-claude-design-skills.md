@@ -1,8 +1,8 @@
-# Designing Power BI with Claude as the build partner
+# Designing Power BI with Claude Design as the build partner
 
 Most teams' Power BI "house style" lives in three places: a deck someone made two years ago, a few unspoken conventions, and the head of whoever built the first model. New reports drift from it because there's no good way to *read* it while you're working. Naming gets inconsistent. Time intelligence gets reinvented. Themes get reinvented. The KPI cards on Page 1 don't quite match the KPI cards on Page 2.
 
-I've been trying a different thing: **put the house style in markdown, hand it to Claude as project knowledge, and let it do the typing**.
+I've been trying a different thing: **put the house style in markdown, hand it to Claude Design as project knowledge, and let it do the typing**.
 
 The result is [PowerBI-Claude-Design](https://github.com/jonathan-pap/PowerBI-Claude-Design) — a small library of skill packages for authoring Power BI models and reports. Each one is a folder of `SKILL.md` plus references; together they cover TMDL syntax, DAX measures, calculation groups, DAX UDFs, and a visual design system.
 
@@ -41,7 +41,7 @@ The dependency map is simple:
 
 ## How a session actually goes
 
-Open a Claude.ai project, drop the `SKILL.md` files in as knowledge, and prompt naturally:
+Open a Claude.ai project — call it *Claude Design* — drop the `SKILL.md` files in as knowledge, and prompt naturally:
 
 > *"Write a Year-over-Year growth measure for `Sales Amount`, following the TMDL and measures skills."*
 
@@ -59,9 +59,9 @@ What comes back is a deployable TMDL block — naming convention applied, displa
 
 The slide deck in the repo lays out 12 steps; the short version is three phases.
 
-**Phase 1 — set up the project once.** Upload skill MDs as knowledge in a Claude.ai Design Studio project. Every conversation in that project inherits the full design system + TMDL rules. You re-upload only when the MDs themselves change.
+**Phase 1 — set up the project once.** Upload skill MDs as knowledge in a Claude.ai project — the *Claude Design* project, in this article's terms. Every conversation in that project inherits the full design system + TMDL rules. You re-upload only when the MDs themselves change.
 
-**Phase 2 — design.** Share the data model (a Model view screenshot or a paste of the table schema, including relationships and cardinality). Claude reads `layouts.md` for the wireframe templates and `components.md` for component specs, then maps each business question → visual type → zone in the layout. The output is a position table: *Visual | Type | x | y | w | h*. The measure list falls out as a side effect of the layout.
+**Phase 2 — design.** Share the data model (a Model view screenshot or a paste of the table schema, including relationships and cardinality). Claude Design reads `layouts.md` for the wireframe templates and `components.md` for component specs, then maps each business question → visual type → zone in the layout. The output is a position table: *Visual | Type | x | y | w | h*. The measure list falls out as a side effect of the layout.
 
 **Phase 3 — build.** Generate the TMDL: measures, calc groups, UDFs, SVG measures for icons and wordmarks. Paste into Desktop's TMDL view, save to validate, apply the theme JSON, position the visuals using the layout table, embed the SVG measures, add alt text, publish.
 
@@ -77,7 +77,7 @@ If you change the `measures/SKILL.md` patterns or add a new calc-group recipe, y
 
 ## What this isn't
 
-It isn't a UI generator. It isn't a Power BI MCP. It isn't trying to replace Tabular Editor or DAX Studio. It's a way of putting "the rules of how we build things" into a form Claude can read fluently, so the answers it gives respect those rules without you having to remind it every time.
+It isn't a UI generator. It isn't a Power BI MCP. It isn't trying to replace Tabular Editor or DAX Studio. It's a way of putting "the rules of how we build things" into a form Claude Design can read fluently, so the answers it gives respect those rules without you having to remind it every time.
 
 The unlock isn't AI. The unlock is **the folder being the source of truth**, written in a way that's useful to humans *and* useful to a model. Once that's in place, swapping which model reads it is a much smaller decision.
 
