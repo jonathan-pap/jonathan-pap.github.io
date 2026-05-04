@@ -74,30 +74,31 @@
     </g>
   </g>
 
-  <!-- ============= MIDDLE: badge + beam + arrow, all on y=300 centerline ============= -->
+  <!-- ============= MIDDLE: badge + continuous beam + arrow, all on y=300 ============= -->
   <g>
-    <!-- left beam: front doc edge → pill -->
-    <line x1="436" y1="300" x2="478" y2="300"
-          stroke="url(#beam)" stroke-width="4" stroke-linecap="round"/>
+    <!-- One continuous beam from front doc edge to canvas edge.
+         Solid colour (not gradient) so it stays visible across the
+         whole length. The pill sits on top of it. -->
+    <line x1="430" y1="300" x2="772" y2="300"
+          stroke="rgba(139,92,246,0.55)" stroke-width="2.5" stroke-linecap="round"/>
 
-    <!-- right beam: pill → arrowhead -->
-    <line x1="720" y1="300" x2="760" y2="300"
-          stroke="url(#beam)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Arrowhead at the right end — bigger, bolder, clearly the terminus -->
+    <path d="M 754 286 L 778 300 L 754 314" fill="none"
+          stroke="#8B5CF6" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- arrowhead -->
-    <path d="M 752 287 L 770 300 L 752 313" fill="none"
-          stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Soft halo behind the pill so it pops above the beam -->
+    <ellipse cx="600" cy="300" rx="160" ry="46" fill="url(#bp)" opacity="0.18"/>
 
-    <!-- Claude Design badge — centered at (600, 300), pill height 56 → y from 272 to 328 -->
+    <!-- Claude Design badge — centred at (600, 300). Pill 244×56, sits ON TOP of the beam. -->
     <g transform="translate(478 272)">
       <rect width="244" height="56" rx="28"
-            fill="rgba(9,12,32,0.88)" stroke="rgba(139,92,246,0.62)" stroke-width="1.5"/>
-      <!-- sparkle, vertically centered (pill center y = 28) -->
+            fill="rgba(9,12,32,0.94)" stroke="rgba(139,92,246,0.7)" stroke-width="1.75"/>
+      <!-- sparkle, vertically centred (pill centre y = 28) -->
       <g transform="translate(28 28)" stroke="url(#bp)" stroke-width="2.4" stroke-linecap="round" fill="none">
         <path d="M 0 -10 L 0 10 M -10 0 L 10 0"/>
         <path d="M -7 -7 L 7 7 M -7 7 L 7 -7" stroke-opacity="0.55"/>
       </g>
-      <!-- text, baseline aligned with sparkle centerline -->
+      <!-- text, baseline aligned with sparkle centreline -->
       <text x="52" y="35" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
             font-size="18" font-weight="800" fill="rgba(255,255,255,0.96)" letter-spacing="0.2">Claude Design</text>
     </g>
