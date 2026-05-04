@@ -74,26 +74,32 @@
     </g>
   </g>
 
-  <!-- ============= MIDDLE: beam + Claude Design badge ============= -->
+  <!-- ============= MIDDLE: badge + beam + arrow, all on y=300 centerline ============= -->
   <g>
-    <!-- main beam -->
-    <line x1="460" y1="290" x2="740" y2="290"
+    <!-- left beam: front doc edge → pill -->
+    <line x1="436" y1="300" x2="478" y2="300"
           stroke="url(#beam)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- right beam: pill → arrowhead -->
+    <line x1="720" y1="300" x2="760" y2="300"
+          stroke="url(#beam)" stroke-width="4" stroke-linecap="round"/>
+
     <!-- arrowhead -->
-    <path d="M 728 278 L 752 290 L 728 302" fill="none"
+    <path d="M 752 287 L 770 300 L 752 313" fill="none"
           stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- Claude Design badge -->
-    <g transform="translate(495 320)">
-      <rect width="210" height="62" rx="31"
+    <!-- Claude Design badge — centered at (600, 300), pill height 56 → y from 272 to 328 -->
+    <g transform="translate(478 272)">
+      <rect width="244" height="56" rx="28"
             fill="rgba(9,12,32,0.88)" stroke="rgba(139,92,246,0.62)" stroke-width="1.5"/>
-      <!-- sparkle -->
-      <g transform="translate(34 31)" stroke="url(#bp)" stroke-width="2.6" stroke-linecap="round" fill="none">
-        <path d="M 0 -12 L 0 12 M -12 0 L 12 0"/>
-        <path d="M -8 -8 L 8 8 M -8 8 L 8 -8" stroke-opacity="0.55"/>
+      <!-- sparkle, vertically centered (pill center y = 28) -->
+      <g transform="translate(28 28)" stroke="url(#bp)" stroke-width="2.4" stroke-linecap="round" fill="none">
+        <path d="M 0 -10 L 0 10 M -10 0 L 10 0"/>
+        <path d="M -7 -7 L 7 7 M -7 7 L 7 -7" stroke-opacity="0.55"/>
       </g>
-      <text x="68" y="38" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
-            font-size="20" font-weight="800" fill="rgba(255,255,255,0.96)">Claude Design</text>
+      <!-- text, baseline aligned with sparkle centerline -->
+      <text x="52" y="35" font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, sans-serif"
+            font-size="18" font-weight="800" fill="rgba(255,255,255,0.96)" letter-spacing="0.2">Claude Design</text>
     </g>
   </g>
 
