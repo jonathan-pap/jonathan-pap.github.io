@@ -4,11 +4,20 @@
   <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-04-27T00:00:00Z</updated>
+  <updated>2026-05-04T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Designing Power BI with Claude as the build partner</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=power-bi-claude-design-skills" />
+    <id>https://jonathan-pap.github.io/post.html?slug=power-bi-claude-design-skills</id>
+    <updated>2026-05-04T00:00:00Z</updated>
+    <summary>PowerBI-Claude-Design is a library of Claude.ai skill packages for authoring Power BI semantic models and reports — TMDL, DAX, calculation groups, UDFs, plus a visual design system. The folder is the source of truth.</summary>
+    <category term="AI" />
+  </entry>
 
   <entry>
     <title>A Power BI icon picker, powered by Iconify</title>

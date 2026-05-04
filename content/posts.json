@@ -1,6 +1,17 @@
 {
   "posts": [
     {
+      "slug": "power-bi-claude-design-skills",
+      "title": "Designing Power BI with Claude as the build partner",
+      "date": "2026-05-04",
+      "category": "AI",
+      "tags": ["Power BI", "Claude", "TMDL", "DAX", "Design System", "Tooling"],
+      "excerpt": "PowerBI-Claude-Design is a library of Claude.ai skill packages for authoring Power BI semantic models and reports — TMDL, DAX, calculation groups, UDFs, plus a visual design system. The folder is the source of truth.",
+      "readTime": 7,
+      "author": { "name": "Jonathan Pap" },
+      "image": "./assets/img/posts/power-bi-claude-design-skills.svg"
+    },
+    {
       "slug": "power-bi-icon-library",
       "title": "A Power BI icon picker, powered by Iconify",
       "date": "2026-04-27",
