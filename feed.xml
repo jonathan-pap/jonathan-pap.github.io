@@ -4,11 +4,20 @@
   <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-05-04T00:00:00Z</updated>
+  <updated>2026-05-05T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Secret Hitler online, with bots to fill the seats</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots" />
+    <id>https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots</id>
+    <updated>2026-05-05T00:00:00Z</updated>
+    <summary>A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans.</summary>
+    <category term="Side Projects" />
+  </entry>
 
   <entry>
     <title>Designing Power BI with Claude Design as the build partner</title>

@@ -1,6 +1,17 @@
 {
   "posts": [
     {
+      "slug": "secret-hitler-online-with-bots",
+      "title": "Secret Hitler online, with bots to fill the seats",
+      "date": "2026-05-05",
+      "category": "Side Projects",
+      "tags": ["Side Projects", "Games", "AI Bots", "WebSockets", "Node"],
+      "excerpt": "A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans. An honest note on what kind of \"AI\" the bots are, and why heuristic was the right call.",
+      "readTime": 5,
+      "author": { "name": "Jonathan Pap" },
+      "image": "./assets/img/posts/secret-hitler-online-with-bots.svg"
+    },
+    {
       "slug": "power-bi-claude-design-skills",
       "title": "Designing Power BI with Claude Design as the build partner",
       "date": "2026-05-04",
