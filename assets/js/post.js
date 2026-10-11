@@ -1,401 +1,287 @@
+/* Post page: renders content/posts/<slug>.md with marked, highlights DAX,
+   and builds the contents list, reading progress and newer/older links.
+   Needs app.js (window.SiteBlog) and, for DAX, dist/dax-highlight. */
 (function () {
+  "use strict";
+
+  const { loadPosts, formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
+  const SITE_URL = "https://jonathan-pap.github.io/";
+  const SITE_NAME = "Gold Layer";
+
   const titleEl = document.getElementById("postTitle");
-  const dateEl = document.getElementById("postDate");
-  const catEl = document.getElementById("postCategory");
+  const metaEl = document.getElementById("postMeta");
   const tagsEl = document.getElementById("postTags");
+  const aiNoteEl = document.getElementById("aiNote");
   const bodyEl = document.getElementById("postBody");
-
-  const errWrap = document.getElementById("postError");
-  const errMsg = document.getElementById("postErrorMsg");
-
-  const navSection = document.getElementById("postNavSection");
+  const errorEl = document.getElementById("postError");
+  const errorMsgEl = document.getElementById("postErrorMsg");
+  const navSectionEl = document.getElementById("postNavSection");
   const navEl = document.getElementById("postNav");
   const tocSectionEl = document.getElementById("postTocSection");
   const tocEl = document.getElementById("postToc");
-  const progressWrapEl = document.querySelector(".reading-progress");
   const progressBarEl = document.getElementById("readingProgressBar");
-  const postColumnEl = document.querySelector(".post-column");
-  const topnavEl = document.querySelector(".topnav");
 
-  const yearEl = document.getElementById("year");
-
-  const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
-
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  // DAX syntax highlighting is delegated to the standalone package at
-  // dist/dax-highlight/. Loaded via <script> in post.html — available as
-  // window.DaxHighlight. If the script is missing (offline, blocked), we
-  // silently degrade to plain <pre><code> rendering.
-  function highlightDaxBlocks() {
-    if (!bodyEl || typeof window.DaxHighlight === "undefined") return;
-    window.DaxHighlight.highlightAll(bodyEl);
-  }
-
-  function getSlug() {
-    const url = new URL(window.location.href);
-    return url.searchParams.get("slug") || "";
-  }
-
-  function mdPathForPost(p) {
-    return p.file || p.path || `./content/posts/${p.slug}.md`;
-  }
-
-  function showError(message) {
-    errWrap.hidden = false;
-    errMsg.textContent = message || "An error occurred.";
+  function showError(title, message) {
+    document.title = `${title} · ${SITE_NAME}`;
+    titleEl.textContent = title;
+    bodyEl.innerHTML = "";
+    if (OPENED_FROM_DISK) errorMsgEl.innerHTML = FROM_DISK_HELP;
+    else errorMsgEl.textContent = message;
+    errorEl.hidden = false;
   }
 
   function showSkeleton() {
-    if (!bodyEl) return;
     bodyEl.innerHTML = `
       <div class="post-skeleton" aria-hidden="true">
-        <div class="post-skeleton-line post-skeleton-line--wide"></div>
-        <div class="post-skeleton-line post-skeleton-line--med"></div>
-        <div class="post-skeleton-line post-skeleton-line--wide"></div>
-        <div class="post-skeleton-line post-skeleton-line--short"></div>
-        <div class="post-skeleton-gap"></div>
-        <div class="post-skeleton-line post-skeleton-line--wide"></div>
-        <div class="post-skeleton-line post-skeleton-line--med"></div>
-        <div class="post-skeleton-line post-skeleton-line--wide"></div>
-      </div>
-    `;
+        <span></span><span></span><span></span><span></span><span class="gap"></span>
+        <span></span><span></span><span></span><span></span>
+      </div>`;
   }
 
   function setMeta(p) {
     const title = p.title || "Untitled";
-    const desc = (p.excerpt || `${title} — an article on BluPulse.`).slice(0, 300);
-    const canonicalBase = "https://jonathan-pap.github.io/post.html";
-    const canonicalUrl = `${canonicalBase}?slug=${encodeURIComponent(p.slug || "")}`;
-    const ogImage = p.image
-      ? new URL(p.image, "https://jonathan-pap.github.io/").href
-      : "https://jonathan-pap.github.io/favicon.svg";
+    const desc = (p.excerpt || `${title}: an article on ${SITE_NAME}.`).slice(0, 300);
+    const url = `${SITE_URL}post.html?slug=${encodeURIComponent(p.slug || "")}`;
+    const image = new URL(p.image || "favicon.svg", SITE_URL).href;
 
-    document.title = `${title} · BluPulse`;
-
-    // Update SEO / social meta tags dynamically.
+    document.title = `${title} · ${SITE_NAME}`;
     const setAttr = (id, attr, value) => {
       const el = document.getElementById(id);
       if (el) el.setAttribute(attr, value);
     };
     setAttr("metaDescription", "content", desc);
-    setAttr("metaCanonical", "href", canonicalUrl);
-    setAttr("metaOgTitle", "content", `${title} · BluPulse`);
+    setAttr("metaCanonical", "href", url);
+    setAttr("metaOgTitle", "content", title);
     setAttr("metaOgDesc", "content", desc);
-    setAttr("metaOgUrl", "content", canonicalUrl);
-    setAttr("metaOgImage", "content", ogImage);
+    setAttr("metaOgUrl", "content", url);
+    setAttr("metaOgImage", "content", image);
 
     titleEl.textContent = title;
-
-    const dt = p.date ? fmt.format(new Date(p.date)) : "";
-    dateEl.textContent = dt;
-
-    catEl.innerHTML = p.category ? `<span class="tagpill">${escapeHtml(p.category)}</span>` : "";
-
-    const tags = (p.tags || []).map(t => `<span class="tagpill">#${escapeHtml(t)}</span>`).join(" ");
-    tagsEl.innerHTML = tags || "";
-
-    // AI-drafted disclosure, rendered once below the post header
-    // (idempotent — safe even if setMeta runs twice).
-    const existing = document.getElementById("aiDisclosure");
-    if (existing) existing.remove();
-    if (p.drafted_with_ai) {
-      const divider = document.querySelector(".post-head-divider");
-      if (divider) {
-        const note = document.createElement("p");
-        note.id = "aiDisclosure";
-        note.className = "ai-disclosure";
-        note.innerHTML = "✨ This post was drafted with AI and reviewed by the author. "
-          + "See the <a href=\"./about.html#ai-disclosure\">About page</a> for why that's noted.";
-        divider.insertAdjacentElement("beforebegin", note);
-      }
-    }
+    metaEl.innerHTML = [
+      `<span class="cat">${escapeHtml(p.category || "Notes")}</span>`,
+      p._dt ? `<time datetime="${escapeHtml(p.date)}">${formatDate(p._dt)}</time>` : "",
+      typeof p.readTime === "number" ? `<span>${p.readTime} min read</span>` : "",
+    ].join("");
+    tagsEl.innerHTML = (p.tags || []).map((t) =>
+      `<a href="${escapeHtml(tagUrl(t))}">#${escapeHtml(t)}</a>`).join("");
+    aiNoteEl.hidden = !p.drafted_with_ai;
   }
 
-  function sortedPosts(posts) {
-    return posts.slice().sort((a, b) => {
-      const da = a.date ? new Date(a.date).getTime() : 0;
-      const db = b.date ? new Date(b.date).getTime() : 0;
-      return db - da; // newest first
+  // Posts often repeat the title as a leading "# Title"; the page header already shows it.
+  function removeDuplicateLeadTitle(title) {
+    const first = bodyEl.firstElementChild;
+    const norm = (s) => String(s || "").replace(/\s+/g, " ").trim().toLowerCase();
+    if (first && first.tagName === "H1" && norm(first.textContent) === norm(title)) first.remove();
+  }
+
+  // ---- code blocks: DAX highlighting, a language label and a copy button ----
+
+  function enhanceCodeBlocks() {
+    // dist/dax-highlight colours every ```dax fence (<pre><code class="language-dax">).
+    // If the script didn't load, the code still shows, just uncoloured.
+    if (window.DaxHighlight) window.DaxHighlight.highlightAll(bodyEl);
+
+    bodyEl.querySelectorAll("pre").forEach((pre) => {
+      const code = pre.querySelector("code");
+      if (!code) return;
+      const lang = (/\blang(?:uage)?-([\w#+-]+)/.exec(code.className) || [])[1] || "";
+      const block = document.createElement("div");
+      block.className = "code-block";
+      block.innerHTML = `
+        <div class="code-bar">
+          <span class="code-lang${lang.toLowerCase() === "dax" ? " code-lang--dax" : ""}">${escapeHtml(lang)}</span>
+          <button type="button" class="code-copy">Copy<span class="sr-only"> code</span></button>
+        </div>`;
+      pre.tabIndex = 0;  // lets keyboard users scroll wide code
+      pre.replaceWith(block);
+      block.appendChild(pre);
     });
   }
 
-  function navCard(post, label, dir) {
-    const dt = post.date ? fmt.format(new Date(post.date)) : "";
-    const cat = post.category || "Article";
-    return `
-      <a class="navcard ${dir}" href="./post.html?slug=${encodeURIComponent(post.slug)}">
-        <div class="navcard-top">
-          <div class="navcard-label">${escapeHtml(label)}</div>
-          <div class="navcard-pill">${escapeHtml(cat)}</div>
-        </div>
-        <div class="navcard-title">${escapeHtml(post.title || "Untitled")}</div>
-        <div class="navcard-meta">${escapeHtml(dt)}</div>
-      </a>
-    `;
+  function flash(btn, text) {
+    btn.textContent = text;
+    btn.classList.add("is-done");
+    clearTimeout(btn._timer);
+    btn._timer = setTimeout(() => {
+      btn.innerHTML = `Copy<span class="sr-only"> code</span>`;
+      btn.classList.remove("is-done");
+    }, 1600);
   }
 
-  function normalizeText(s) {
-    return String(s || "").replace(/\s+/g, " ").trim().toLowerCase();
-  }
-
-  function removeDuplicateLeadTitle(title) {
-    if (!bodyEl) return;
-
-    const firstH1 = bodyEl.querySelector("h1");
-    if (!firstH1) return;
-
-    if (normalizeText(firstH1.textContent) === normalizeText(title)) {
-      firstH1.remove();
+  bodyEl.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".code-copy");
+    if (!btn) return;
+    const code = btn.closest(".code-block").querySelector("code");
+    try {
+      await navigator.clipboard.writeText(code.textContent);
+      flash(btn, "Copied");
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(code);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      flash(btn, "Press Ctrl+C");
     }
-  }
+  });
+
+  // ---- contents list ----
 
   function slugifyHeading(text) {
     const base = String(text || "")
       .toLowerCase()
       .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[̀-ͯ]/g, "")
       .replace(/[^a-z0-9\s-]/g, "")
       .trim()
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "");
-
     return base || "section";
   }
 
-  function buildTocFromBody() {
-    if (!tocSectionEl || !tocEl || !bodyEl) return false;
-
+  function buildToc() {
     const headings = Array.from(bodyEl.querySelectorAll("h2, h3"));
-    if (!headings.length) {
-      tocEl.innerHTML = "";
-      tocSectionEl.hidden = true;
-      return false;
-    }
+    if (headings.length < 2) return;
 
     const used = new Map();
-
     const items = headings.map((h) => {
-      const raw = (h.textContent || "").trim();
-      const base = slugifyHeading(raw);
-      const count = (used.get(base) || 0) + 1;
-      used.set(base, count);
-
-      const id = count === 1 ? base : `${base}-${count}`;
-      h.id = id;
-
-      return {
-        id,
-        level: h.tagName === "H3" ? 3 : 2,
-        text: raw || "Section"
-      };
+      const text = (h.textContent || "").trim() || "Section";
+      const base = slugifyHeading(text);
+      const n = (used.get(base) || 0) + 1;
+      used.set(base, n);
+      h.id = n === 1 ? base : `${base}-${n}`;
+      return { id: h.id, level: h.tagName === "H3" ? 3 : 2, text };
     });
 
     tocEl.innerHTML = items.map((item) => `
-      <a class="post-toc-link post-toc-link--l${item.level}" href="#${item.id}" title="${escapeHtml(item.text)}" data-toc-target="${item.id}">
-        ${escapeHtml(item.text)}
-      </a>
-    `).join("");
-
+      <a class="post-toc-link post-toc-link--l${item.level}" href="#${item.id}" data-toc-target="${item.id}">${escapeHtml(item.text)}</a>`).join("");
     tocSectionEl.hidden = false;
-    initTocActiveHighlight(items.map(i => i.id));
-    return true;
+    highlightTocOnScroll(items.map((i) => i.id));
   }
 
-  // Highlight the nearest heading as the user scrolls.
-  function initTocActiveHighlight(ids) {
-    if (!ids.length || !("IntersectionObserver" in window)) return;
+  // The current section is the last heading that has scrolled past 30% of the screen.
+  function highlightTocOnScroll(ids) {
+    const headings = ids.map((id) => document.getElementById(id));
+    const links = Array.from(tocEl.querySelectorAll("[data-toc-target]"));
+    let current = -1;
+    let queued = false;
 
-    const linkFor = new Map();
-    tocEl.querySelectorAll("[data-toc-target]").forEach(a => {
-      linkFor.set(a.getAttribute("data-toc-target"), a);
-    });
-
-    const visible = new Set();
-
-    const setActive = (id) => {
-      tocEl.querySelectorAll(".post-toc-link--active")
-        .forEach(a => a.classList.remove("post-toc-link--active"));
-      if (!id) return;
-      const el = linkFor.get(id);
-      if (el) el.classList.add("post-toc-link--active");
-    };
-
-    const pickActive = () => {
-      if (!visible.size) return;
-      // Pick whichever visible heading appears first in document order.
-      const firstId = ids.find(id => visible.has(id));
-      setActive(firstId);
-    };
-
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const id = entry.target.id;
-        if (entry.isIntersecting) visible.add(id);
-        else visible.delete(id);
-      }
-      pickActive();
-    }, {
-      rootMargin: "-20% 0px -65% 0px",
-      threshold: 0,
-    });
-
-    ids.forEach(id => {
-      const heading = document.getElementById(id);
-      if (heading) io.observe(heading);
-    });
-  }
-
-  // Cached layout metrics — invalidated on resize and by ResizeObserver.
-  let cachedArticleTop = 0;
-  let cachedArticleHeight = 0;
-
-  function measureArticle() {
-    if (!bodyEl) return;
-    let top = 0;
-    let node = bodyEl;
-    while (node) {
-      top += node.offsetTop || 0;
-      node = node.offsetParent;
+    function update() {
+      queued = false;
+      const line = window.innerHeight * 0.3;
+      let idx = 0;
+      headings.forEach((h, i) => { if (h.getBoundingClientRect().top <= line) idx = i; });
+      if (idx === current) return;
+      current = idx;
+      links.forEach((a, i) => {
+        a.classList.toggle("post-toc-link--active", i === idx);
+        if (i === idx) a.setAttribute("aria-current", "location");
+        else a.removeAttribute("aria-current");
+      });
     }
-    cachedArticleTop = top;
-    cachedArticleHeight = Math.max(bodyEl.scrollHeight, bodyEl.getBoundingClientRect().height);
-  }
-
-  function syncLayoutMetrics() {
-    const topnavHeight = topnavEl ? Math.round(topnavEl.getBoundingClientRect().height) : 64;
-    document.documentElement.style.setProperty("--topnav-h", `${topnavHeight}px`);
-
-    if (progressWrapEl && postColumnEl) {
-      const rect = postColumnEl.getBoundingClientRect();
-      progressWrapEl.style.left = `${Math.max(0, rect.left)}px`;
-      progressWrapEl.style.width = `${Math.max(0, rect.width)}px`;
-      progressWrapEl.style.right = "auto";
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
     }
 
-    measureArticle();
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    update();
   }
 
-  function updateReadingProgress() {
-    if (!progressBarEl || !bodyEl) return;
-
-    const viewportOffset = 120;
-    const progress = (window.scrollY + viewportOffset - cachedArticleTop) / Math.max(1, cachedArticleHeight);
-    const clamped = Math.max(0, Math.min(1, progress));
-
-    progressBarEl.style.transform = `scaleX(${clamped})`;
-  }
-
-  // rAF-gated scroll handler: reads are cached, only writes happen per frame.
-  let rafScheduled = false;
-  function onScrollRaf() {
-    if (rafScheduled) return;
-    rafScheduled = true;
-    requestAnimationFrame(() => {
-      rafScheduled = false;
-      updateReadingProgress();
-    });
-  }
+  // ---- reading progress: 0 at the top of the article, 1 when its end reaches the bottom of the screen ----
 
   function initReadingProgress() {
     if (!progressBarEl) return;
+    let queued = false;
 
-    syncLayoutMetrics();
-    updateReadingProgress();
-
-    window.addEventListener("load", syncLayoutMetrics);
-    window.addEventListener("resize", syncLayoutMetrics);
-    window.addEventListener("scroll", onScrollRaf, { passive: true });
-
-    if ("ResizeObserver" in window) {
-      const ro = new ResizeObserver(() => {
-        syncLayoutMetrics();
-        updateReadingProgress();
-      });
-      if (postColumnEl) ro.observe(postColumnEl);
-      if (topnavEl) ro.observe(topnavEl);
+    function update() {
+      queued = false;
+      const topbar = document.querySelector(".topbar");
+      const offset = topbar ? topbar.offsetHeight : 64;
+      const rect = bodyEl.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight + offset;
+      const progress = scrollable <= 0 ? 1 : (offset - rect.top) / scrollable;
+      progressBarEl.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
     }
+    function queue() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    window.addEventListener("load", queue);
+    update();
+  }
+
+  // ---- newer / older ----
+
+  function navCard(p, label, dir) {
+    const meta = [escapeHtml(p.category || "Notes"), formatDate(p._dt)].filter(Boolean).join(" · ");
+    return `
+      <a class="navcard navcard--${dir}" href="${postUrl(p)}">
+        <span class="navcard-label">${label}</span>
+        <span class="navcard-title">${escapeHtml(p.title || "Untitled")}</span>
+        <span class="navcard-meta">${meta}</span>
+      </a>`;
   }
 
   async function init() {
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-
-    const slug = getSlug();
+    const slug = new URL(window.location.href).searchParams.get("slug") || "";
     if (!slug) {
-      showError("Missing ?slug= parameter in the URL.");
-      titleEl.textContent = "Post not found";
+      showError("Post not found", "This link is missing the ?slug= part that names the article.");
       return;
     }
 
-    const res = await fetch("./content/posts.json");
-    if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
-
-    const data = await res.json();
-    const posts = sortedPosts(data.posts || []);
-
-    const current = posts.find(p => p.slug === slug);
-    if (!current) {
-      showError(`No post found for slug "${slug}".`);
-      titleEl.textContent = "Post not found";
+    const posts = await loadPosts();  // newest first
+    const idx = posts.findIndex((p) => p.slug === slug);
+    if (idx === -1) {
+      showError("Post not found", `There's no article called "${slug}". It may have been renamed.`);
       return;
     }
+    const current = posts[idx];
 
     setMeta(current);
     showSkeleton();
 
-    const mdRes = await fetch(mdPathForPost(current));
+    const mdPath = current.file || current.path || `./content/posts/${current.slug}.md`;
+    const mdRes = await fetch(mdPath);
     if (!mdRes.ok) throw new Error(`Markdown fetch failed: ${mdRes.status}`);
     const md = await mdRes.text();
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
     removeDuplicateLeadTitle(current.title || "");
-    highlightDaxBlocks();
-
-    // Prev/Next: previous = newer, next = older (newest-first list)
-    const idx = posts.findIndex(p => p.slug === current.slug);
-    const prev = idx > 0 ? posts[idx - 1] : null;
-    const next = idx < posts.length - 1 ? posts[idx + 1] : null;
-    buildTocFromBody();
+    enhanceCodeBlocks();
+    buildToc();
     initReadingProgress();
 
-    const navCards = [];
-    if (prev) navCards.push(navCard(prev, "← Previous", "prev"));
-    if (next) navCards.push(navCard(next, "Next →", "next"));
-
-    if (navCards.length) {
-      navEl.innerHTML = navCards.join("");
-      navSection.hidden = false;
+    const newer = idx > 0 ? posts[idx - 1] : null;
+    const older = idx < posts.length - 1 ? posts[idx + 1] : null;
+    const cards = [];
+    if (newer) cards.push(navCard(newer, "← Newer", "newer"));
+    if (older) cards.push(navCard(older, "Older →", "older"));
+    if (cards.length) {
+      navEl.innerHTML = cards.join("");
+      navSectionEl.hidden = false;
     }
 
-    // Ensure progress bar aligns after full layout settles.
-    requestAnimationFrame(() => {
-      syncLayoutMetrics();
-      updateReadingProgress();
-    });
-
-    // If loaded with a hash, re-run anchor positioning after metrics are synced.
+    // The article wasn't there when the browser tried to jump to #heading, so jump now:
+    // instantly (the page sets smooth scrolling) and once web fonts have settled the layout.
     if (window.location.hash) {
-      requestAnimationFrame(() => {
-        const id = decodeURIComponent(window.location.hash.slice(1));
-        const target = id ? document.getElementById(id) : null;
-        if (target) target.scrollIntoView({ block: "start" });
-      });
+      const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      if (target) {
+        const jump = () => target.scrollIntoView({ block: "start", behavior: "instant" });
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(jump));
+      }
     }
   }
 
-  init().catch((e) => {
-    console.error(e);
-    titleEl.textContent = "Could not load post";
-    showError("Please check the slug and that the Markdown file exists under content/posts/.");
+  init().catch((err) => {
+    console.error(err);
+    showError("Could not load post", "The article file didn't load. Check that it exists under content/posts/.");
   });
 })();
-
-

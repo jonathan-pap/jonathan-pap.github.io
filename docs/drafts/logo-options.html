@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Layer logo options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root{--navy-900:#0A1328;--navy-800:#10204A;--navy-700:#1B3466;--ink:#E8ECF5;--muted:#A3AEC8;--line:rgba(255,255,255,.10);--gold:#F2C811}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--navy-900);color:var(--ink);font:16px/1.5 "Figtree",system-ui,sans-serif;padding:32px 24px 56px;
+    background-image:radial-gradient(circle at 2px 2px,rgba(255,255,255,.055) 1.4px,transparent 0);background-size:28px 28px}
+  h1{font-size:26px;font-weight:800;margin:0 0 6px}
+  p.note{color:var(--muted);margin:0 0 28px;max-width:70ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;max-width:1440px;margin:0 auto}
+  .opt{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);padding:20px;display:grid;gap:16px}
+  .opt h2{margin:0;font-size:17px}
+  .opt .why{color:var(--muted);font-size:14px;margin:0}
+  .tag{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .bar{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;border-radius:8px;background:rgba(10,19,40,.9);border:1px solid var(--line);font-weight:700;font-size:17px}
+  .bar svg{width:28px;height:28px}
+  .sizes{display:flex;align-items:end;gap:18px}
+  .sizes svg{display:block}
+  .tab{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px 8px 0 0;background:#1f2937;font-size:12px;color:#d1d5db;width:max-content}
+  .big{width:96px;height:96px}
+</style>
+</head>
+<body>
+<h1>Gold Layer · logo options</h1>
+<p class="note">Each option in the top bar at real size, as a browser-tab icon (16px and 32px) and large. Option A is what the site uses now; the current "people-bars" is shown last for comparison.</p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+    <linearGradient id="goldDeep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7C928"/><stop offset="1" stop-color="#D98A00"/></linearGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F3B73"/><stop offset="1" stop-color="#0C1730"/></linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEDA8"/><stop offset="1" stop-color="#F6D65C"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBDD52"/><stop offset="1" stop-color="#ECB90F"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7B500"/><stop offset="1" stop-color="#D98A00"/></linearGradient>
+
+    <!-- A: layers, gold on top of two blue layers -->
+    <g id="markA">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <!-- B: medallion, bronze / silver / gold -->
+    <g id="markB">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#C07A3E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#C3CBDB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <!-- C: a gold ingot -->
+    <g id="markC">
+      <path d="M7 9.6h10l3.2 8.6H3.8Z" fill="url(#goldDeep)" stroke="url(#goldDeep)" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M8.9 5.6h6.2L17 9.6H7Z" fill="#FFE785" stroke="#FFE785" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <!-- D: a trend line with gold data points (the people-bars' heads, without the bars) -->
+    <g id="markD">
+      <polyline points="3.5,17 8.5,11.5 13,14 20.5,6" fill="none" stroke="#4069C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="url(#gold)"><circle cx="3.5" cy="17" r="2.4"/><circle cx="8.5" cy="11.5" r="2.4"/><circle cx="13" cy="14" r="2.4"/><circle cx="20.5" cy="6" r="2.4"/></g>
+    </g>
+    <!-- E: a solid gold block sitting on a blue one (isometric) -->
+    <g id="markE">
+      <path d="M12 9 20 13 12 17 4 13Z" fill="#4069C4"/>
+      <path d="M4 13 12 17V20.2L4 16.2Z" fill="#2A4A8C"/>
+      <path d="M12 17 20 13V16.2L12 20.2Z" fill="#22407A"/>
+      <path d="M12 3 20 7 12 11 4 7Z" fill="url(#gold)"/>
+      <path d="M4 7 12 11V14.2L4 10.2Z" fill="#EDB40C"/>
+      <path d="M12 11 20 7V10.2L12 14.2Z" fill="#D98A00"/>
+    </g>
+    <!-- F: the layers inside DAX measure brackets, as in [Total Sales] -->
+    <g id="markF">
+      <path d="M7.2 3.8H4.4V20.2H7.2M16.8 3.8H19.6V20.2H16.8" fill="none" stroke="#4069C4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="8.4" y="6" width="7.2" height="3.4" rx="1.2" fill="url(#gold)"/>
+      <rect x="8.4" y="10.9" width="7.2" height="2.6" rx="1.1" fill="#4069C4"/>
+      <rect x="8.4" y="15" width="7.2" height="2.6" rx="1.1" fill="#2A4A8C"/>
+    </g>
+    <!-- G: a G monogram, the crossbar as the gold layer -->
+    <g id="markG">
+      <path d="M17.8 6.4A8 8 0 1 0 20 12" fill="none" stroke="#4069C4" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M20.2 12H12.8" fill="none" stroke="#F2C811" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <!-- H: refinement pyramid, wide raw layer at the bottom narrowing to gold -->
+    <g id="markH">
+      <rect x="3.5" y="16" width="17" height="3.6" rx="1.4" fill="#2A4A8C"/>
+      <rect x="6" y="10.6" width="12" height="3.6" rx="1.4" fill="#4069C4"/>
+      <rect x="8.5" y="5.2" width="7" height="3.6" rx="1.4" fill="url(#gold)"/>
+    </g>
+    <!-- I: option A as a thin line icon, like the kit's icon set -->
+    <g id="markI">
+      <path d="M3 16.6 12 21.2 21 16.6M3 12.1 12 16.7 21 12.1" fill="none" stroke="#A3AEC8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.7" stroke-linejoin="round"/>
+    </g>
+    <!-- J: minimal, the gold layer over a single line -->
+    <g id="markJ">
+      <path d="M3 15.4 12 20 21 15.4" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 4 21 8.6 12 13.2 3 8.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <!-- current: people-bars -->
+    <g id="markNow">
+      <rect x="3.6" y="14.2" width="4.4" height="6.3" rx="1.6" fill="url(#g1)"/><circle cx="5.8" cy="11.5" r="1.9" fill="url(#g1)"/>
+      <rect x="9.8" y="11" width="4.4" height="9.5" rx="1.6" fill="url(#g2)"/><circle cx="12" cy="8.3" r="1.9" fill="url(#g2)"/>
+      <rect x="16" y="7.8" width="4.4" height="12.7" rx="1.6" fill="url(#g3)"/><circle cx="18.2" cy="5.1" r="1.9" fill="url(#g3)"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="grid" id="grid"></div>
+
+<script>
+  const options = [
+    ["markA", "A · Gold layer on top", "Recommended", "Three layers, the gold one on top: the name, drawn. Stays in navy and gold, and shares nothing with Power BI's bars."],
+    ["markB", "B · Medallion", "", "Same stack in bronze, silver and gold. Fabric people will read the medallion layers instantly; adds two colours to the palette."],
+    ["markC", "C · Gold ingot", "", "A gold bar: playful and very 'gold', but says less about layers or data."],
+    ["markD", "D · Trend line", "", "Keeps the kit's line-through-the-heads idea, without the bars. Generic chart icon."],
+    ["markE", "E · Gold block", "", "The gold layer as a solid block sitting on a blue one. Chunky and 3D; reads well big, a little busy at 16px."],
+    ["markF", "F · DAX brackets", "", "The layers inside [ ], the way DAX writes a measure: [Total Sales]. An in-joke every DAX person gets."],
+    ["markG", "G · Monogram", "", "A G whose crossbar is the gold layer. Simple and letter-based; least about data."],
+    ["markH", "H · Refinement pyramid", "", "Wide raw layer at the bottom, narrowing to a small gold layer on top: data getting refined. Flat and very legible."],
+    ["markI", "I · Line style", "", "Option A drawn like the kit's line icons: thin grey lines, solid gold top. Lighter, more editorial."],
+    ["markJ", "J · Minimal", "", "Just the gold layer over one line. The quietest version; still clearly 'gold on top'."],
+    ["markNow", "Current · people-bars", "", "Rising gold bars: close to the Power BI logo."],
+  ];
+  const svg = (id, size, tile) => `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true">${tile ? `<rect width="24" height="24" rx="5" fill="url(#tile)"/><g transform="translate(2.4 2.4) scale(.8)"><use href="#${id}"/></g>` : `<use href="#${id}"/>`}</svg>`;
+  document.getElementById("grid").innerHTML = options.map(([id, name, tag, why]) => `
+    <section class="opt">
+      <div><h2>${name}</h2>${tag ? `<div class="tag">${tag}</div>` : ""}</div>
+      <div class="bar">${svg(id, 28)} Gold Layer</div>
+      <div class="sizes">
+        <div class="tab">${svg(id, 16, true)} Gold Layer</div>
+        ${svg(id, 32, true)}
+        ${svg(id, 96, false).replace('width="96"', 'class="big" width="96"')}
+      </div>
+      <p class="why">${why}</p>
+    </section>`).join("");
+</script>
+</body>
+</html>

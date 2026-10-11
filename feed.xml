@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>BluPulse</title>
-  <subtitle>Insights, tutorials, and patterns — blue to purple.</subtitle>
+  <title>Gold Layer</title>
+  <subtitle>Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
   <updated>2026-05-05T00:00:00Z</updated>
@@ -15,7 +15,7 @@
     <link href="https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots" />
     <id>https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots</id>
     <updated>2026-05-05T00:00:00Z</updated>
-    <summary>A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans.</summary>
+    <summary>A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans. An honest note on what kind of "AI" the bots are, and why heuristic was the right call.</summary>
     <category term="Side Projects" />
   </entry>
 
@@ -45,4 +45,5 @@
     <summary>PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.</summary>
     <category term="Tooling" />
   </entry>
+
 </feed>

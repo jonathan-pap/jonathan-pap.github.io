@@ -1,0 +1,266 @@
+<!doctype html>
+<!-- Snapshot of the intro home page (Oct 2026), parked while the site is blog-only.
+     Its intro styles and the "Latest articles" script were removed from the live site,
+     so it will not render properly as-is; it needs re-wiring before it goes back. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jonathan Papworth · Power BI and Fabric</title>
+<meta name="description" content="Jonathan Papworth builds Power BI and Fabric solutions that people actually use, and writes about DAX, Power BI and analytics engineering.">
+<meta name="author" content="Jonathan Papworth">
+<meta name="theme-color" content="#0A1328">
+<link rel="canonical" href="https://jonathan-pap.github.io/">
+
+<meta property="og:site_name" content="Jonathan Papworth">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jonathan Papworth · Power BI and Fabric">
+<meta property="og:description" content="Power BI and Fabric solutions that people actually use, plus notes on DAX, Power BI and analytics engineering.">
+<meta property="og:url" content="https://jonathan-pap.github.io/">
+<meta property="og:image" content="https://jonathan-pap.github.io/favicon.svg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="Jonathan Papworth · Blog" href="./feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="./assets/css/styles.css?v=60">
+</head>
+<body>
+<a class="skip-link" href="#top">Skip to content</a>
+
+<!-- Shared drawings: gradients for the people-bars -->
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEDA8"/><stop offset="1" stop-color="#F6D65C"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBDD52"/><stop offset="1" stop-color="#ECB90F"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7B500"/><stop offset="1" stop-color="#D98A00"/></linearGradient>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Jonathan Papworth, back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3.6" y="14.2" width="4.4" height="6.3" rx="1.6" fill="url(#g1)"/><circle cx="5.8" cy="11.5" r="1.9" fill="url(#g1)"/>
+        <rect x="9.8" y="11" width="4.4" height="9.5" rx="1.6" fill="url(#g2)"/><circle cx="12" cy="8.3" r="1.9" fill="url(#g2)"/>
+        <rect x="16" y="7.8" width="4.4" height="12.7" rx="1.6" fill="url(#g3)"/><circle cx="18.2" cy="5.1" r="1.9" fill="url(#g3)"/>
+      </svg>
+      Jonathan Papworth
+    </a>
+    <nav aria-label="Main">
+      <!-- Hidden for now, with their sections below:
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      -->
+      <a class="keep" href="./blog.html">Blog</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Power BI · Fabric · DAX</div>
+        <h1 id="hero-title">Hi, I'm Jonathan. I turn data into reports <span class="hl">people actually use.</span></h1>
+        <p class="lead">[One or two sentences about you: what you build, for whom, and what you care about. For example: semantic models that are fast, documented and easy to trust.]</p>
+        <div class="actions">
+          <a class="btn primary" href="./blog.html">Read the blog
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="740 50 590 420">
+          <line x1="752" y1="452" x2="1310" y2="452" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="2" stroke-linecap="round"/>
+          <rect class="bar" style="animation-delay:.00s" x="770"  y="330" width="52" height="120" rx="18" fill="url(#g1)"/>
+          <rect class="bar" style="animation-delay:.08s" x="848"  y="275" width="52" height="175" rx="18" fill="url(#g1)"/>
+          <rect class="bar" style="animation-delay:.16s" x="926"  y="300" width="52" height="150" rx="18" fill="url(#g2)"/>
+          <rect class="bar" style="animation-delay:.24s" x="1004" y="235" width="52" height="215" rx="18" fill="url(#g2)"/>
+          <rect class="bar" style="animation-delay:.32s" x="1082" y="250" width="52" height="200" rx="18" fill="url(#g2)"/>
+          <rect class="bar" style="animation-delay:.40s" x="1160" y="185" width="52" height="265" rx="18" fill="url(#g3)"/>
+          <rect class="bar" style="animation-delay:.48s" x="1238" y="130" width="52" height="320" rx="18" fill="url(#g3)"/>
+          <polyline class="trend" points="796,297 874,242 952,267 1030,202 1108,217 1186,152 1264,97" fill="none" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle class="head" style="animation-delay:.55s" cx="796"  cy="297" r="23" fill="url(#g1)"/>
+          <circle class="head" style="animation-delay:.60s" cx="874"  cy="242" r="23" fill="url(#g1)"/>
+          <circle class="head" style="animation-delay:.65s" cx="952"  cy="267" r="23" fill="url(#g2)"/>
+          <circle class="head" style="animation-delay:.70s" cx="1030" cy="202" r="23" fill="url(#g2)"/>
+          <circle class="head" style="animation-delay:.75s" cx="1108" cy="217" r="23" fill="url(#g2)"/>
+          <circle class="head" style="animation-delay:.80s" cx="1186" cy="152" r="23" fill="url(#g3)"/>
+          <circle class="head" style="animation-delay:.85s" cx="1264" cy="97"  r="23" fill="url(#g3)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:56px">
+      <div class="figures">
+        <div class="figure"><b>[10+]</b><span>years building BI</span></div>
+        <div class="figure"><b>[50+]</b><span>semantic models shipped</span></div>
+        <div class="figure"><b>[2]</b><span>Microsoft certifications</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About, Skills and Work are hidden for now: remove `hidden` from each section to bring it back. -->
+  <section id="about" class="section" aria-labelledby="about-title" hidden>
+    <div class="wrap about">
+      <div>
+        <div class="eyebrow">About</div>
+        <h2 id="about-title">[A short headline about how you work]</h2>
+        <p>[Two or three sentences about your background: where you started, what you do now, and the kind of problems you enjoy.]</p>
+        <p>[One sentence about how you work with people: for example, you like to sit with the people who read the reports before you build them.]</p>
+      </div>
+      <aside class="facts" aria-label="Quick facts">
+        <div class="avatar" aria-hidden="true">JP</div>
+        <dl>
+          <dt>Based in</dt><dd>[City, Country]</dd>
+          <dt>Working at</dt><dd>[Company]</dd>
+          <dt>Focus</dt><dd>[Semantic models, Fabric, report design]</dd>
+          <dt>Languages</dt><dd>[English, Dutch]</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section id="skills" class="section" aria-labelledby="skills-title" hidden>
+    <div class="wrap">
+      <div class="eyebrow">Skills</div>
+      <h2 id="skills-title">What I work with</h2>
+      <div class="grid four">
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5.5" y="12" width="3.2" height="8" rx=".8"/><rect x="10.4" y="5" width="3.2" height="15" rx=".8"/><rect x="15.3" y="9" width="3.2" height="11" rx=".8"/></svg></div>
+          <h3>Modelling</h3>
+          <div class="chips"><span class="chip">DAX</span><span class="chip">Power Query</span><span class="chip">Star schemas</span><span class="chip">TMDL</span></div>
+        </article>
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 3 21 7.5 12 12 3 7.5"/><polyline points="3 12 12 16.5 21 12"/><polyline points="3 16.5 12 21 21 16.5"/></svg></div>
+          <h3>Platform</h3>
+          <div class="chips"><span class="chip">Fabric</span><span class="chip">Lakehouse</span><span class="chip">Direct Lake</span><span class="chip">Notebooks</span></div>
+        </article>
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><line x1="13.6" y1="5" x2="10.4" y2="19"/></svg></div>
+          <h3>Delivery</h3>
+          <div class="chips"><span class="chip">PBIP + Git</span><span class="chip">CI/CD</span><span class="chip">Deployment pipelines</span></div>
+        </article>
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2z"/></svg></div>
+          <h3>Design</h3>
+          <div class="chips"><span class="chip">Report design</span><span class="chip">Accessibility</span><span class="chip">Storytelling</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section work" aria-labelledby="work-title" hidden>
+    <div class="wrap">
+      <div class="eyebrow">Selected work</div>
+      <h2 id="work-title">Things I've built</h2>
+      <div class="grid three">
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="3.9" ry="9"/><path d="M3 12h18M4.3 7.5h15.4M4.3 16.5h15.4"/></svg></div>
+          <h3>[Case study 1: a reporting platform]</h3>
+          <p class="muted">[The problem in one sentence, and what you built to solve it.]</p>
+          <p class="outcome"><span aria-hidden="true">→</span>[The result, ideally with a number]</p>
+          <div class="chips"><span class="chip">[Fabric]</span><span class="chip">[Composite models]</span></div>
+        </article>
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h6a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H21z"/></svg></div>
+          <h3>[Case study 2: documentation tooling]</h3>
+          <p class="muted">[The problem in one sentence, and what you built to solve it.]</p>
+          <p class="outcome"><span aria-hidden="true">→</span>[The result, ideally with a number]</p>
+          <div class="chips"><span class="chip">[Python]</span><span class="chip">[TMDL]</span></div>
+        </article>
+        <article class="card">
+          <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="14.2" width="4.4" height="6.3" rx="1.6" fill="currentColor" stroke="none"/><circle cx="5.8" cy="11.5" r="1.9" fill="currentColor" stroke="none"/><rect x="9.8" y="11" width="4.4" height="9.5" rx="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="8.3" r="1.9" fill="currentColor" stroke="none"/><rect x="16" y="7.8" width="4.4" height="12.7" rx="1.6" fill="currentColor" stroke="none"/><circle cx="18.2" cy="5.1" r="1.9" fill="currentColor" stroke="none"/></svg></div>
+          <h3>[Case study 3: a BI community]</h3>
+          <p class="muted">[The problem in one sentence, and what you built to solve it.]</p>
+          <p class="outcome"><span aria-hidden="true">→</span>[The result, ideally with a number]</p>
+          <div class="chips"><span class="chip">[Viva Engage]</span><span class="chip">[SharePoint]</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="section" aria-labelledby="cert-title">
+    <div class="wrap">
+      <div class="eyebrow">Certifications</div>
+      <h2 id="cert-title">Microsoft certified</h2>
+      <div class="grid three">
+        <div class="card badge"><span class="code">PL-300</span><div><h3>Power BI Data Analyst</h3><p class="muted">[Certified in year]</p></div></div>
+        <div class="card badge"><span class="code">DP-600</span><div><h3>Fabric Analytics Engineer</h3><p class="muted">[Certified in year]</p></div></div>
+        <div class="card badge"><span class="code">[+]</span><div><h3>[Next certification]</h3><p class="muted">[In progress]</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog: the three newest posts from content/posts.json, rendered by assets/js/app.js -->
+  <section id="blog" class="section" aria-labelledby="blog-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Blog</div>
+          <h2 id="blog-title">Latest articles</h2>
+        </div>
+        <a class="btn ghost small" href="./blog.html">All articles
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div id="latestPosts" class="post-grid" aria-busy="true">
+        <div class="post-card post-card--skeleton" aria-hidden="true"><div class="post-card-media"></div><div class="post-card-body"><span></span><span></span><span></span></div></div>
+        <div class="post-card post-card--skeleton" aria-hidden="true"><div class="post-card-media"></div><div class="post-card-body"><span></span><span></span><span></span></div></div>
+        <div class="post-card post-card--skeleton" aria-hidden="true"><div class="post-card-media"></div><div class="post-card-body"><span></span><span></span><span></span></div></div>
+      </div>
+      <noscript><p class="empty">The article list needs JavaScript. You can still <a href="./feed.xml">read the feed</a>.</p></noscript>
+    </div>
+  </section>
+
+  <section id="contact" class="section" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact">
+        <svg class="bg" viewBox="740 50 590 420" aria-hidden="true">
+          <g fill="#2A4A8C">
+            <rect x="770" y="330" width="52" height="120" rx="18"/><circle cx="796" cy="297" r="23"/>
+            <rect x="848" y="275" width="52" height="175" rx="18"/><circle cx="874" cy="242" r="23"/>
+            <rect x="926" y="300" width="52" height="150" rx="18"/><circle cx="952" cy="267" r="23"/>
+            <rect x="1004" y="235" width="52" height="215" rx="18"/><circle cx="1030" cy="202" r="23"/>
+            <rect x="1082" y="250" width="52" height="200" rx="18"/><circle cx="1108" cy="217" r="23"/>
+            <rect x="1160" y="185" width="52" height="265" rx="18"/><circle cx="1186" cy="152" r="23"/>
+            <rect x="1238" y="130" width="52" height="320" rx="18"/><circle cx="1264" cy="97" r="23"/>
+          </g>
+          <polyline points="796,297 874,242 952,267 1030,202 1108,217 1186,152 1264,97" fill="none" stroke="#F2C811" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="url(#g2)">
+            <circle cx="796" cy="297" r="10"/><circle cx="874" cy="242" r="10"/><circle cx="952" cy="267" r="10"/><circle cx="1030" cy="202" r="10"/>
+            <circle cx="1108" cy="217" r="10"/><circle cx="1186" cy="152" r="10"/><circle cx="1264" cy="97" r="10"/>
+          </g>
+        </svg>
+        <div class="inner">
+          <div class="eyebrow">Contact</div>
+          <h2 id="contact-title">Let's talk data.</h2>
+          <p class="muted">[A line about what you'd like to hear about: projects, speaking, or just a good DAX puzzle.]</p>
+          <div class="actions">
+            <a class="btn primary" href="mailto:[you@example.com]">[you@example.com]</a>
+            <a class="btn ghost" href="[https://www.linkedin.com/in/your-profile]">LinkedIn</a>
+            <a class="btn ghost" href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Jonathan Papworth</span>
+    <nav aria-label="Footer">
+      <a href="./blog.html">Blog</a>
+      <a href="./feed.xml">RSS feed</a>
+      <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="./assets/js/app.js?v=30"></script>
+</body>
+</html>
