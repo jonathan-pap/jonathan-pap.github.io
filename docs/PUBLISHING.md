@@ -22,17 +22,22 @@ One post = one `.md` file with front matter:
 ---
 title: Short, specific title
 date: 2026-09-12
-category: Tooling          # AI | Tooling | Side Projects | Notes | ...
+category: Tooling
 tags: [Power BI, DAX, MCP]
-excerpt: One or two sentences for the card. Optional — defaults to first paragraph.
-image: ./img/cover.svg     # optional, relative to this file
-draft: false               # true = never published
+excerpt: One or two sentences for the list. Optional — defaults to first paragraph.
+image: ./img/cover.svg
+draft: false
 ---
 
 # Title again is fine — the site de-duplicates a leading H1
 
 Body in normal markdown. DAX in ```dax fences gets highlighted.
 ```
+
+- `category` becomes a topic in the site's sidebar (AI, Tooling, Side Projects, Notes, ...).
+- `image` is optional, relative to the `.md` file; it's used as the preview picture when a post is shared.
+- `draft: true` means never published.
+- Keep comments on their own line starting with `#`; a `# comment` after a value becomes part of the value.
 
 Files starting with `_` are ignored. Slug = file name unless `slug:` is set.
 
@@ -47,6 +52,16 @@ git add -A && git commit -m "sync posts" && git push
 ```
 
 `--only <id>` syncs one workspace. `--prune` removes site posts whose source file was deleted.
+
+## Parked posts
+
+Posts taken off the site but kept ready live in this repo's own `docs/public/` (registered in `sources.json` as `site`), each with `draft: true`. To put one back:
+
+1. In `docs/public/<slug>.md`, change `draft: true` to `draft: false`.
+2. `python sync_posts.py --only site --dry-run`, then `python sync_posts.py --only site`.
+3. Commit and push.
+
+To park a published post again, set `draft: true` and run `python sync_posts.py --only site --prune`.
 
 ## Guardrails
 
