@@ -1,0 +1,9 @@
+{
+  "_comment": "One entry per VS Code workspace that publishes to the site. Paths are absolute or relative to this repo root. Each workspace exposes posts under <path>/docs/public/*.md with YAML front matter (see docs/PUBLISHING.md).",
+  "sources": [
+    { "id": "bi-ai",         "path": "E:/bi-ai-workspace" },
+    { "id": "powerbi-docs",  "path": "E:/PowerBI-Documentation" },
+    { "id": "trades",        "path": "E:/trades" },
+    { "id": "blueprint",     "path": "E:/Workspace-Blueprint" }
+  ]
+}

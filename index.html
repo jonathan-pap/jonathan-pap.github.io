@@ -1,151 +1,136 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BluPulse · Articles on DAX, Power BI, and analytics engineering</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Layer · Notes on DAX, Power BI and Fabric</title>
+<meta name="description" content="Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them.">
+<meta name="author" content="Jonathan Papworth">
+<meta name="theme-color" content="#0A1328">
+<link rel="canonical" href="https://jonathan-pap.github.io/">
 
-  <meta name="description" content="Notes on DAX, Power BI, and analytics engineering — standards, patterns, and the reasoning behind them." />
-  <meta name="author" content="Jonathan Papworth" />
-  <meta name="theme-color" content="#0B1030" />
-  <link rel="canonical" href="https://jonathan-pap.github.io/" />
+<meta property="og:site_name" content="Gold Layer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gold Layer · Notes on DAX, Power BI and Fabric">
+<meta property="og:description" content="Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them.">
+<meta property="og:url" content="https://jonathan-pap.github.io/">
+<meta property="og:image" content="https://jonathan-pap.github.io/favicon.svg">
+<meta name="twitter:card" content="summary">
 
-  <!-- Open Graph / Social -->
-  <meta property="og:site_name" content="BluPulse" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="BluPulse · DAX, Power BI, analytics engineering" />
-  <meta property="og:description" content="Notes on DAX, Power BI, and analytics engineering — standards, patterns, and the reasoning behind them." />
-  <meta property="og:url" content="https://jonathan-pap.github.io/" />
-  <meta property="og:image" content="https://jonathan-pap.github.io/favicon.svg" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="BluPulse · DAX, Power BI, analytics engineering" />
-  <meta name="twitter:description" content="Notes on DAX, Power BI, and analytics engineering." />
-
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <link rel="alternate" type="application/atom+xml" title="BluPulse feed" href="./feed.xml" />
-  <link rel="stylesheet" href="./assets/css/styles.css?v=52" />
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="Gold Layer" href="./feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="./assets/css/styles.css?v=64">
 </head>
+<body data-page="home">
+<a class="skip-link" href="#blogApp">Skip to articles</a>
 
-<body class="page-articles">
-  <a class="skip-link" href="#articles">Skip to articles</a>
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="glGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+</svg>
 
-  <header class="topnav">
-    <div class="topnav-inner">
-      <a class="brand" href="./index.html" aria-label="BluPulse home">
-        <span class="brand-badge">BP</span>
-        <span class="brand-name">Blu<span class="brand-accent">Pulse</span></span>
-      </a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./index.html" aria-label="Gold Layer, home">
+      <!-- Gold Layer mark: three layers, the gold one on top -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#glGold)" stroke="url(#glGold)" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      Gold Layer
+    </a>
+    <a class="topbar-rss" href="./feed.xml" type="application/atom+xml" title="RSS feed">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11a8 8 0 0 1 8 8"/><path d="M5 4.5A14.5 14.5 0 0 1 19.5 19"/><circle cx="6" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+      <span class="sr-only">RSS feed</span>
+    </a>
+  </div>
+</header>
 
-      <nav class="navlinks" aria-label="Primary">
-        <a class="navlink active" href="./index.html" aria-current="page">Articles</a>
-        <a class="navlink" href="./about.html">About</a>
+<main>
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="eyebrow">Notes on DAX, Power BI &amp; Fabric</div>
+      <h1 id="page-title"><span class="hl">Gold</span> Layer</h1>
+      <p class="lead">The curated layer: standards, patterns, and the reasoning behind them.</p>
+    </div>
+  </section>
+
+  <div class="wrap blog-layout blog-layout--home">
+    <!-- Article list, rendered by assets/js/app.js from content/posts.json -->
+    <section id="blogApp" class="blog-main" aria-labelledby="articles-title">
+      <h2 id="articles-title" class="sr-only">Articles</h2>
+      <div class="results-bar">
+        <span id="resultsCount" aria-live="polite">Loading articles…</span>
+        <button id="clearFilters" class="linkbtn" type="button" hidden>Clear filters</button>
+      </div>
+      <div id="postList" class="post-list"></div>
+      <div id="loadMoreWrap" class="loadmore" hidden>
+        <button id="loadMoreBtn" class="btn ghost" type="button">Show more articles</button>
+      </div>
+      <noscript><p class="empty">The article list needs JavaScript. You can still <a href="./feed.xml">read the feed</a>.</p></noscript>
+    </section>
+
+    <!-- Left: ways into the archive -->
+    <aside class="sidebar sidebar--nav" aria-label="Browse articles">
+      <form id="searchForm" class="side-block search" action="./index.html" role="search">
+        <label class="sr-only" for="searchInput">Search articles</label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="searchInput" name="q" type="search" placeholder="Search articles" autocomplete="off" spellcheck="false">
+      </form>
+      <nav class="side-block side-topics" aria-labelledby="topics-title">
+        <h2 class="side-title" id="topics-title">Topics</h2>
+        <ul id="topicNav" class="side-list">
+          <li><a href="./index.html" aria-current="page"><span>All articles</span></a></li>
+        </ul>
       </nav>
-    </div>
-  </header>
+      <nav class="side-block side-archive" aria-labelledby="archive-title">
+        <h2 class="side-title" id="archive-title">Archive</h2>
+        <div id="archiveNav"></div>
+      </nav>
+    </aside>
 
-  <main class="page" id="articles">
-    <div class="layout">
-
-      <!-- LEFT SIDEBAR -->
-      <aside class="sidebar" aria-label="Filters">
-
-        <section class="panel">
-          <div class="panel-title">Categories</div>
-          <div id="categoriesList" class="list"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head">
-            <div class="panel-title">Popular Tags</div>
-            <div class="panel-hint" aria-hidden="true">pick any</div>
-          </div>
-          <div id="tagsList" class="sidebar-tags"></div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-title">Archive</div>
-          <div id="archiveList" class="archive-nav"></div>
-        </section>
-
-      </aside>
-
-      <!-- MAIN CONTENT -->
-      <section class="content">
-
-        <div class="content-head">
-          <div class="content-head-left">
-            <h1 class="content-title">Latest Articles</h1>
-            <div class="content-meta">
-              <span id="articlesCount">0 articles</span>
-            </div>
-          </div>
-
-          <label class="search-field" aria-label="Search articles">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
-              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-            <input
-              id="searchInput"
-              class="search-input"
-              type="search"
-              placeholder="Search articles, tags, authors…"
-              autocomplete="off"
-              spellcheck="false"
-            />
-          </label>
+    <!-- Right: about the site -->
+    <aside class="sidebar sidebar--aside" aria-labelledby="about-blog-title">
+      <section class="side-block">
+        <h2 class="side-title" id="about-blog-title">About Gold Layer</h2>
+        <div class="side-note">
+          <h3>Static and simple</h3>
+          <p>Hosted on GitHub Pages. Posts are Markdown files in <code>content/posts/</code>, listed in <code>content/posts.json</code>. No tracking, no cookies, no build step. Posts favour <em>why</em> over <em>what</em>: less reference material, more reasoning about trade-offs.</p>
         </div>
-
-        <!-- Active filters -->
-        <div id="filtersPanel" class="active-filters" hidden>
-          <span class="active-filters-label">Filtering by</span>
-          <div id="activeFilters" class="filterchips" aria-label="Active filters"></div>
+        <div class="side-note" id="ai-disclosure">
+          <h3>On AI-drafted posts</h3>
+          <p>Some posts are labelled <strong>AI-drafted</strong>. That means the first draft was produced by an AI assistant working from an outline I gave it, then reviewed and edited by me before publishing. The opinions are mine; the prose is partly not. I'd rather be explicit about that than pretend otherwise. Posts without the label are written directly by me.</p>
         </div>
-
-        <div id="cardsGrid" class="cards"></div>
-        <div id="loadMoreWrap" class="loadmore-wrap" hidden>
-          <button id="loadMoreBtn" class="loadmore-btn" type="button">Show more articles</button>
+        <div class="side-note">
+          <h3>Follow along</h3>
+          <p>New posts land in the <a href="./feed.xml">RSS feed</a> as soon as they're published. The code behind the tools I write about is on <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>.</p>
         </div>
-
-        <footer class="site-footer">
-          <div class="site-footer-wrap">
-            <div class="site-footer-top">
-              <a class="sf-brand" href="./index.html" aria-label="BluPulse home">
-                <span class="sf-badge">BP</span>
-                <span class="sf-name">Blu<span class="sf-accent">Pulse</span></span>
-              </a>
-
-              <div class="sf-links" aria-label="Footer">
-                <a class="sf-link" href="./index.html">Articles</a>
-                <a class="sf-link" href="./about.html">About</a>
-                <a class="sf-link" href="#articles">Back to top</a>
-              </div>
-            </div>
-
-            <div class="site-footer-bottom">
-              <div class="sf-tagline">Insights, tutorials, and patterns — blue to purple.</div>
-
-              <div class="sf-meta">
-                <span>© <span id="year"></span> BluPulse</span>
-                <span class="sf-sep">•</span>
-                <span class="sf-muted">Hosted on GitHub Pages</span>
-              </div>
-            </div>
-          </div>
-        </footer>
-
       </section>
-    </div>
-  </main>
+    </aside>
+  </div>
 
-  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 19V5" />
-      <path d="m5 12 7-7 7 7" />
-    </svg>
-  </button>
+</main>
 
-  <script src="./assets/js/app.js?v=29"></script>
-  <script src="./assets/js/back-to-top.js?v=1" defer></script>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Gold Layer · by Jonathan Papworth</span>
+    <nav aria-label="Footer">
+      <a href="./feed.xml">RSS feed</a>
+      <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</button>
+
+<script src="./assets/js/app.js?v=33"></script>
+<script src="./assets/js/back-to-top.js?v=2" defer></script>
 </body>
 </html>
