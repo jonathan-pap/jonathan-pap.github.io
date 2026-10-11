@@ -4,46 +4,10 @@
   <subtitle>Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-05-05T00:00:00Z</updated>
+  <updated>2026-10-11T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
-
-  <entry>
-    <title>Secret Hitler online, with bots to fill the seats</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots" />
-    <id>https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots</id>
-    <updated>2026-05-05T00:00:00Z</updated>
-    <summary>A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans. An honest note on what kind of "AI" the bots are, and why heuristic was the right call.</summary>
-    <category term="Side Projects" />
-  </entry>
-
-  <entry>
-    <title>Designing Power BI with Claude Design as the build partner</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=power-bi-claude-design-skills" />
-    <id>https://jonathan-pap.github.io/post.html?slug=power-bi-claude-design-skills</id>
-    <updated>2026-05-04T00:00:00Z</updated>
-    <summary>PowerBI-Claude-Design is a library of Claude.ai skill packages for authoring Power BI semantic models and reports — TMDL, DAX, calculation groups, UDFs, plus a visual design system. The folder is the source of truth.</summary>
-    <category term="AI" />
-  </entry>
-
-  <entry>
-    <title>A Power BI icon picker, powered by Iconify</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=power-bi-icon-library" />
-    <id>https://jonathan-pap.github.io/post.html?slug=power-bi-icon-library</id>
-    <updated>2026-04-27T00:00:00Z</updated>
-    <summary>A notebook + .pbix that turns Power BI icon-hunting into one step: search 60,000+ Iconify icons, pick colour and variant, get a DAX-ready measure string in one click.</summary>
-    <category term="Tooling" />
-  </entry>
-
-  <entry>
-    <title>A small tool for documenting Power BI models</title>
-    <link href="https://jonathan-pap.github.io/post.html?slug=powerbi-lineage-tool" />
-    <id>https://jonathan-pap.github.io/post.html?slug=powerbi-lineage-tool</id>
-    <updated>2026-04-26T00:00:00Z</updated>
-    <summary>PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.</summary>
-    <category term="Tooling" />
-  </entry>
 
 </feed>

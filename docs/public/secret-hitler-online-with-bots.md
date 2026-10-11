@@ -1,3 +1,15 @@
+---
+# Parked 2026-10-11: off the site but ready. To republish, set draft: false
+# and run `python sync_posts.py --only site` from the site repo.
+title: Secret Hitler online, with bots to fill the seats
+date: 2026-05-05
+category: Side Projects
+tags: [Side Projects, Games, AI Bots, WebSockets, Node]
+excerpt: A browser version of the social-deduction board game over WebSockets, with optional heuristic AI bots that take seats when you don't have enough humans. An honest note on what kind of "AI" the bots are, and why heuristic was the right call.
+image: ./img/secret-hitler-online-with-bots.svg
+draft: true
+---
+
 # Secret Hitler online, with bots to fill the seats
 
 A small departure from the usual data work on this site. Same broad theme — *what's the smallest amount of code that does the job?* — but applied to a board game.

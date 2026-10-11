@@ -5,24 +5,4 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=secret-hitler-online-with-bots</loc>
-    <lastmod>2026-05-05</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=power-bi-claude-design-skills</loc>
-    <lastmod>2026-05-04</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=power-bi-icon-library</loc>
-    <lastmod>2026-04-27</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://jonathan-pap.github.io/post.html?slug=powerbi-lineage-tool</loc>
-    <lastmod>2026-04-26</lastmod>
-    <priority>0.8</priority>
-  </url>
 </urlset>

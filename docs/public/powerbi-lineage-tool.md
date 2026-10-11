@@ -1,3 +1,15 @@
+---
+# Parked 2026-10-11: off the site but ready. To republish, set draft: false
+# and run `python sync_posts.py --only site` from the site repo.
+title: A small tool for documenting Power BI models
+date: 2026-04-26
+category: Tooling
+tags: [Power BI, Lineage, Documentation, Tooling]
+excerpt: PowerBI-Lineage is a tool I wrote to document a Power BI model end-to-end — tables, relationships, measures, and how they all hang together — without having to write it yourself.
+image: ./img/powerbi-lineage-tool.svg
+draft: true
+---
+
 # A small tool for documenting Power BI models
 
 Most Power BI models grow the same way. Someone builds a quick proof of concept, the report lands, more measures get added, a few tables creep in, and a year later nobody can quite remember why a particular column exists or which measure depends on what. The model still works. It's just become a place where changes feel risky.

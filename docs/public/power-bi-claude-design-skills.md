@@ -1,3 +1,15 @@
+---
+# Parked 2026-10-11: off the site but ready. To republish, set draft: false
+# and run `python sync_posts.py --only site` from the site repo.
+title: Designing Power BI with Claude Design as the build partner
+date: 2026-05-04
+category: AI
+tags: [Power BI, Claude, TMDL, DAX, Design System, Tooling]
+excerpt: PowerBI-Claude-Design is a library of Claude.ai skill packages for authoring Power BI semantic models and reports — TMDL, DAX, calculation groups, UDFs, plus a visual design system. The folder is the source of truth.
+image: ./img/power-bi-claude-design-skills.svg
+draft: true
+---
+
 # Designing Power BI with Claude Design as the build partner
 
 Most teams' Power BI "house style" lives in three places: a deck someone made two years ago, a few unspoken conventions, and the head of whoever built the first model. New reports drift from it because there's no good way to *read* it while you're working. Naming gets inconsistent. Time intelligence gets reinvented. Themes get reinvented. The KPI cards on Page 1 don't quite match the KPI cards on Page 2.

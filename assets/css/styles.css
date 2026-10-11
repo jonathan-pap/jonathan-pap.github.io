@@ -153,6 +153,8 @@ code{font:500 .86em/1.4 var(--mono);background:var(--navy-700);border-radius:4px
 
 .empty{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:28px;margin-top:20px;color:var(--muted)}
 .empty strong{color:var(--ink)}
+/* nothing published yet: search, topics and archive have nothing to offer */
+.no-posts .sidebar--nav,.no-posts .results-bar{display:none}
 .empty a,.empty button{color:var(--gold-light)}
 
 /* ---------- post page ---------- */

@@ -213,6 +213,12 @@
     }
 
     function render() {
+      if (!state.posts.length) {
+        listEl.innerHTML = `<div class="empty"><strong>No articles yet.</strong>
+          <p style="margin-top:6px">New posts will show up here, and in the <a href="./feed.xml">RSS feed</a>.</p></div>`;
+        moreWrap.hidden = true;
+        return;
+      }
       const list = filtered();
       const lead = hasFilters() ? null : list[0] || null;
       const rest = lead ? list.slice(1) : list;
@@ -300,6 +306,8 @@
     loadPosts()
       .then((posts) => {
         state.posts = posts;
+        // With nothing published, search, topics and archive have nothing to offer.
+        document.body.classList.toggle("no-posts", !posts.length);
         readUrl();
         render();
         renderArchive(posts, null);
@@ -323,6 +331,7 @@
     const slug = page === "post" ? new URLSearchParams(location.search).get("slug") : null;
     loadPosts()
       .then((posts) => {
+        document.body.classList.toggle("no-posts", !posts.length);
         const current = slug ? posts.find((p) => p.slug === slug) : null;
         renderTopics(posts, current ? current.category || "Notes" : null, "true");
         renderArchive(posts, slug);

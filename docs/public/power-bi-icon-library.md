@@ -1,3 +1,15 @@
+---
+# Parked 2026-10-11: off the site but ready. To republish, set draft: false
+# and run `python sync_posts.py --only site` from the site repo.
+title: A Power BI icon picker, powered by Iconify
+date: 2026-04-27
+category: Tooling
+tags: [Power BI, Icons, DAX, Iconify, Tooling]
+excerpt: A notebook + .pbix that turns Power BI icon-hunting into one step: search 60,000+ Iconify icons, pick colour and variant, get a DAX-ready measure string in one click.
+image: ./img/power-bi-icon-library.svg
+draft: true
+---
+
 # A Power BI icon picker, powered by Iconify
 
 If you've built a Power BI report with custom iconography, you know the loop. Open an icon pack, scroll, copy the SVG, paste it into PowerPoint, change the colour, save, drop it into the model as a measure, render it, decide the colour isn't quite right, undo, repeat.
