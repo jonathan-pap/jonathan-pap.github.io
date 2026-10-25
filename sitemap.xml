@@ -5,4 +5,34 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=semantic-model-compatibility-levels</loc>
+    <lastmod>2026-10-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=svg-visuals-in-power-bi</loc>
+    <lastmod>2026-10-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=pbip-folder-structure</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=candlestick-chart-skill</loc>
+    <lastmod>2026-10-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=variance-chart-skill</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jonathan-pap.github.io/post.html?slug=pareto-chart-skill</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>

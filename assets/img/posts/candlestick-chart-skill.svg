@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="A candlestick chart in Power BI, no custom visual">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">POWER BI · CLAUDE CODE SKILL</text>
+    <text x="72" y="250" font-size="78" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">Candlesticks,</text>
+    <text x="72" y="336" font-size="78" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">no custom visual.</text>
+    <text x="72" y="398" font-size="28" fill="#A3AEC8">Error-bar wicks, floating bodies,</text>
+    <text x="72" y="436" font-size="28" fill="#A3AEC8">and candles that are right at any period.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: seven candles, thin wicks, a dotted average -->
+  <g transform="translate(760 118)">
+    <rect width="400" height="400" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <line x1="30" y1="360" x2="370" y2="360" stroke="#FFFFFF" stroke-opacity=".18"/>
+    <g stroke-width="3">
+      <line x1="60" y1="250" x2="60" y2="330" stroke="#3FAE74"/><rect x="47" y="268" width="26" height="46" rx="2" fill="#3FAE74"/>
+      <line x1="105" y1="240" x2="105" y2="310" stroke="#E2564A"/><rect x="92" y="262" width="26" height="30" rx="2" fill="#E2564A"/>
+      <line x1="150" y1="190" x2="150" y2="300" stroke="#3FAE74"/><rect x="137" y="205" width="26" height="78" rx="2" fill="#3FAE74"/>
+      <line x1="195" y1="170" x2="195" y2="240" stroke="#3FAE74"/><rect x="182" y="180" width="26" height="30" rx="2" fill="#3FAE74"/>
+      <line x1="240" y1="160" x2="240" y2="250" stroke="#E2564A"/><rect x="227" y="182" width="26" height="52" rx="2" fill="#E2564A"/>
+      <line x1="285" y1="130" x2="285" y2="240" stroke="#3FAE74"/><rect x="272" y="140" width="26" height="86" rx="2" fill="#3FAE74"/>
+      <line x1="330" y1="95" x2="330" y2="170" stroke="#3FAE74"/><rect x="317" y="105" width="26" height="45" rx="2" fill="#3FAE74"/>
+    </g>
+    <polyline points="45,300 105,282 150,262 195,228 240,212 285,190 345,150" fill="none" stroke="#F2C811" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>
+  </g>
+</svg>

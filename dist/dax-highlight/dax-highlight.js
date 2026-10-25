@@ -122,7 +122,7 @@
   //   dax-m  measure/col   ([Sales Amount])
   //   dax-r  table[col]    ('Sales'[Amount] or Sales[Amount])
   //   dax-s  string        ("text")
-  //   dax-c  comment       (// line or /* block */)
+  //   dax-c  comment       (// or -- line, or /* block */)
   //   dax-n  number        (123, 12.5)
   // --------------------------------------------------------------------------
 
@@ -136,8 +136,8 @@
       const ch = s[i];
       const next = s[i + 1] || "";
 
-      // Line comment
-      if (ch === "/" && next === "/") {
+      // Line comment: DAX accepts both // and --
+      if ((ch === "/" && next === "/") || (ch === "-" && next === "-")) {
         const start = i;
         i += 2;
         while (i < s.length && s[i] !== "\n") i++;

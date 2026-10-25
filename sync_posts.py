@@ -4,6 +4,8 @@ sync_posts.py — pull publishable posts from sibling VS Code workspaces into th
 
 Contract (per source workspace, listed in sources.json):
     <workspace>/docs/public/<anything>.md      one post per file
+    (a source can name another folder with "dir", e.g. "dir": "." for the drafts folder;
+     README.md, CLAUDE.md and files starting with _ are never posts)
     front matter (YAML-ish, flat keys only):
         title:     required
         date:      required, YYYY-MM-DD
@@ -17,7 +19,9 @@ Contract (per source workspace, listed in sources.json):
 What it writes (idempotent, safe to re-run):
     content/posts/<slug>.md          body with front matter stripped
     assets/img/posts/<slug>.<ext>    image, if given
+    assets/img/posts/<slug>/<file>   pictures the body links to (![alt](./img/x.png)), links rewritten
     content/posts.json               merged: hand-made posts kept, sourced posts replaced by "source" id
+    content/posts.js, posts/<slug>.js  the same as scripts, so the site also works opened from disk
     feed.xml, sitemap.xml            regenerated from posts.json
 
 Usage:
@@ -43,13 +47,14 @@ from xml.sax.saxutils import escape
 ROOT = Path(__file__).resolve().parent
 SITE_URL = "https://jonathan-pap.github.io"
 SITE_TITLE = "Gold Layer"
-SITE_SUBTITLE = "Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them."
+SITE_SUBTITLE = "Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them."
 AUTHOR = "Jonathan Pap"
 FEED_AUTHOR = "Jonathan Papworth"
 
 POSTS_DIR = ROOT / "content" / "posts"
 IMG_DIR = ROOT / "assets" / "img" / "posts"
 POSTS_JSON = ROOT / "content" / "posts.json"
+POSTS_JS = ROOT / "content" / "posts.js"  # the same list as a script, for pages opened straight from disk
 SOURCES_JSON = ROOT / "sources.json"
 
 WORDS_PER_MIN = 200
@@ -63,6 +68,8 @@ SECRET_PATTERNS = [
 ]
 
 FM_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n?", re.DOTALL)
+# ![alt](path) or ![alt](path "title"): captures the path
+BODY_IMAGE_RE = re.compile(r'!\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+"[^"]*")?\s*\)')
 
 
 # ---------------------------------------------------------------- front matter
@@ -129,15 +136,15 @@ def collect(source: dict, problems: list[str]) -> list[dict]:
     base = Path(source["path"])
     if not base.is_absolute():
         base = (ROOT / base).resolve()
-    pub = base / "docs" / "public"
+    pub = (base / source.get("dir", "docs/public")).resolve()
     if not pub.is_dir():
-        problems.append(f"[{sid}] no docs/public in {base} — skipped")
+        problems.append(f"[{sid}] no {source.get('dir', 'docs/public')} in {base} — skipped")
         return []
 
     posts = []
     for md in sorted(pub.rglob("*.md")):
-        if md.name.startswith("_"):
-            continue  # _template.md, _README.md etc.
+        if md.name.startswith("_") or md.name.lower() in ("readme.md", "claude.md"):
+            continue  # _template.md, and notes for people or Claude
         text = md.read_text(encoding="utf-8")
         meta, body = parse_front_matter(text)
         if meta.get("draft") is True:
@@ -170,7 +177,18 @@ def collect(source: dict, problems: list[str]) -> list[dict]:
             else:
                 problems.append(f"[{sid}] {md.relative_to(base)}: image not found: {meta['image']}")
 
-        posts.append({
+        # Pictures in the body (![alt](./img/chart.png)) are copied too; their links are rewritten on write.
+        body_images: dict[str, Path] = {}
+        for ref in BODY_IMAGE_RE.findall(body):
+            if re.match(r"(?i)(https?:|data:|/|#)", ref):
+                continue
+            cand = (md.parent / ref).resolve()
+            if cand.is_file():
+                body_images[ref] = cand
+            else:
+                problems.append(f"[{sid}] {md.relative_to(base)}: body image not found: {ref}")
+
+        post = {
             "slug": slug,
             "title": meta["title"],
             "date": meta["date"],
@@ -183,8 +201,12 @@ def collect(source: dict, problems: list[str]) -> list[dict]:
             "source": sid,
             "_body": body.lstrip("\n"),
             "_image_src": image_src,
+            "_body_images": body_images,
             "_origin": str(md),
-        })
+        }
+        if meta.get("drafted_with_ai") is True:
+            post["drafted_with_ai"] = True  # the site shows an "AI-drafted" label
+        posts.append(post)
     return posts
 
 
@@ -197,9 +219,21 @@ def write_post(p: dict, dry: bool) -> None:
         if not dry:
             IMG_DIR.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(p["_image_src"], img_out)
+    # Body images go to assets/img/posts/<slug>/, one folder per post, so --prune can remove them cleanly.
+    body = p["_body"]
+    for ref, src in p["_body_images"].items():
+        if not dry:
+            (IMG_DIR / p["slug"]).mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src, IMG_DIR / p["slug"] / src.name)
+        body = body.replace(f"]({ref}", f"](./assets/img/posts/{p['slug']}/{src.name}")
     if not dry:
         POSTS_DIR.mkdir(parents=True, exist_ok=True)
-        md_out.write_text(p["_body"], encoding="utf-8")
+        md_out.write_text(body, encoding="utf-8")
+        # A page opened from disk (file://) can't fetch() the .md, but it can load a script.
+        (POSTS_DIR / f"{p['slug']}.js").write_text(
+            f"(window.GOLD_LAYER_MD = window.GOLD_LAYER_MD || {{}})[{json.dumps(p['slug'])}] = "
+            f"{json.dumps(body, ensure_ascii=False)};\n",
+            encoding="utf-8")
 
 
 def public_entry(p: dict) -> dict:
@@ -321,13 +355,17 @@ def main() -> int:
 
     if not args.dry_run:
         POSTS_JSON.write_text(json.dumps({"posts": merged}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        POSTS_JS.write_text("window.GOLD_LAYER_POSTS = " + json.dumps({"posts": merged}, ensure_ascii=False) + ";\n",
+                            encoding="utf-8")
         (ROOT / "feed.xml").write_text(render_feed(merged), encoding="utf-8")
         (ROOT / "sitemap.xml").write_text(render_sitemap(merged), encoding="utf-8")
         if args.prune:
             for slug in removed:
                 (POSTS_DIR / f"{slug}.md").unlink(missing_ok=True)
+                (POSTS_DIR / f"{slug}.js").unlink(missing_ok=True)
                 for img in IMG_DIR.glob(f"{slug}.*"):
                     img.unlink()
+                shutil.rmtree(IMG_DIR / slug, ignore_errors=True)  # body images
 
     # report
     tag = "[dry-run] " if args.dry_run else ""

@@ -1,9 +1,10 @@
 {
-  "_comment": "One entry per VS Code workspace that publishes to the site. Paths are absolute or relative to this repo root. Each workspace exposes posts under <path>/docs/public/*.md with YAML front matter (see docs/PUBLISHING.md).",
+  "_comment": "One entry per folder that publishes to the site. Paths are absolute or relative to this repo root. Posts are read from <path>/docs/public/*.md, or from <path>/<dir> when \"dir\" is set, with YAML front matter (see docs/PUBLISHING.md).",
   "sources": [
     {
-      "id": "site",
-      "path": "."
+      "id": "drafts",
+      "path": "E:/git-page/drafts",
+      "dir": "."
     },
     {
       "id": "bi-ai",

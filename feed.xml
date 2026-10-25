@@ -1,13 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Gold Layer</title>
-  <subtitle>Notes on DAX, Power BI and Fabric: standards, patterns, and the reasoning behind them.</subtitle>
+  <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
   <link href="https://jonathan-pap.github.io/" />
-  <updated>2026-10-11T00:00:00Z</updated>
+  <updated>2026-10-25T00:00:00Z</updated>
   <id>https://jonathan-pap.github.io/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Compatibility levels in Power BI: what each one unlocks, and what raising it costs</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=semantic-model-compatibility-levels" />
+    <id>https://jonathan-pap.github.io/post.html?slug=semantic-model-compatibility-levels</id>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <summary>Every semantic model carries a compatibility level. It decides which features the model can use, and raising it is a one-way change. Here is what each level unlocks and what to check before the next raise.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>SVG visuals in Power BI, built from reusable parts</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=svg-visuals-in-power-bi" />
+    <id>https://jonathan-pap.github.io/post.html?slug=svg-visuals-in-power-bi</id>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <summary>A DAX measure can return an SVG image: bars, pills and small charts inside a table cell. Write it in named variable sections, then move the parts you repeat into DAX functions.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>Know your PBIP: what every file in a Power BI project is for</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=pbip-folder-structure" />
+    <id>https://jonathan-pap.github.io/post.html?slug=pbip-folder-structure</id>
+    <updated>2026-10-21T00:00:00Z</updated>
+    <summary>A field guide to the Power BI project folder: what each file holds, which ones an AI agent can safely edit, and which ones must never leave your machine.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>A candlestick chart in Power BI, no custom visual</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=candlestick-chart-skill" />
+    <id>https://jonathan-pap.github.io/post.html?slug=candlestick-chart-skill</id>
+    <updated>2026-10-21T00:00:00Z</updated>
+    <summary>Error bars for wicks, a transparent series under the bodies, and measures that stay right on weekly or monthly candles. I packaged the chart as a Claude Code skill and tested it blind against a plain agent session.</summary>
+    <category term="Skills" />
+  </entry>
+
+  <entry>
+    <title>Actual vs target in Power BI, with the variance in green and red</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=variance-chart-skill" />
+    <id>https://jonathan-pap.github.io/post.html?slug=variance-chart-skill</id>
+    <updated>2026-10-20T00:00:00Z</updated>
+    <summary>Power BI has no variance bar, but its error bars can draw one. I packaged the chart as a Claude Code skill and tested it blind against a plain agent session.</summary>
+    <category term="Skills" />
+  </entry>
+
+  <entry>
+    <title>A Pareto chart for Power BI that survives re-sorting</title>
+    <link href="https://jonathan-pap.github.io/post.html?slug=pareto-chart-skill" />
+    <id>https://jonathan-pap.github.io/post.html?slug=pareto-chart-skill</id>
+    <updated>2026-10-20T00:00:00Z</updated>
+    <summary>One visual calculation keeps a Pareto line smooth whatever the axis sort. I packaged the chart as a Claude Code skill and tested it blind against a plain agent session.</summary>
+    <category term="Skills" />
+  </entry>
 
 </feed>
