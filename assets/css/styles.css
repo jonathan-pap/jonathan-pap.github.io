@@ -214,6 +214,8 @@ code{font:500 .86em/1.4 var(--mono);background:var(--navy-700);border-radius:4px
 .prose th,.prose td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .prose th{font:500 12px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom-color:rgba(255,255,255,.2)}
 .prose :not(pre) > code{font:500 .84em/1.4 var(--mono);background:var(--navy-700);border:1px solid var(--line);border-radius:5px;padding:.12em .4em;overflow-wrap:anywhere}
+/* file names in tables stay whole; the cell wraps between them instead */
+.prose td code{overflow-wrap:normal;white-space:nowrap}
 
 /* code blocks: post.js wraps each <pre> in .code-block with a language label and a copy button */
 .prose pre{margin:0;padding:16px 18px;overflow:auto;font:400 14.5px/1.6 var(--mono);tab-size:2;background:var(--navy-800);border:1px solid var(--line);border-radius:12px;

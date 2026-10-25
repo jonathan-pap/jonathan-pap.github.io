@@ -11,3 +11,6 @@ Thumbs.db
 .pr-*.tmp.*
 *.tmp
 *.log
+
+# Python bytecode from running sync_posts.py
+__pycache__/

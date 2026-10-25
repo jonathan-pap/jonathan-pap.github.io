@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  const { loadPosts, formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
+  const { loadPosts, loadMarkdown, formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
   const SITE_URL = "https://jonathan-pap.github.io/";
   const SITE_NAME = "Gold Layer";
 
@@ -79,7 +79,16 @@
   function enhanceCodeBlocks() {
     // dist/dax-highlight colours every ```dax fence (<pre><code class="language-dax">).
     // If the script didn't load, the code still shows, just uncoloured.
-    if (window.DaxHighlight) window.DaxHighlight.highlightAll(bodyEl);
+    if (window.DaxHighlight) {
+      // Words the bundled list predates: visual calculation and window functions, and DAX query keywords.
+      window.DaxHighlight.addFunctions([
+        "RUNNINGSUM", "MOVINGAVERAGE", "PREVIOUS", "NEXT", "FIRST", "LAST", "RANGE",
+        "COLLAPSE", "COLLAPSEALL", "EXPAND", "EXPANDALL", "LOOKUP", "LOOKUPWITHTOTALS", "ISATLEVEL",
+        "ORDERBY", "PARTITIONBY", "MATCHBY", "OFFSET", "INDEX", "WINDOW", "RANK", "ROWNUMBER",
+      ]);
+      window.DaxHighlight.addKeywords(["ASC", "DESC", "DEFINE", "EVALUATE", "MEASURE", "ORDER", "BY"]);
+      window.DaxHighlight.highlightAll(bodyEl);
+    }
 
     bodyEl.querySelectorAll("pre").forEach((pre) => {
       const code = pre.querySelector("code");
@@ -248,10 +257,7 @@
     setMeta(current);
     showSkeleton();
 
-    const mdPath = current.file || current.path || `./content/posts/${current.slug}.md`;
-    const mdRes = await fetch(mdPath);
-    if (!mdRes.ok) throw new Error(`Markdown fetch failed: ${mdRes.status}`);
-    const md = await mdRes.text();
+    const md = await loadMarkdown(current);
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
     removeDuplicateLeadTitle(current.title || "");

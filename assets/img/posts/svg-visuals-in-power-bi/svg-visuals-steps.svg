@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 816" role="img" aria-label="The five sections of the Progress Bar measure, each adding one step to the picture">
+  <!-- Every number below is the Progress Bar measure's own: a 120 x 20 canvas, drawn here at 3x. -->
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#FFFFFF" fill-opacity=".05"/></pattern>
+  </defs>
+  <rect width="760" height="816" rx="14" fill="#0D1730"/>
+  <rect width="760" height="816" rx="14" fill="url(#dots)"/>
+
+  <g font-family="'Segoe UI', Figtree, system-ui, sans-serif">
+    <text x="24" y="40" font-size="20" font-weight="700" fill="#E8ECF5">The Progress Bar measure, section by section</text>
+    <text x="24" y="64" font-size="13.5" fill="#A3AEC8">Each block of variables adds one step to the picture. Drawings are at 3× the measure's size.</text>
+  </g>
+
+  <!-- row separators and the pipeline joining the step numbers -->
+  <g stroke="#FFFFFF" stroke-opacity=".08">
+    <line x1="24" y1="212" x2="736" y2="212"/><line x1="24" y1="312" x2="736" y2="312"/>
+    <line x1="24" y1="452" x2="736" y2="452"/><line x1="24" y1="622" x2="736" y2="622"/>
+  </g>
+  <line x1="40" y1="124" x2="40" y2="636" stroke="#2A4A8C" stroke-width="2"/>
+
+  <!-- step numbers and titles -->
+  <g font-family="'Segoe UI', Figtree, system-ui, sans-serif">
+    <g fill="#F2C811"><circle cx="40" cy="110" r="14"/><circle cx="40" cy="240" r="14"/><circle cx="40" cy="340" r="14"/><circle cx="40" cy="480" r="14"/><circle cx="40" cy="650" r="14"/></g>
+    <g font-size="14" font-weight="800" fill="#0A1328" text-anchor="middle">
+      <text x="40" y="115">1</text><text x="40" y="245">2</text><text x="40" y="345">3</text><text x="40" y="485">4</text><text x="40" y="655">5</text>
+    </g>
+    <g font-size="16" font-weight="700" fill="#E8ECF5">
+      <text x="66" y="116">Settings</text><text x="66" y="246">Data</text><text x="66" y="346">Scale</text><text x="66" y="486">Shapes</text><text x="66" y="656">Assembly</text>
+    </g>
+  </g>
+
+  <!-- code beside each step -->
+  <g font-family="Consolas, 'IBM Plex Mono', monospace" font-size="12" fill="#A3AEC8">
+    <text x="66" y="142"><tspan fill="#FFE785">_W</tspan> = 120 · <tspan fill="#FFE785">_H</tspan> = 20</text>
+    <text x="66" y="162"><tspan fill="#FFE785">_Track</tspan> · <tspan fill="#FFE785">_Fill</tspan> · <tspan fill="#FFE785">_MarkerColor</tspan></text>
+    <text x="66" y="182">every colour in one place</text>
+
+    <text x="66" y="270"><tspan fill="#FFE785">_Share</tspan> = DIVIDE (</text>
+    <text x="66" y="288">[Exchange Gold],</text>
+    <text x="66" y="306">[Exchange Gold Target] )</text>
+
+    <text x="66" y="372"><tspan fill="#FFE785">_TargetX</tspan> = _W * 0.8 = 96</text>
+    <text x="66" y="392"><tspan fill="#FFE785">_BarW</tspan> = MIN ( _Share, 1.25 ) * 96</text>
+    <text x="66" y="412">= 105.6</text>
+    <text x="66" y="432">a 125% beat fills the width: 120</text>
+
+    <text x="66" y="518"><tspan fill="#FFE785">_Background</tspan> 120 × 8 at (0, 6)</text>
+    <text x="66" y="552"><tspan fill="#FFE785">_Bar</tspan> 105.6 × 8 at (0, 6)</text>
+    <text x="66" y="596"><tspan fill="#FFE785">_Marker</tspan> 2 × 16 at (96, 2)</text>
+
+    <text x="66" y="682">data:image/svg+xml;utf8,&lt;svg …&gt;</text>
+    <text x="66" y="702">&amp; <tspan fill="#FFE785">_Background</tspan> &amp; <tspan fill="#FFE785">_Bar</tspan></text>
+    <text x="66" y="722">&amp; <tspan fill="#FFE785">_Marker</tspan> (the last is on top)</text>
+    <text x="66" y="742">&amp; "&lt;/svg&gt;"</text>
+  </g>
+
+  <!-- 1. Settings: the empty canvas and the palette -->
+  <g font-family="Consolas, 'IBM Plex Mono', monospace" font-size="11" fill="#A3AEC8">
+    <rect x="350" y="104" width="360" height="60" fill="none" stroke="#A3AEC8" stroke-dasharray="4 4"/>
+    <text x="530" y="98" text-anchor="middle">120</text>
+    <text x="718" y="138">20</text>
+    <rect x="350" y="180" width="14" height="14" rx="3" fill="#2B3A55" stroke="#A3AEC8" stroke-opacity=".5"/><text x="370" y="191">_Track</text>
+    <rect x="450" y="180" width="14" height="14" rx="3" fill="#3FAE74"/><text x="470" y="191">beat</text>
+    <rect x="530" y="180" width="14" height="14" rx="3" fill="#E2564A"/><text x="550" y="191">miss</text>
+    <rect x="610" y="180" width="14" height="14" rx="3" fill="#E8ECF5"/><text x="630" y="191">_MarkerColor</text>
+  </g>
+
+  <!-- 2. Data: one number -->
+  <g font-family="'Segoe UI', Figtree, system-ui, sans-serif">
+    <rect x="350" y="232" width="110" height="46" rx="10" fill="#1B3466" stroke="#F2C811" stroke-opacity=".35"/>
+    <text x="405" y="263" font-size="22" font-weight="700" fill="#FFE785" text-anchor="middle">1.10</text>
+    <text x="478" y="252" font-size="13.5" fill="#E8ECF5">110% of target: a beat,</text>
+    <text x="478" y="272" font-size="13.5" fill="#E8ECF5">so <tspan font-family="Consolas, 'IBM Plex Mono', monospace" font-size="12.5">_Fill</tspan> is <tspan fill="#3FAE74" font-weight="700">green</tspan></text>
+  </g>
+
+  <!-- 3. Scale: values become positions -->
+  <g font-family="Consolas, 'IBM Plex Mono', monospace" font-size="11" fill="#A3AEC8">
+    <text x="508" y="332" text-anchor="middle" fill="#FFE785">_BarW = 105.6</text>
+    <path d="M350 346V340H666.8V346" fill="none" stroke="#FFE785" stroke-width="1.5"/>
+    <rect x="350" y="352" width="360" height="60" fill="none" stroke="#A3AEC8" stroke-dasharray="4 4"/>
+    <rect x="350" y="370" width="316.8" height="24" fill="none" stroke="#3FAE74" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="638" y1="346" x2="638" y2="420" stroke="#E8ECF5" stroke-dasharray="2 3"/>
+    <line x1="350" y1="426" x2="710" y2="426" stroke="#A3AEC8"/>
+    <path d="M350 426v6M638 426v6M710 426v6" stroke="#A3AEC8"/>
+    <text x="350" y="446" text-anchor="middle">0</text>
+    <text x="638" y="446" text-anchor="middle">96 · target</text>
+    <text x="710" y="446" text-anchor="middle">120</text>
+  </g>
+
+  <!-- 4. Shapes: three strings, each drawn on its own -->
+  <rect x="350" y="502" width="360" height="24" fill="#2B3A55"/>
+  <rect x="350" y="536" width="316.8" height="24" fill="#3FAE74"/>
+  <line x1="350" y1="592" x2="710" y2="592" stroke="#2A4A8C" stroke-dasharray="3 4"/>
+  <rect x="638" y="568" width="6" height="48" fill="#E8ECF5"/>
+
+  <!-- 5. Assembly: stacked in order, for a beat and a miss -->
+  <g font-family="Consolas, 'IBM Plex Mono', monospace" font-size="11" fill="#A3AEC8">
+    <text x="350" y="640">beat · _Share 1.10</text>
+    <rect x="350" y="646" width="360" height="60" fill="none" stroke="#2A4A8C"/>
+    <rect x="350" y="664" width="360" height="24" fill="#2B3A55"/>
+    <rect x="350" y="664" width="316.8" height="24" fill="#3FAE74"/>
+    <rect x="638" y="652" width="6" height="48" fill="#E8ECF5"/>
+
+    <text x="350" y="728">miss · _Share 0.90</text>
+    <rect x="350" y="734" width="360" height="60" fill="none" stroke="#2A4A8C"/>
+    <rect x="350" y="752" width="360" height="24" fill="#2B3A55"/>
+    <rect x="350" y="752" width="259.2" height="24" fill="#E2564A"/>
+    <rect x="638" y="740" width="6" height="48" fill="#E8ECF5"/>
+  </g>
+</svg>

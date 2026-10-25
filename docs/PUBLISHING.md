@@ -37,9 +37,11 @@ Body in normal markdown. DAX in ```dax fences gets highlighted.
 - `category` becomes a topic in the site's sidebar (AI, Tooling, Side Projects, Notes, ...).
 - `image` is optional, relative to the `.md` file; it's used as the preview picture when a post is shared.
 - `draft: true` means never published.
+- `drafted_with_ai: true` adds an "AI-drafted" label to the post on the site.
 - Keep comments on their own line starting with `#`; a `# comment` after a value becomes part of the value.
+- Wrap a value in double quotes if it contains a colon followed by a space (`title: "Know your PBIP: …"`); unquoted it's invalid YAML for other tools, though the sync script copes.
 
-Files starting with `_` are ignored. Slug = file name unless `slug:` is set.
+Files starting with `_`, and `README.md` / `CLAUDE.md`, are ignored. Slug = file name unless `slug:` is set.
 
 ## 3. Publish
 
@@ -53,19 +55,24 @@ git add -A && git commit -m "sync posts" && git push
 
 `--only <id>` syncs one workspace. `--prune` removes site posts whose source file was deleted.
 
-## Parked posts
+## The drafting room
 
-Posts taken off the site but kept ready live in this repo's own `docs/public/` (registered in `sources.json` as `site`), each with `draft: true`. To put one back:
+`E:\git-page\drafts` is where posts are written before they go live, including posts taken off the site.
+It sits beside this repo, not inside it, so nothing there is online until it's published.
+It's registered in `sources.json` as `drafts` with `"dir": "."`, so posts sit directly in the folder (no `docs/public`),
+with cover images in `img/`, a `_template.md` to copy, and a `CLAUDE.md` with the rules for writing there.
 
-1. In `docs/public/<slug>.md`, change `draft: true` to `draft: false`.
-2. `python sync_posts.py --only site --dry-run`, then `python sync_posts.py --only site`.
-3. Commit and push.
+To publish a post from it:
 
-To park a published post again, set `draft: true` and run `python sync_posts.py --only site --prune`.
+1. In `drafts/<slug>.md`, change `draft: true` to `draft: false`.
+2. `python sync_posts.py --only drafts --dry-run`, then `python sync_posts.py --only drafts`.
+3. Commit and push this repo.
+
+To take a published post off the site again, set `draft: true` and run `python sync_posts.py --only drafts --prune`.
 
 ## Guardrails
 
-- Only `docs/public/` is read. Nothing else in a workspace is touched.
+- Only `docs/public/` (or a source's `dir`) is read. Nothing else in a workspace is touched.
 - A post is refused (not published) if it looks like it contains an API key, token, JWT, or a `C:\Users\...` path. Fix and re-run.
 - Hand-written posts in `posts.json` (no `source` field) are never overwritten.
 - A sourced slug that collides with a hand-written one is skipped and reported.

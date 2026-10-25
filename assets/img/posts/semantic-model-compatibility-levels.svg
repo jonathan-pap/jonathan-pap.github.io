@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Compatibility levels: what each level unlocks, from calculation groups at 1470 to DAX functions at 1702">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">POWER BI · SEMANTIC MODELS</text>
+    <text x="72" y="246" font-size="72" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">Compatibility</text>
+    <text x="72" y="326" font-size="72" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">levels.</text>
+    <text x="72" y="392" font-size="28" fill="#A3AEC8">What each level unlocks, and why</text>
+    <text x="72" y="430" font-size="28" fill="#A3AEC8">raising it is a one-way door.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: the levels as a staircase, highest at the top -->
+  <g transform="translate(700 110)">
+    <rect width="430" height="410" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <!-- step bars grow with the level -->
+    <rect x="30" y="34" width="96" height="34" rx="6" fill="url(#gold)"/>
+    <rect x="30" y="92" width="84" height="34" rx="6" fill="#4069C4"/>
+    <rect x="30" y="150" width="72" height="34" rx="6" fill="#3A5DAE"/>
+    <rect x="30" y="208" width="60" height="34" rx="6" fill="#335399"/>
+    <rect x="30" y="266" width="48" height="34" rx="6" fill="#2D4A88"/>
+    <rect x="30" y="324" width="36" height="34" rx="6" fill="#2A4A8C"/>
+    <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="20">
+      <text x="146" y="58" fill="#FFE785" font-weight="700">1702</text><text x="214" y="58" fill="#E8ECF5">DAX functions</text>
+      <text x="146" y="116" fill="#E8ECF5">1701</text><text x="214" y="116" fill="#A3AEC8">Calendars</text>
+      <text x="146" y="174" fill="#E8ECF5">1606</text><text x="214" y="174" fill="#A3AEC8">Value filters</text>
+      <text x="146" y="232" fill="#E8ECF5">1604</text><text x="214" y="232" fill="#A3AEC8">Direct Lake</text>
+      <text x="146" y="290" fill="#E8ECF5">1601</text><text x="214" y="290" fill="#A3AEC8">Format strings</text>
+      <text x="146" y="348" fill="#E8ECF5">1470</text><text x="214" y="348" fill="#A3AEC8">Calc groups</text>
+    </g>
+    <text x="30" y="392" font-family="'IBM Plex Mono', Consolas, monospace" font-size="14" fill="#A3AEC8">↑ one way: no going back down</text>
+  </g>
+</svg>

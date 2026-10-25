@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Actual vs target in Power BI, with the variance in green and red">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">POWER BI · CLAUDE CODE SKILL</text>
+    <text x="72" y="250" font-size="78" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">Actual vs target,</text>
+    <text x="72" y="336" font-size="78" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">gap in colour.</text>
+    <text x="72" y="398" font-size="28" fill="#A3AEC8">Green where you beat it, red where you</text>
+    <text x="72" y="436" font-size="28" fill="#A3AEC8">missed, drawn by Power BI's error bars.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: six months; outlined target, filled actual overlapping it, one connector per month from the lower bar up to the higher -->
+  <g transform="translate(760 118)">
+    <rect width="400" height="400" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <line x1="30" y1="360" x2="370" y2="360" stroke="#FFFFFF" stroke-opacity=".18"/>
+    <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="15" text-anchor="middle">
+      <!-- month 1: target 200, actual 216, beat -->
+      <rect x="40" y="160" width="26" height="200" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="54" y="144" width="26" height="216" fill="#7D89A6"/>
+      <line x1="56" y1="160" x2="56" y2="144" stroke="#2BB673" stroke-width="6"/>
+      <text x="60" y="132" fill="#2BB673">▲8%</text>
+      <!-- month 2: target 205, actual 180, miss -->
+      <rect x="96" y="155" width="26" height="205" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="110" y="180" width="26" height="180" fill="#7D89A6"/>
+      <line x1="120" y1="180" x2="120" y2="155" stroke="#F0506E" stroke-width="6"/>
+      <text x="116" y="143" fill="#F0506E">▼12%</text>
+      <!-- month 3: target 210, actual 231, beat -->
+      <rect x="152" y="150" width="26" height="210" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="166" y="129" width="26" height="231" fill="#7D89A6"/>
+      <line x1="168" y1="150" x2="168" y2="129" stroke="#2BB673" stroke-width="6"/>
+      <text x="172" y="117" fill="#2BB673">▲10%</text>
+      <!-- month 4: target 215, actual 224, beat -->
+      <rect x="208" y="145" width="26" height="215" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="222" y="136" width="26" height="224" fill="#7D89A6"/>
+      <line x1="224" y1="145" x2="224" y2="136" stroke="#2BB673" stroke-width="6"/>
+      <text x="228" y="124" fill="#2BB673">▲4%</text>
+      <!-- month 5: target 225, actual 205, miss -->
+      <rect x="264" y="135" width="26" height="225" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="278" y="155" width="26" height="205" fill="#7D89A6"/>
+      <line x1="288" y1="155" x2="288" y2="135" stroke="#F0506E" stroke-width="6"/>
+      <text x="284" y="123" fill="#F0506E">▼9%</text>
+      <!-- month 6: target 230, actual 251, beat -->
+      <rect x="320" y="130" width="26" height="230" fill="none" stroke="#E8ECF5" stroke-width="3"/>
+      <rect x="334" y="109" width="26" height="251" fill="#7D89A6"/>
+      <line x1="336" y1="130" x2="336" y2="109" stroke="#2BB673" stroke-width="6"/>
+      <text x="340" y="97" fill="#2BB673">▲9%</text>
+    </g>
+  </g>
+</svg>

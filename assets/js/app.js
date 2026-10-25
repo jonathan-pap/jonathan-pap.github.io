@@ -53,27 +53,54 @@
   const topicUrl = (cat) => (cat ? `${HOME}?category=${encodeURIComponent(cat)}` : HOME);
   const tagUrl = (tag) => `${HOME}?tag=${encodeURIComponent(tag)}`;
 
+  // Opened straight from disk (file://), the browser blocks fetch() of the post files. sync_posts.py
+  // also writes them as small scripts (content/posts.js, content/posts/<slug>.js), which a page
+  // opened from disk is allowed to load, so double-clicking index.html works too.
+  const OPENED_FROM_DISK = location.protocol === "file:";
+  const FROM_DISK_HELP = "This page was opened straight from disk and the post files it needs there are missing. "
+    + "Run <code>python sync_posts.py</code> in the site folder to create them, or preview through a local server: "
+    + "<code>python -m http.server 8000</code>, then open <code>http://localhost:8000</code>.";
+
+  function loadScript(path) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = siteUrl(path);
+      s.onload = resolve;
+      s.onerror = () => reject(new Error(`${path} didn't load`));
+      document.head.appendChild(s);
+    });
+  }
+
   let postsPromise = null;
   function loadPosts() {
     if (!postsPromise) {
-      postsPromise = fetch(siteUrl("content/posts.json"))
-        .then((res) => {
+      const data = OPENED_FROM_DISK
+        ? loadScript("content/posts.js").then(() => window.GOLD_LAYER_POSTS || { posts: [] })
+        : fetch(siteUrl("content/posts.json")).then((res) => {
           if (!res.ok) throw new Error(`posts.json fetch failed: ${res.status}`);
           return res.json();
-        })
-        .then((data) => (data.posts || [])
-          .map((p) => ({ ...p, _dt: parseDate(p.date) }))
-          .sort((a, b) => (b._dt?.t || 0) - (a._dt?.t || 0)));
+        });
+      postsPromise = data.then((d) => (d.posts || [])
+        .map((p) => ({ ...p, _dt: parseDate(p.date) }))
+        .sort((a, b) => (b._dt?.t || 0) - (a._dt?.t || 0)));
     }
     return postsPromise;
   }
 
-  // Opened straight from disk (file://), the browser won't let the page read
-  // content/posts.json or the post files, so say so instead of a vague error.
-  const OPENED_FROM_DISK = location.protocol === "file:";
-  const FROM_DISK_HELP = "This page was opened straight from disk, and browsers block it from reading the post files. "
-    + "To preview the site, run <code>python -m http.server 8000</code> in the site folder and open "
-    + "<code>http://localhost:8000</code>. On GitHub Pages it works as is.";
+  // A post's Markdown, from content/posts/<slug>.md (or its script copy when opened from disk).
+  function loadMarkdown(p) {
+    if (OPENED_FROM_DISK) {
+      return loadScript(`content/posts/${encodeURIComponent(p.slug)}.js`).then(() => {
+        const md = (window.GOLD_LAYER_MD || {})[p.slug];
+        if (typeof md !== "string") throw new Error(`no Markdown for ${p.slug}`);
+        return md;
+      });
+    }
+    return fetch(siteUrl(p.file || p.path || `content/posts/${p.slug}.md`)).then((res) => {
+      if (!res.ok) throw new Error(`Markdown fetch failed: ${res.status}`);
+      return res.text();
+    });
+  }
 
   function countBy(values) {
     const map = new Map();
@@ -149,7 +176,7 @@
       </article>`;
   }
 
-  window.SiteBlog = { loadPosts, parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
+  window.SiteBlog = { loadPosts, loadMarkdown, parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
 
   // ---------------------------------------------------------------- home: the article list
 
@@ -183,7 +210,10 @@
       if (state.q.trim()) params.set("q", state.q.trim());
       const qs = params.toString();
       if (qs === location.search.slice(1)) return;
-      history[push ? "pushState" : "replaceState"](null, "", qs ? `?${qs}` : location.pathname);
+      // Some browsers refuse to rewrite the address of a page opened from disk; filtering still works.
+      try {
+        history[push ? "pushState" : "replaceState"](null, "", qs ? `?${qs}` : location.pathname);
+      } catch { /* the address bar just doesn't follow */ }
     }
 
     // ---- filtering ----

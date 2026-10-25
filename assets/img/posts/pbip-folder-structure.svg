@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Know your PBIP: what every file in a Power BI project is for">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">POWER BI · PBIP · AI WORKFLOWS</text>
+    <text x="72" y="250" font-size="78" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">Know your</text>
+    <text x="72" y="336" font-size="78" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">PBIP.</text>
+    <text x="72" y="398" font-size="28" fill="#A3AEC8">What every file in a Power BI project is for,</text>
+    <text x="72" y="436" font-size="28" fill="#A3AEC8">and which ones an agent should never touch.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: the folder, with the safe targets in gold and the never-commit files struck through -->
+  <g transform="translate(700 118)">
+    <rect width="430" height="400" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="19">
+      <text x="30" y="52" fill="#E8ECF5">Sales.pbip</text>
+      <text x="30" y="92" fill="#A3AEC8">├&#160;Sales.SemanticModel/</text>
+      <text x="30" y="128" fill="#A3AEC8">│&#160;&#160;├&#160;<tspan fill="#F2C811">definition/&#160;&#160;*.tmdl</tspan></text>
+      <text x="30" y="164" fill="#A3AEC8">│&#160;&#160;├&#160;diagramLayout.json</text>
+      <text x="30" y="200" fill="#A3AEC8">│&#160;&#160;└&#160;.pbi/<tspan fill="#6B7896" text-decoration="line-through">cache.abf</tspan></text>
+      <text x="30" y="240" fill="#A3AEC8">└&#160;Sales.Report/</text>
+      <text x="30" y="276" fill="#A3AEC8">&#160;&#160;&#160;├&#160;definition.pbir</text>
+      <text x="30" y="312" fill="#A3AEC8">&#160;&#160;&#160;├&#160;<tspan fill="#F2C811">definition/&#160;&#160;pages/</tspan></text>
+      <text x="30" y="348" fill="#A3AEC8">&#160;&#160;&#160;└&#160;.pbi/<tspan fill="#6B7896" text-decoration="line-through">localSettings.json</tspan></text>
+    </g>
+  </g>
+</svg>
