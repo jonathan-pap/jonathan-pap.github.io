@@ -102,6 +102,200 @@
     });
   }
 
+  // ---------------------------------------------------------------- Gold Layer Shorts
+
+  // The shorts, from content/shorts.json (or its script copy when opened from disk), newest first.
+  let shortsPromise = null;
+  function loadShorts() {
+    if (!shortsPromise) {
+      const data = OPENED_FROM_DISK
+        ? loadScript("content/shorts.js").then(() => window.GOLD_LAYER_SHORTS || { shorts: [] })
+        : fetch(siteUrl("content/shorts.json")).then((res) => {
+          if (!res.ok) throw new Error(`shorts.json fetch failed: ${res.status}`);
+          return res.json();
+        });
+      shortsPromise = data.then((d) => d.shorts || []);
+    }
+    return shortsPromise;
+  }
+
+  const shortUrl = (s) => siteUrl(`shorts.html#short-${s.id}`);
+  const shortDuration = (s) => `0:${String(Math.round(s.duration || 0)).padStart(2, "0")}`;
+
+  // A short as a poster with a play button. Nothing loads until the reader clicks it.
+  function shortFrameHtml(s) {
+    const poster = siteUrl(`assets/shorts/posters/${s.file}.jpg`);
+    return `
+      <div class="short-frame" data-id="${escapeHtml(s.id)}">
+        <img src="${escapeHtml(poster)}" alt="" loading="lazy" width="540" height="960">
+        <button class="short-play" type="button" aria-label="Play the short: ${escapeHtml(s.title)}">
+          <span class="short-play-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5Z"/></svg></span>
+        </button>
+        <span class="short-dur" aria-hidden="true">${shortDuration(s)}</span>
+      </div>`;
+  }
+
+  // Clicking a poster opens the player on that short. `list` is what Previous/Next walk through.
+  function wireShortFrames(root, list, options) {
+    root.querySelectorAll(".short-frame").forEach((frame) => {
+      const btn = frame.querySelector(".short-play");
+      const index = list.findIndex((s) => s.id === frame.dataset.id);
+      if (btn && index !== -1) btn.addEventListener("click", () => openShortPlayer(list, index, btn, options));
+    });
+  }
+
+  // The player: one <dialog>, built the first time it's needed and sized to the window's height,
+  // so the text in a 1080x1920 clip is big enough to read. Its controls sit under the clip, not on it.
+  const ICONS = {
+    play: '<path d="M8 5.5v13l10.5-6.5Z" fill="currentColor" stroke="none"/>',
+    pause: '<path d="M8.5 5v14M15.5 5v14"/>',
+    replay: '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/>',
+    sound: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+    muted: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4Z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
+    full: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+    close: '<path d="M6 6l12 12M18 6 6 18"/>',
+    prev: '<path d="m15 5-7 7 7 7"/>',
+    next: '<path d="m9 5 7 7-7 7"/>',
+  };
+  const icon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+  const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+
+  let player = null;
+  let preferMuted = false;
+  try { preferMuted = localStorage.getItem("gl-shorts-muted") === "1"; } catch (e) { /* storage blocked */ }
+
+  function ensurePlayer() {
+    if (player) return player;
+    const dlg = document.createElement("dialog");
+    dlg.className = "short-player";
+    dlg.setAttribute("aria-labelledby", "spTitle");
+    dlg.innerHTML = `
+      <button class="sp-btn sp-close" type="button" aria-label="Close">${icon("close")}</button>
+      <button class="sp-btn sp-nav sp-prev" type="button" aria-label="Previous short">${icon("prev")}</button>
+      <div class="sp-main">
+        <div class="sp-frame">
+          <video playsinline preload="auto"></video>
+          <button class="sp-big" type="button" aria-label="Play">${icon("play")}</button>
+        </div>
+        <div class="sp-bar">
+          <button class="sp-btn sp-toggle" type="button" aria-label="Play">${icon("play")}</button>
+          <input class="sp-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position in the short">
+          <span class="sp-time" aria-hidden="true">0:00</span>
+          <button class="sp-btn sp-mute" type="button" aria-label="Mute" aria-pressed="false">${icon("sound")}</button>
+          <button class="sp-btn sp-full" type="button" aria-label="Full screen">${icon("full")}</button>
+        </div>
+      </div>
+      <div class="sp-info">
+        <p class="short-kicker" id="spKicker"></p>
+        <h2 class="sp-title" id="spTitle"></h2>
+        <p class="short-summary" id="spSummary"></p>
+        <a class="short-link" id="spArticle" hidden>Read the article →</a>
+        <p class="sp-keys" aria-hidden="true">Space play · M sound · ← → previous / next · Esc close</p>
+      </div>
+      <button class="sp-btn sp-nav sp-next" type="button" aria-label="Next short">${icon("next")}</button>`;
+    document.body.appendChild(dlg);
+
+    const $ = (sel) => dlg.querySelector(sel);
+    const video = $("video"), big = $(".sp-big"), toggle = $(".sp-toggle"), seek = $(".sp-seek");
+    const time = $(".sp-time"), mute = $(".sp-mute"), prev = $(".sp-prev"), next = $(".sp-next");
+    const state = { list: [], index: 0, opener: null, options: {} };
+
+    function setPlaying(on) {
+      toggle.innerHTML = icon(on ? "pause" : "play");
+      toggle.setAttribute("aria-label", on ? "Pause" : "Play");
+      big.hidden = on;
+    }
+    function setMuted(on) {
+      video.muted = on;
+      preferMuted = on;
+      try { localStorage.setItem("gl-shorts-muted", on ? "1" : "0"); } catch (e) { /* storage blocked */ }
+      mute.innerHTML = icon(on ? "muted" : "sound");
+      mute.setAttribute("aria-pressed", String(on));
+      mute.setAttribute("aria-label", on ? "Turn sound on" : "Mute");
+    }
+    const togglePlay = () => (video.paused || video.ended ? video.play().catch(() => {}) : video.pause());
+
+    function show(i, autoplay) {
+      const s = state.list[i];
+      state.index = i;
+      video.src = siteUrl(`assets/shorts/${s.file}.mp4`);
+      video.poster = siteUrl(`assets/shorts/posters/${s.file}.jpg`);
+      setMuted(preferMuted);
+      seek.value = 0;
+      time.textContent = `0:00 / ${shortDuration(s)}`;
+      big.innerHTML = icon("play");
+      $("#spKicker").textContent = `Gold Layer Short #${s.id} · ${s.topic || "Short"} · ${shortDuration(s)}`;
+      $("#spTitle").textContent = s.title;
+      $("#spSummary").textContent = s.summary || "";
+      const article = $("#spArticle");
+      article.hidden = !s.articleUrl;
+      if (s.articleUrl) article.href = s.articleUrl;
+      const many = state.list.length > 1;
+      prev.hidden = next.hidden = !many;
+      prev.disabled = i === 0;
+      next.disabled = i === state.list.length - 1;
+      if (state.options.updateHash) {
+        try { history.replaceState(null, "", `#short-${s.id}`); } catch (e) { /* file:// in some browsers */ }
+      }
+      setPlaying(false);
+      if (autoplay) video.play().catch(() => setPlaying(false));  // blocked: the big play button stays
+    }
+
+    video.addEventListener("play", () => setPlaying(true));
+    video.addEventListener("pause", () => setPlaying(false));
+    video.addEventListener("ended", () => { setPlaying(false); big.innerHTML = icon("replay"); big.setAttribute("aria-label", "Play again"); });
+    video.addEventListener("timeupdate", () => {
+      const d = video.duration || 0;
+      if (!d) return;
+      seek.value = Math.round((video.currentTime / d) * 1000);
+      seek.setAttribute("aria-valuetext", `${clock(video.currentTime)} of ${clock(d)}`);
+      time.textContent = `${clock(video.currentTime)} / ${clock(d)}`;
+    });
+    seek.addEventListener("input", () => { if (video.duration) video.currentTime = (seek.value / 1000) * video.duration; });
+    video.addEventListener("click", togglePlay);
+    big.addEventListener("click", togglePlay);
+    toggle.addEventListener("click", togglePlay);
+    mute.addEventListener("click", () => setMuted(!video.muted));
+    $(".sp-full").addEventListener("click", () => {
+      if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();  // iOS Safari
+    });
+    prev.addEventListener("click", () => { if (state.index > 0) show(state.index - 1, true); });
+    next.addEventListener("click", () => { if (state.index < state.list.length - 1) show(state.index + 1, true); });
+    $(".sp-close").addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });  // the dimmed backdrop
+
+    dlg.addEventListener("keydown", (e) => {
+      const onControl = e.target.matches("button, input, a");
+      if ((e.key === " " && !onControl) || e.key === "k") { e.preventDefault(); togglePlay(); }
+      else if (e.key === "m") setMuted(!video.muted);
+      else if (e.key === "ArrowLeft" && !e.target.matches("input")) prev.click();
+      else if (e.key === "ArrowRight" && !e.target.matches("input")) next.click();
+    });
+
+    dlg.addEventListener("close", () => {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      if (state.options.updateHash) {
+        try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* ignore */ }
+      }
+      if (state.opener && state.opener.isConnected) state.opener.focus();
+    });
+
+    player = { dlg, state, show };
+    return player;
+  }
+
+  // options: { autoplay (default true), updateHash (keep #short-NNN in the address) }
+  function openShortPlayer(list, index, opener, options = {}) {
+    const p = ensurePlayer();
+    Object.assign(p.state, { list, opener, options });
+    if (!p.dlg.open) p.dlg.showModal();
+    p.show(index, options.autoplay !== false);
+    p.dlg.querySelector(".sp-toggle").focus();
+  }
+
   function countBy(values) {
     const map = new Map();
     for (const v of values) map.set(v, (map.get(v) || 0) + 1);
@@ -176,7 +370,8 @@
       </article>`;
   }
 
-  window.SiteBlog = { loadPosts, loadMarkdown, parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
+  window.SiteBlog = { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
+    parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
 
   // ---------------------------------------------------------------- home: the article list
 
@@ -356,7 +551,7 @@
   const blogEl = document.getElementById("blogApp");
   if (blogEl) {
     initBlog(blogEl);
-  } else {
+  } else if (page === "post") {
     // Post pages: mark the topic and archive entry of the post being read.
     const slug = page === "post" ? new URLSearchParams(location.search).get("slug") : null;
     loadPosts()
