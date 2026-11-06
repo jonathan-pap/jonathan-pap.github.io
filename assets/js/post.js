@@ -4,7 +4,8 @@
 (function () {
   "use strict";
 
-  const { loadPosts, loadMarkdown, formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
+  const { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames,
+    formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
   const SITE_URL = "https://jonathan-pap.github.io/";
   const SITE_NAME = "Gold Layer";
 
@@ -239,6 +240,27 @@
       </a>`;
   }
 
+  // If a Gold Layer Short was made from this article, show it after the opening paragraph.
+  async function insertShort(slug) {
+    const short = (await loadShorts()).find((s) => s.post === slug);
+    if (!short) return;
+    const card = document.createElement("aside");
+    card.className = "post-short";
+    card.setAttribute("aria-label", "The short version");
+    card.innerHTML = `
+      ${shortFrameHtml(short)}
+      <div class="post-short-text">
+        <p class="short-kicker">Gold Layer Short · ${shortDuration(short)}</p>
+        <p class="post-short-title">${escapeHtml(short.title)}</p>
+        <p class="short-summary">${escapeHtml(short.summary)}</p>
+        <a class="short-link" href="./shorts.html">All shorts →</a>
+      </div>`;
+    const firstPara = bodyEl.querySelector(":scope > p");
+    if (firstPara) firstPara.after(card);
+    else bodyEl.prepend(card);
+    wireShortFrames(card, [short]);
+  }
+
   async function init() {
     const slug = new URL(window.location.href).searchParams.get("slug") || "";
     if (!slug) {
@@ -264,6 +286,7 @@
     enhanceCodeBlocks();
     buildToc();
     initReadingProgress();
+    insertShort(current.slug).catch((err) => console.error(err));  // the article stands without it
 
     const newer = idx > 0 ? posts[idx - 1] : null;
     const older = idx < posts.length - 1 ? posts[idx + 1] : null;
