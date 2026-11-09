@@ -6,7 +6,7 @@
 
   const { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames,
     formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
-  const SITE_URL = "https://jonathan-pap.github.io/";
+  const SITE_URL = "https://goldlayerdata.com/";
   const SITE_NAME = "Gold Layer";
 
   const titleEl = document.getElementById("postTitle");

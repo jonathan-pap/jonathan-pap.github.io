@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Gold Layer</title>
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
-  <link href="https://jonathan-pap.github.io/feed.xml" rel="self" />
-  <link href="https://jonathan-pap.github.io/" />
+  <link href="https://goldlayerdata.com/feed.xml" rel="self" />
+  <link href="https://goldlayerdata.com/" />
   <updated>2026-11-06T00:00:00Z</updated>
-  <id>https://jonathan-pap.github.io/</id>
+  <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>

@@ -45,7 +45,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent
-SITE_URL = "https://jonathan-pap.github.io"
+SITE_URL = "https://goldlayerdata.com"
 SITE_TITLE = "Gold Layer"
 SITE_SUBTITLE = "Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them."
 AUTHOR = "Jonathan Pap"

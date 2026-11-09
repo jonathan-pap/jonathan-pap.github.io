@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jonathan-pap.github.io/sitemap.xml
+Sitemap: https://goldlayerdata.com/sitemap.xml
