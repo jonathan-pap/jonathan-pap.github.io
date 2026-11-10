@@ -233,6 +233,21 @@ code{font:500 .86em/1.4 var(--mono);background:var(--navy-700);border-radius:4px
 .prose pre:focus-visible{outline-offset:-2px}
 .prose pre code{font:inherit;background:none;border:0;padding:0;color:var(--ink)}
 .code-block{border:1px solid var(--line);border-radius:12px;background:var(--navy-800);overflow:hidden}
+/* Diagrams (```mermaid fences, drawn by post.js) */
+/* Diff lines (```diff fences, coloured by post.js) and side-by-side before/after */
+.prose pre .d-add,.prose pre .d-del,.prose pre .d-ctx{display:inline-block;min-width:100%;padding:0 6px;margin:0 -6px}
+.prose pre .d-add{background:rgba(95,211,141,.14);color:#b8f0cf}
+.prose pre .d-del{background:rgba(255,122,122,.13);color:#ffc2c2}
+.prose .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.prose .compare > div{min-width:0}
+.prose .compare-label{margin:0 0 6px;font:600 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prose .compare pre{font-size:13px}
+@media (max-width:700px){.prose .compare{grid-template-columns:1fr}}
+.prose figure.diagram{margin:28px 0;padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:var(--navy-800);overflow-x:auto;text-align:center}
+.prose figure.diagram pre.mermaid{margin:0;border:0;background:none;padding:0;color:transparent;min-height:120px}
+.prose figure.diagram svg{max-width:100%;height:auto}
+.prose figure.diagram .nodeLabel,.prose figure.diagram .edgeLabel{font-family:Figtree,system-ui,sans-serif}
+.prose figure.diagram code{font-family:"IBM Plex Mono",monospace;background:none;border:0;padding:0;font-size:.92em}
 .code-block pre{border:0;border-radius:0}
 .code-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;padding:5px 6px 5px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
 .code-lang{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}

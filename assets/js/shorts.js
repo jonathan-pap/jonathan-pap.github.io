@@ -14,7 +14,7 @@
     return `
       <article class="short-card" id="short-${escapeHtml(s.id)}">
         ${shortFrameHtml(s)}
-        <p class="short-kicker">#${escapeHtml(s.id)} · ${escapeHtml(s.topic || "Short")} · ${shortDuration(s)}</p>
+        <p class="short-kicker">${escapeHtml(s.topic || "Short")} · ${shortDuration(s)}</p>
         <h2 class="short-title">${escapeHtml(s.title)}</h2>
         <p class="short-summary">${escapeHtml(s.summary || "")}</p>
         ${articleUrl ? `<a class="short-link" href="${escapeHtml(articleUrl)}">Read the article →</a>` : ""}

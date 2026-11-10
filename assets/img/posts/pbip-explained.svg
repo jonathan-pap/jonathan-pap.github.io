@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="PBIP explained: the Power BI project folder, file by file">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">POWER BI · PBIP · GIT</text>
+    <text x="72" y="250" font-size="78" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">PBIP,</text>
+    <text x="72" y="336" font-size="78" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">explained.</text>
+    <text x="72" y="398" font-size="28" fill="#A3AEC8">The Power BI project folder,</text>
+    <text x="72" y="436" font-size="28" fill="#A3AEC8">one file at a time.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: the tree from short #004, the pointer in gold and the data file in red -->
+  <g transform="translate(680 88)">
+    <rect width="460" height="460" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="19" fill="#A3AEC8">
+      <text x="30" y="52" fill="#E8ECF5">Sales/</text>
+      <text x="30" y="86">├&#160;<tspan fill="#F2C811">Sales.pbip</tspan></text>
+      <text x="30" y="120">├&#160;.gitignore</text>
+      <text x="30" y="154">├&#160;<tspan fill="#E8ECF5">Sales.SemanticModel/</tspan></text>
+      <text x="30" y="188">│&#160;&#160;├&#160;definition.pbism</text>
+      <text x="30" y="222">│&#160;&#160;├&#160;definition/</text>
+      <text x="30" y="256">│&#160;&#160;│&#160;&#160;├&#160;model.tmdl</text>
+      <text x="30" y="290">│&#160;&#160;│&#160;&#160;└&#160;tables/&lt;Table&gt;.tmdl</text>
+      <text x="30" y="324">│&#160;&#160;└&#160;<tspan fill="#F0676B">.pbi/cache.abf</tspan></text>
+      <text x="30" y="358">└&#160;<tspan fill="#E8ECF5">Sales.Report/</tspan></text>
+      <text x="30" y="392">&#160;&#160;&#160;├&#160;definition.pbir</text>
+      <text x="30" y="426">&#160;&#160;&#160;└&#160;definition/pages/…</text>
+    </g>
+  </g>
+</svg>

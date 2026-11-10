@@ -4,10 +4,28 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-06T00:00:00Z</updated>
+  <updated>2026-11-10T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>PBIP explained: the Power BI project folder, file by file</title>
+    <link href="https://goldlayerdata.com/post.html?slug=pbip-explained" />
+    <id>https://goldlayerdata.com/post.html?slug=pbip-explained</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>The Power BI project folder in one tree: what each file is for, why plain text matters, and the few rules that bite.</summary>
+    <category term="Power BI" />
+  </entry>
+
+  <entry>
+    <title>One row from CSV to a Copilot answer</title>
+    <link href="https://goldlayerdata.com/post.html?slug=one-row-csv-to-copilot" />
+    <id>https://goldlayerdata.com/post.html?slug=one-row-csv-to-copilot</id>
+    <updated>2026-11-10T00:00:00Z</updated>
+    <summary>The Gold Layer trailer follows one sales row through a Fabric data platform in under a minute. This is the slow version: what happens at each step, and why it's built that way.</summary>
+    <category term="Fabric" />
+  </entry>
 
 </feed>

@@ -224,7 +224,7 @@
       seek.value = 0;
       time.textContent = `0:00 / ${shortDuration(s)}`;
       big.innerHTML = icon("play");
-      $("#spKicker").textContent = `Gold Layer Short #${s.id} · ${s.topic || "Short"} · ${shortDuration(s)}`;
+      $("#spKicker").textContent = `Gold Layer Short · ${s.topic || "Short"} · ${shortDuration(s)}`;
       $("#spTitle").textContent = s.title;
       $("#spSummary").textContent = s.summary || "";
       const article = $("#spArticle");

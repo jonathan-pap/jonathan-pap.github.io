@@ -75,6 +75,82 @@
     if (first && first.tagName === "H1" && norm(first.textContent) === norm(title)) first.remove();
   }
 
+  // ---- diagrams: ```mermaid fences become brand-styled SVG diagrams ----
+  // Mermaid only loads on posts that have a diagram. If it fails, the fence stays a plain code block.
+
+  const MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+  const MERMAID_THEME = {
+    theme: "base",
+    themeVariables: {
+      darkMode: true,
+      background: "#0A1328",
+      fontFamily: "Figtree, system-ui, sans-serif",
+      fontSize: "14px",
+      primaryColor: "#1B3466",
+      primaryTextColor: "#E8ECF5",
+      primaryBorderColor: "#3A5AA0",
+      secondaryColor: "#132654",
+      tertiaryColor: "#0D1A3C",
+      lineColor: "#8A9BC4",
+      textColor: "#E8ECF5",
+      clusterBkg: "#0B1631",
+      clusterBorder: "#22335F",
+      titleColor: "#A3AEC8",
+      edgeLabelBackground: "#0A1328",
+      nodeTextColor: "#E8ECF5",
+      attributeBackgroundColorOdd: "#132654",
+      attributeBackgroundColorEven: "#10204A",
+    },
+    flowchart: { curve: "basis", padding: 10, nodeSpacing: 26, rankSpacing: 34, htmlLabels: true, wrappingWidth: 260 },
+  };
+
+  async function renderDiagrams() {
+    const fences = Array.from(bodyEl.querySelectorAll("pre > code.language-mermaid"));
+    if (!fences.length) return;
+    const figs = fences.map((code) => {
+      const fig = document.createElement("figure");
+      fig.className = "diagram";
+      const src = document.createElement("pre");
+      src.className = "mermaid";
+      src.textContent = code.textContent;
+      fig.appendChild(src);
+      code.parentElement.replaceWith(fig);
+      return { fig, src: code.textContent };
+    });
+    let mermaid;
+    try {
+      ({ default: mermaid } = await import(MERMAID_URL));
+      mermaid.initialize(Object.assign({ startOnLoad: false, securityLevel: "strict" }, MERMAID_THEME));
+    } catch (err) {
+      console.error(err);
+      mermaid = null;
+    }
+    // one at a time, each with its own id (rendering them together can mix up their contents)
+    const failed = [];
+    for (let i = 0; i < figs.length; i++) {
+      const f = figs[i];
+      try {
+        if (!mermaid) throw new Error("mermaid did not load");
+        const { svg } = await mermaid.render("gl-diagram-" + i, f.src);
+        f.fig.innerHTML = svg;
+      } catch (err) {
+        console.error(err);
+        failed.push(f);
+      }
+    }
+    if (failed.length) {
+      failed.forEach(({ fig, src }) => {  // fall back to the source, as a normal code block
+        const pre = document.createElement("pre");
+        const code = document.createElement("code");
+        code.className = "language-mermaid";
+        code.textContent = src;
+        pre.appendChild(code);
+        fig.replaceWith(pre);
+      });
+      enhanceCodeBlocks();
+    }
+  }
+
   // ---- code blocks: DAX highlighting, a language label and a copy button ----
 
   function enhanceCodeBlocks() {
@@ -93,7 +169,7 @@
 
     bodyEl.querySelectorAll("pre").forEach((pre) => {
       const code = pre.querySelector("code");
-      if (!code) return;
+      if (!code || pre.parentElement.classList.contains("code-block")) return;  // already enhanced
       const lang = (/\blang(?:uage)?-([\w#+-]+)/.exec(code.className) || [])[1] || "";
       const block = document.createElement("div");
       block.className = "code-block";
@@ -102,6 +178,13 @@
           <span class="code-lang${lang.toLowerCase() === "dax" ? " code-lang--dax" : ""}">${escapeHtml(lang)}</span>
           <button type="button" class="code-copy">Copy<span class="sr-only"> code</span></button>
         </div>`;
+      if (lang.toLowerCase() === "diff") {  // colour added and removed lines, as a pull request does
+        const lines = code.textContent.replace(/\n$/, "").split("\n");
+        code.innerHTML = lines.map((l) => {
+          const cls = l.startsWith("+") ? "d-add" : l.startsWith("-") ? "d-del" : "d-ctx";
+          return `<span class="${cls}">${escapeHtml(l) || " "}</span>`;
+        }).join("\n");
+      }
       pre.tabIndex = 0;  // lets keyboard users scroll wide code
       pre.replaceWith(block);
       block.appendChild(pre);
@@ -283,7 +366,9 @@
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
     removeDuplicateLeadTitle(current.title || "");
+    const diagrams = renderDiagrams();  // before the code blocks, so mermaid fences don't get a Copy bar
     enhanceCodeBlocks();
+    diagrams.catch((err) => console.error(err));
     buildToc();
     initReadingProgress();
     insertShort(current.slug).catch((err) => console.error(err));  // the article stands without it

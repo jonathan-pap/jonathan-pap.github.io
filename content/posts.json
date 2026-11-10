@@ -1,3 +1,47 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "slug": "pbip-explained",
+      "title": "PBIP explained: the Power BI project folder, file by file",
+      "date": "2026-11-10",
+      "category": "Power BI",
+      "tags": [
+        "Power BI",
+        "PBIP",
+        "TMDL",
+        "PBIR",
+        "Git",
+        "AI"
+      ],
+      "excerpt": "The Power BI project folder in one tree: what each file is for, why plain text matters, and the few rules that bite.",
+      "readTime": 6,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/pbip-explained.svg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
+      "slug": "one-row-csv-to-copilot",
+      "title": "One row from CSV to a Copilot answer",
+      "date": "2026-11-10",
+      "category": "Fabric",
+      "tags": [
+        "Fabric",
+        "Power BI",
+        "DAX",
+        "Copilot",
+        "CI/CD"
+      ],
+      "excerpt": "The Gold Layer trailer follows one sales row through a Fabric data platform in under a minute. This is the slow version: what happens at each step, and why it's built that way.",
+      "readTime": 7,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/one-row-csv-to-copilot.jpg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    }
+  ]
 }
