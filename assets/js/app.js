@@ -135,12 +135,26 @@
       </div>`;
   }
 
-  // Clicking a poster opens the player on that short. `list` is what Previous/Next walk through.
+  // A short plays on YouTube once it has a "youtube" id and its "youtubeFrom" date (if any) has passed;
+  // before that (e.g. while the YouTube upload is scheduled) it plays our own MP4.
+  const ytActive = (s) => !!s.youtube && (!s.youtubeFrom || Date.now() >= Date.parse(s.youtubeFrom));
+  const ytWatchUrl = (s) => `https://www.youtube.com/shorts/${encodeURIComponent(s.youtube)}`;
+  // The YouTube player, loaded only on click: nothing from YouTube loads before someone presses play.
+  const ytIframeHtml = (s) => `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(s.youtube)}?autoplay=1&rel=0&playsinline=1"
+      title="${escapeHtml(s.title)} (YouTube)" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+
+  // Clicking a poster plays that short: in place on YouTube, or in our player (`list` is what Previous/Next walk through).
   function wireShortFrames(root, list, options) {
     root.querySelectorAll(".short-frame").forEach((frame) => {
       const btn = frame.querySelector(".short-play");
       const index = list.findIndex((s) => s.id === frame.dataset.id);
-      if (btn && index !== -1) btn.addEventListener("click", () => openShortPlayer(list, index, btn, options));
+      if (!btn || index === -1) return;
+      btn.addEventListener("click", () => {
+        if (ytActive(list[index])) {
+          frame.classList.add("is-playing");
+          frame.innerHTML = ytIframeHtml(list[index]);
+        } else openShortPlayer(list, index, btn, options);
+      });
     });
   }
 
@@ -354,7 +368,6 @@
       p._dt ? `<time datetime="${escapeHtml(p.date)}">${formatDate(p._dt)}</time>` : "",
       `<span class="cat">${escapeHtml(p.category || "Notes")}</span>`,
       typeof p.readTime === "number" ? `<span>${p.readTime} min read</span>` : "",
-      p.drafted_with_ai ? `<span class="ai" title="Drafted with AI, reviewed by the author">AI-drafted</span>` : "",
     ].join("");
     const tags = (p.tags || []).map((t) => `#${t}`).join("  ");
 
@@ -371,6 +384,7 @@
   }
 
   window.SiteBlog = { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
+    ytActive, ytIframeHtml, ytWatchUrl,
     parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
 
   // ---------------------------------------------------------------- home: the article list

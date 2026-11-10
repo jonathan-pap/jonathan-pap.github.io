@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  const { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames,
+  const { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
     formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
   const SITE_URL = "https://goldlayerdata.com/";
   const SITE_NAME = "Gold Layer";
@@ -323,25 +323,41 @@
       </a>`;
   }
 
-  // If a Gold Layer Short was made from this article, show it after the opening paragraph.
+  // The short behind an article: a small card at the end. Clicking it plays the short, on YouTube in place
+  // (a 9:16 player, at most 80% of the screen tall), or in our own player while it isn't on YouTube yet.
+  // Once it is, the card also links to it on YouTube (the embed doesn't always show like/subscribe).
   async function insertShort(slug) {
     const short = (await loadShorts()).find((s) => s.post === slug);
     if (!short) return;
+    const poster = `./assets/shorts/posters/${encodeURIComponent(short.file)}.jpg`;
+
+    function play(fromEl) {
+      if (window.SiteBlog.ytActive(short)) {
+        const player = document.createElement("div");
+        player.className = "post-short-player";
+        player.innerHTML = window.SiteBlog.ytIframeHtml(short);
+        fromEl.replaceWith(player);
+      } else {
+        openShortPlayer([short], 0, fromEl);
+      }
+    }
+
+    const yt = window.SiteBlog.ytActive(short)
+      ? `<a href="${window.SiteBlog.ytWatchUrl(short)}" rel="noopener">Watch on YouTube ↗</a> · ` : "";
     const card = document.createElement("aside");
-    card.className = "post-short";
+    card.className = "post-short-end";
     card.setAttribute("aria-label", "The short version");
     card.innerHTML = `
-      ${shortFrameHtml(short)}
-      <div class="post-short-text">
-        <p class="short-kicker">Gold Layer Short · ${shortDuration(short)}</p>
-        <p class="post-short-title">${escapeHtml(short.title)}</p>
-        <p class="short-summary">${escapeHtml(short.summary)}</p>
-        <a class="short-link" href="./shorts.html">All shorts →</a>
+      <button type="button" class="post-short-end-thumb" aria-label="Play the short: ${escapeHtml(short.title)}">
+        <img src="${poster}" alt="" width="90" height="160" loading="lazy"><span aria-hidden="true">▶</span>
+      </button>
+      <div>
+        <p class="post-short-kicker">The ${Math.round(short.duration || 0)}-second version</p>
+        <p class="post-short-end-title">${escapeHtml(short.title)}</p>
+        <p class="post-short-end-links">${yt}<a href="./shorts.html#short-${encodeURIComponent(short.id)}">All shorts →</a></p>
       </div>`;
-    const firstPara = bodyEl.querySelector(":scope > p");
-    if (firstPara) firstPara.after(card);
-    else bodyEl.prepend(card);
-    wireShortFrames(card, [short]);
+    card.querySelector(".post-short-end-thumb").addEventListener("click", () => play(card));
+    bodyEl.appendChild(card);
   }
 
   async function init() {

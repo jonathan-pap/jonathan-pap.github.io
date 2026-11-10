@@ -178,8 +178,11 @@ code{font:500 .86em/1.4 var(--mono);background:var(--navy-700);border-radius:4px
 .post-tags{display:flex;flex-wrap:wrap;gap:4px 16px;font:500 13px/1.6 var(--mono)}
 .post-tags a{color:var(--muted);text-decoration:none}
 .post-tags a:hover{color:var(--gold-light);text-decoration:underline;text-underline-offset:4px}
-.ai-note{margin-top:22px;padding:12px 16px;border:1px solid rgba(242,200,17,.35);border-radius:10px;background:rgba(242,200,17,.06);font-size:15px}
-.ai-note a{color:var(--gold-light)}
+.ai-note{margin:36px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:14px;line-height:1.6;color:var(--muted)}
+.ai-note a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.ai-note a:hover{color:var(--gold-light)}
+.post-meta a.ai{text-decoration:none}
+.post-meta a.ai:hover{text-decoration:underline}
 
 .post-skeleton{display:grid;gap:14px}
 .post-skeleton span{display:block;height:14px;border-radius:7px;background:rgba(255,255,255,.07);animation:pulse 1.6s ease-in-out infinite}
@@ -291,7 +294,30 @@ code{font:500 .86em/1.4 var(--mono);background:var(--navy-700);border-radius:4px
 .short-card.is-target .short-frame{outline:2px solid var(--gold);outline-offset:4px}
 .shorts-grid > .empty{grid-column:1/-1}
 
-/* inside an article: a card after the opening paragraph */
+/* A short playing in place on YouTube (Shorts page frames and article players) */
+.short-frame.is-playing iframe,.post-short-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.short-card.is-target .short-frame{outline:2px solid var(--gold);outline-offset:4px}
+.short-links{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0}
+
+/* inside an article: a one-line strip after the opening paragraph, and a small recap card at the end */
+.prose .post-short-strip{display:flex;align-items:center;gap:12px;width:100%;max-width:520px;min-height:48px;margin:0 0 1.6em;padding:6px 12px 6px 6px;
+  border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.prose .post-short-strip:hover,.prose .post-short-strip:focus-visible{border-color:rgba(242,200,17,.55)}
+.prose .post-short-strip img{width:36px;height:64px;object-fit:cover;border-radius:6px;margin:0;border:0;flex:none}
+.post-short-strip-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.post-short-kicker{margin:0;font:600 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.post-short-strip-title{font-weight:700;line-height:1.3}
+.prose .post-short-player{position:relative;width:min(340px,100%,calc(80vh * 9 / 16));aspect-ratio:9/16;margin:0 auto 1.6em;
+  border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.prose .post-short-end{display:flex;align-items:center;gap:16px;margin:2em 0 0;padding:12px;border:1px solid var(--line);border-radius:14px}
+.prose .post-short-end p{margin:0}
+.prose .post-short-end-thumb{position:relative;flex:none;width:72px;aspect-ratio:9/16;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;background:#000}
+.prose .post-short-end-thumb img{width:100%;height:100%;object-fit:cover;margin:0;border:0;border-radius:0;display:block}
+.prose .post-short-end-thumb span{position:absolute;inset:0;margin:auto;width:32px;height:32px;border-radius:50%;background:var(--gold);color:#1a1400;font-size:13px;line-height:32px;text-align:center}
+.prose .post-short-end-title{font-weight:700;margin:4px 0 6px !important}
+.prose .post-short-end-links a{color:var(--gold);text-decoration:none;font-size:14px}
+
+/* (older layout: a card after the opening paragraph) */
 .prose .post-short{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;align-items:center;margin:0 0 1.6em;padding:16px;
   border:1px solid var(--line);border-radius:16px;background:var(--card)}
 .prose .post-short p{margin:0}

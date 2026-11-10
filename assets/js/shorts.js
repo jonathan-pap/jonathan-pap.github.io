@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  const { loadShorts, loadPosts, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer, escapeHtml, postUrl,
+  const { loadShorts, loadPosts, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer, ytActive, ytWatchUrl, escapeHtml, postUrl,
     OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
 
   const gridEl = document.getElementById("shortsGrid");
@@ -17,7 +17,10 @@
         <p class="short-kicker">${escapeHtml(s.topic || "Short")} · ${shortDuration(s)}</p>
         <h2 class="short-title">${escapeHtml(s.title)}</h2>
         <p class="short-summary">${escapeHtml(s.summary || "")}</p>
-        ${articleUrl ? `<a class="short-link" href="${escapeHtml(articleUrl)}">Read the article →</a>` : ""}
+        <p class="short-links">
+          ${articleUrl ? `<a class="short-link" href="${escapeHtml(articleUrl)}">Read the article →</a>` : ""}
+          ${ytActive(s) ? `<a class="short-link" href="${escapeHtml(ytWatchUrl(s))}" rel="noopener">Watch on YouTube ↗</a>` : ""}
+        </p>
       </article>`;
   }
 
@@ -45,7 +48,8 @@
       if (target) {
         target.scrollIntoView({ block: "center", behavior: "instant" });
         const i = list.findIndex((s) => `short-${s.id}` === target.id);
-        if (i !== -1) openShortPlayer(list, i, target.querySelector(".short-play"), { updateHash: true, autoplay: false });
+        if (i !== -1 && !ytActive(list[i])) openShortPlayer(list, i, target.querySelector(".short-play"), { updateHash: true, autoplay: false });
+        else if (i !== -1) target.classList.add("is-target");  // a YouTube short: show it, the reader clicks play
       }
     })
     .catch((err) => {

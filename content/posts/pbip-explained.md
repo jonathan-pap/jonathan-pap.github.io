@@ -2,7 +2,7 @@
 
 Save a report as a Power BI project (PBIP) and the single `.pbix` turns into a folder of plain text files. The first time I did it, I didn't know which files mattered. Most of them don't, at first. A handful do.
 
-The short above shows the one file that must never leave your machine. This post walks the whole folder, one file at a time.
+This post walks the whole folder, one file at a time. If you only want the one file that must never leave your machine, the 33-second short is at the end.
 
 ## The tree
 
