@@ -10,8 +10,7 @@ window.GOLD_LAYER_SHORTS = {
       "duration": 33,
       "post": "pbip-explained",
       "summary": "A .pbix carries your imported data inside it. Save as PBIP and the definition becomes plain text, but the data sits in .pbi/cache.abf. Keep it out of Git with .gitignore, and check visual.json: filter values can still land there.",
-      "youtube": "Et9_XYKqhjU",
-      "youtubeFrom": "2026-11-12T00:00:00Z"
+      "youtube": "Et9_XYKqhjU"
     }
   ]
 };
