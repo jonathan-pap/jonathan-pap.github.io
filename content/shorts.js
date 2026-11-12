@@ -3,6 +3,16 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "agent-safe-files",
+      "file": "agent-safe-files",
+      "title": "Which PBIP files can your AI agent touch?",
+      "topic": "PBIP + AI",
+      "duration": 36,
+      "post": "pbip-folder-structure",
+      "summary": "Hand an AI agent the definition/ folders: PBIR for the report, TMDL for the model. Keep it away from .pbi/cache.abf (your data) and .pbi/localSettings.json (just you), and leave mobileState.json and diagramLayout.json alone: no edits outside Desktop. Validate PBIR against its schemas; filter values can still sit in the report files.",
+      "youtube": "aihd1GCSbzE"
+    },
+    {
       "id": "data-in-report-files",
       "file": "data-in-report-files",
       "title": "The data hiding in your report files",

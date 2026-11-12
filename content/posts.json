@@ -1,6 +1,28 @@
 {
   "posts": [
     {
+      "slug": "pbip-folder-structure",
+      "title": "Know your PBIP: what every file in a Power BI project is for",
+      "date": "2026-11-12",
+      "category": "Power BI",
+      "tags": [
+        "Power BI",
+        "PBIP",
+        "TMDL",
+        "PBIR",
+        "AI",
+        "Git"
+      ],
+      "excerpt": "A field guide to the Power BI project folder: what each file holds, which ones an AI agent can safely edit, and which ones must never leave your machine.",
+      "readTime": 10,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/pbip-folder-structure.svg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "pbip-explained",
       "title": "PBIP explained: the Power BI project folder, file by file",
       "date": "2026-11-10",

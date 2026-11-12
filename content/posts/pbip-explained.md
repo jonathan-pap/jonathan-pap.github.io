@@ -154,4 +154,4 @@ flowchart TB
 
 ## The full map
 
-This post covers the files in the short. A real project has more: DAX query tabs, diagram layouts, themes, a mobile layout, and a few files that aren't supported for outside editing at all. The next post is the full field guide: every one of those files, with which ones an agent can safely edit and which ones it should leave alone.
+This post covers the files in the short. A real project has more: DAX query tabs, diagram layouts, themes, a mobile layout, and a few files that aren't supported for outside editing at all. The [full field guide](./post.html?slug=pbip-folder-structure) covers every one of those files, with which ones an agent can safely edit and which ones it should leave alone.

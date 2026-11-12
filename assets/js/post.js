@@ -327,37 +327,43 @@
   // (a 9:16 player, at most 80% of the screen tall), or in our own player while it isn't on YouTube yet.
   // Once it is, the card also links to it on YouTube (the embed doesn't always show like/subscribe).
   async function insertShort(slug) {
-    const short = (await loadShorts()).find((s) => s.post === slug);
-    if (!short) return;
-    const poster = `./assets/shorts/posters/${encodeURIComponent(short.file)}.jpg`;
+    const list = (await loadShorts()).filter((s) => s.post === slug);
+    list.forEach((short) => bodyEl.appendChild(shortCard(short, list.length)));
+  }
 
-    function play(fromEl) {
+  // One small card per short at the end of the article. A single short is "the N-second version" of the post;
+  // with several, each card says "Short" and its length.
+  function shortCard(short, count) {
+    const poster = `./assets/shorts/posters/${encodeURIComponent(short.file)}.jpg`;
+    const card = document.createElement("aside");
+
+    function play() {
       if (window.SiteBlog.ytActive(short)) {
         const player = document.createElement("div");
         player.className = "post-short-player";
         player.innerHTML = window.SiteBlog.ytIframeHtml(short);
-        fromEl.replaceWith(player);
+        card.replaceWith(player);
       } else {
-        openShortPlayer([short], 0, fromEl);
+        openShortPlayer([short], 0, card);
       }
     }
 
     const yt = window.SiteBlog.ytActive(short)
       ? `<a href="${window.SiteBlog.ytWatchUrl(short)}" rel="noopener">Watch on YouTube ↗</a> · ` : "";
-    const card = document.createElement("aside");
+    const kicker = count === 1 ? `The ${Math.round(short.duration || 0)}-second version` : `Short · ${shortDuration(short)}`;
     card.className = "post-short-end";
-    card.setAttribute("aria-label", "The short version");
+    card.setAttribute("aria-label", "Short: " + short.title);
     card.innerHTML = `
       <button type="button" class="post-short-end-thumb" aria-label="Play the short: ${escapeHtml(short.title)}">
         <img src="${poster}" alt="" width="90" height="160" loading="lazy"><span aria-hidden="true">▶</span>
       </button>
       <div>
-        <p class="post-short-kicker">The ${Math.round(short.duration || 0)}-second version</p>
+        <p class="post-short-kicker">${kicker}</p>
         <p class="post-short-end-title">${escapeHtml(short.title)}</p>
         <p class="post-short-end-links">${yt}<a href="./shorts.html#short-${encodeURIComponent(short.id)}">All shorts →</a></p>
       </div>`;
-    card.querySelector(".post-short-end-thumb").addEventListener("click", () => play(card));
-    bodyEl.appendChild(card);
+    card.querySelector(".post-short-end-thumb").addEventListener("click", play);
+    return card;
   }
 
   async function init() {

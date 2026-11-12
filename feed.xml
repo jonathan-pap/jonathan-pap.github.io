@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-10T00:00:00Z</updated>
+  <updated>2026-11-12T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Know your PBIP: what every file in a Power BI project is for</title>
+    <link href="https://goldlayerdata.com/post.html?slug=pbip-folder-structure" />
+    <id>https://goldlayerdata.com/post.html?slug=pbip-folder-structure</id>
+    <updated>2026-11-12T00:00:00Z</updated>
+    <summary>A field guide to the Power BI project folder: what each file holds, which ones an AI agent can safely edit, and which ones must never leave your machine.</summary>
+    <category term="Power BI" />
+  </entry>
 
   <entry>
     <title>PBIP explained: the Power BI project folder, file by file</title>
