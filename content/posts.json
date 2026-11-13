@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "slug": "pareto-in-power-bi-dax-vs-visual-calculations",
+      "title": "Pareto in Power BI: DAX measures or visual calculations?",
+      "date": "2026-11-13",
+      "category": "Power BI",
+      "tags": [
+        "Power BI",
+        "DAX",
+        "Visual calculations",
+        "Pareto",
+        "Conditional formatting"
+      ],
+      "excerpt": "The same Pareto chart built twice on Contoso data, once with visual calculations and once with DAX measures. Same numbers, different trade-offs, one ORDERBY trap, plus shaded ABC bands and a cutoff you can move.",
+      "readTime": 10,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/pareto-in-power-bi-dax-vs-visual-calculations.svg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "pbip-folder-structure",
       "title": "Know your PBIP: what every file in a Power BI project is for",
       "date": "2026-11-12",

@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-12T00:00:00Z</updated>
+  <updated>2026-11-13T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Pareto in Power BI: DAX measures or visual calculations?</title>
+    <link href="https://goldlayerdata.com/post.html?slug=pareto-in-power-bi-dax-vs-visual-calculations" />
+    <id>https://goldlayerdata.com/post.html?slug=pareto-in-power-bi-dax-vs-visual-calculations</id>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>The same Pareto chart built twice on Contoso data, once with visual calculations and once with DAX measures. Same numbers, different trade-offs, one ORDERBY trap, plus shaded ABC bands and a cutoff you can move.</summary>
+    <category term="Power BI" />
+  </entry>
 
   <entry>
     <title>Know your PBIP: what every file in a Power BI project is for</title>

@@ -3,6 +3,16 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "pareto-city",
+      "file": "pareto-city",
+      "title": "Pareto chart in Power BI in 4 steps",
+      "topic": "Power BI",
+      "duration": 31,
+      "post": "pareto-in-power-bi-dax-vs-visual-calculations",
+      "summary": "Sort the bars biggest first, add the cumulative %, draw the 80% cutoff and read the vital few. On Contoso sample data, 4 of 8 product categories make 83% of revenue. In Power BI the cumulative % is one visual calculation: RUNNINGSUM ( [Percent of grand total], ORDERBY ( [Revenue], DESC ) ).",
+      "youtube": "Lf9yYJ2yCX8"
+    },
+    {
       "id": "agent-safe-files",
       "file": "agent-safe-files",
       "title": "Which PBIP files can your AI agent touch?",
