@@ -6,7 +6,7 @@ Power BI has no Pareto visual, so you build one. Since visual calculations arriv
 
 ## The data
 
-Contoso sample data: $150.6M of revenue across 138,491 sales lines, grouped into 8 product categories.
+Contoso sample data: $150.6M of revenue across 138,491 sales lines, grouped into 8 product categories. The finished report is free to download, data included: [examples/pareto on GitHub](https://github.com/goldlayerdata/gold-layer-examples/tree/main/examples/pareto) has the PBIX, every formula in one `.dax` file, and every chart shown here.
 
 | Category | Revenue | Share | Running total |
 |---|---:|---:|---:|
@@ -160,7 +160,7 @@ Add DAX measures when the number has to leave the chart: a card, a headline, a t
 
 ## Build it yourself
 
-The visual-calculation version, from a blank page. It needs one measure, Revenue, and one category column.
+The visual-calculation version, from a blank page. It needs one measure, Revenue, and one category column. To compare with a finished one, open the PBIX from [examples/pareto](https://github.com/goldlayerdata/gold-layer-examples/tree/main/examples/pareto).
 
 1. Add a **Line and stacked column chart**. Put the category on **X-axis** and Revenue on **Column y-axis**.
 2. Sort it largest first: **More options (...) > Sort axis > Revenue**, then **Sort axis > Sort descending**.
