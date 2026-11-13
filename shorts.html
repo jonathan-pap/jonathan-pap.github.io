@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
-<link rel="stylesheet" href="./assets/css/styles.css?v=76">
+<link rel="stylesheet" href="./assets/css/styles.css?v=78">
 </head>
 <body data-page="shorts">
 <a class="skip-link" href="#shortsGrid">Skip to the shorts</a>
@@ -72,16 +72,56 @@
 <main>
   <section class="page-head" aria-labelledby="page-title">
     <div class="wrap">
-      <div class="eyebrow">Gold Layer Shorts</div>
-      <h1 id="page-title">One idea in under <span class="hl">a minute</span></h1>
-      <p class="lead">DAX, Power BI, Fabric and AI, one short at a time. Where there's a full article behind a short, it links to it.</p>
+      <div class="eyebrow">One idea in under a minute</div>
+      <h1 id="page-title">Gold Layer <span class="hl">Shorts</span></h1>
     </div>
   </section>
 
-  <div class="wrap shorts-wrap">
-    <div class="results-bar"><span id="shortsCount" aria-live="polite">Loading shorts…</span></div>
-    <div id="shortsGrid" class="shorts-grid"></div>
-    <noscript><p class="empty">The shorts need JavaScript to load.</p></noscript>
+  <div class="wrap blog-layout blog-layout--home blog-layout--shorts">
+    <!-- The gallery, rendered by assets/js/shorts.js from content/shorts.json -->
+    <section class="blog-main" aria-labelledby="shorts-title">
+      <h2 id="shorts-title" class="sr-only">Shorts</h2>
+      <div class="results-bar">
+        <span id="shortsCount" aria-live="polite">Loading shorts…</span>
+        <button id="shortsClear" class="linkbtn" type="button" hidden>Clear filters</button>
+      </div>
+      <div id="shortsGrid" class="shorts-grid"></div>
+      <noscript><p class="empty">The shorts need JavaScript to load.</p></noscript>
+    </section>
+
+    <!-- Left: ways into the gallery. Each part shows up only once it has something to filter. -->
+    <aside class="sidebar sidebar--nav" aria-label="Browse shorts">
+      <form id="shortsSearchForm" class="side-block search" action="./shorts.html" role="search" hidden>
+        <label class="sr-only" for="shortsSearch">Search shorts</label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="shortsSearch" name="q" type="search" placeholder="Search shorts" autocomplete="off" spellcheck="false">
+      </form>
+      <nav class="side-block side-topics" aria-labelledby="show-title" id="showBlock" hidden>
+        <h2 class="side-title" id="show-title">Show</h2>
+        <ul id="showNav" class="side-list"></ul>
+      </nav>
+      <nav class="side-block side-topics" aria-labelledby="topics-title">
+        <h2 class="side-title" id="topics-title">Topics</h2>
+        <ul id="topicNav" class="side-list">
+          <li><a href="./shorts.html" aria-current="page"><span>All shorts</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Right: about the shorts -->
+    <aside class="sidebar sidebar--aside" aria-labelledby="about-shorts-title">
+      <section class="side-block">
+        <h2 class="side-title" id="about-shorts-title">About the shorts</h2>
+        <div class="side-note">
+          <h3>One idea each</h3>
+          <p>DAX, Power BI, Fabric and AI, in under a minute. Where there's a full article behind a short, the card links to it.</p>
+        </div>
+        <div class="side-note">
+          <h3>Follow along</h3>
+          <p>New shorts go out as <strong>@goldlayerdata</strong> on <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>, <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a> and <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>.</p>
+        </div>
+      </section>
+    </aside>
   </div>
 </main>
 
@@ -101,6 +141,6 @@
 </footer>
 
 <script src="./assets/js/app.js?v=41"></script>
-<script src="./assets/js/shorts.js?v=6"></script>
+<script src="./assets/js/shorts.js?v=8"></script>
 </body>
 </html>
