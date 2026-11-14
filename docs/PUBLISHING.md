@@ -76,3 +76,7 @@ To take a published post off the site again, set `draft: true` and run `python s
 - A post is refused (not published) if it looks like it contains an API key, token, JWT, or a `C:\Users\...` path. Fix and re-run.
 - Hand-written posts in `posts.json` (no `source` field) are never overwritten.
 - A sourced slug that collides with a hand-written one is skipped and reported.
+
+## Analytics
+
+Every top-level page carries the Cloudflare Web Analytics snippet just before `</head>` (cookie-free, no consent banner needed). When you add a new page, copy that line from `index.html`. Stats: Cloudflare dashboard > Observability > Analytics > Web analytics > goldlayerdata.com.
