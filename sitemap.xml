@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://goldlayerdata.com/lab.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://goldlayerdata.com/post.html?slug=pareto-in-power-bi-dax-vs-visual-calculations</loc>
     <lastmod>2026-11-13</lastmod>
     <priority>0.8</priority>

@@ -285,6 +285,11 @@ def render_sitemap(posts: list[dict]) -> str:
         "    <changefreq>weekly</changefreq>",
         "    <priority>1.0</priority>",
         "  </url>",
+        "  <url>",
+        f"    <loc>{SITE_URL}/lab.html</loc>",
+        "    <changefreq>weekly</changefreq>",
+        "    <priority>0.6</priority>",
+        "  </url>",
     ]
     for p in posts:
         out += [
