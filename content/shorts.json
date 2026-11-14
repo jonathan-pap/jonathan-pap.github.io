@@ -2,6 +2,16 @@
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "model-folder",
+      "file": "model-folder",
+      "title": "One table, one file: the semantic model folder",
+      "topic": "Power BI",
+      "duration": 50,
+      "post": "pbip-folder-structure",
+      "summary": "Save a Power BI report as a project (PBIP) and the semantic model becomes a folder of text files in TMDL: one file per table, plus relationships, expressions, roles and the settings. Two files never go in Git: .pbi/localSettings.json (just you) and .pbi/cache.abf (your data).",
+      "youtube": "OORGHwoscv4"
+    },
+    {
       "id": "pareto-city",
       "file": "pareto-city",
       "title": "Pareto chart in Power BI in 4 steps",
