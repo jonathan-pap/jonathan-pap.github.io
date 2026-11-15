@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "slug": "semantic-model-compatibility-levels",
+      "title": "Compatibility levels in Power BI: what each one unlocks (as of November 2026)",
+      "date": "2026-11-15",
+      "category": "Power BI",
+      "tags": [
+        "Power BI",
+        "Semantic model",
+        "TMDL",
+        "DAX",
+        "PBIP"
+      ],
+      "excerpt": "Every semantic model carries a compatibility level that decides which features it can use. This is a dated map of what each level unlocks, which features are still in preview, and what changes when the number goes up.",
+      "readTime": 8,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/semantic-model-compatibility-levels.svg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "pareto-in-power-bi-dax-vs-visual-calculations",
       "title": "Pareto in Power BI: DAX measures or visual calculations?",
       "date": "2026-11-13",

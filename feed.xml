@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-13T00:00:00Z</updated>
+  <updated>2026-11-15T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Compatibility levels in Power BI: what each one unlocks (as of November 2026)</title>
+    <link href="https://goldlayerdata.com/post.html?slug=semantic-model-compatibility-levels" />
+    <id>https://goldlayerdata.com/post.html?slug=semantic-model-compatibility-levels</id>
+    <updated>2026-11-15T00:00:00Z</updated>
+    <summary>Every semantic model carries a compatibility level that decides which features it can use. This is a dated map of what each level unlocks, which features are still in preview, and what changes when the number goes up.</summary>
+    <category term="Power BI" />
+  </entry>
 
   <entry>
     <title>Pareto in Power BI: DAX measures or visual calculations?</title>
