@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  const { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
+  const { loadPosts, isLab, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
     formatDate, escapeHtml, postUrl, tagUrl, OPENED_FROM_DISK, FROM_DISK_HELP } = window.SiteBlog;
   const SITE_URL = "https://goldlayerdata.com/";
   const SITE_NAME = "Gold Layer";
@@ -311,6 +311,79 @@
     update();
   }
 
+  // ---- Gold Layer Lab entries: same page, Lab look ----
+  // A post with lane "lab" gets the cyan Lab header (badge, kind, status), a fact strip, the closing
+  // "What it taught us" section as a cyan rule, Lab-only newer/older links and a Lab sidebar.
+
+  const LAB_STATUS = { "works": "works", "in progress": "wip", "parked": "parked", "didn't work": "failed", "didn’t work": "failed" };
+  const labStatusHtml = (p) => p.status
+    ? `<span class="st st--${LAB_STATUS[String(p.status).toLowerCase()] || "wip"}">${escapeHtml(p.status)}</span>` : "";
+
+  function applyLabChrome(p, labPosts) {
+    document.body.dataset.lane = "lab";
+    document.title = `${p.title || "Untitled"} · ${SITE_NAME} Lab`;
+    document.querySelectorAll(".topnav a").forEach((a) => {
+      if (a.classList.contains("nav-lab")) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    const back = document.querySelector(".post-head .backlink");
+    if (back) {
+      back.href = "./lab.html";
+      back.lastChild.textContent = " All experiments";
+    }
+    document.querySelector(".post-column")?.classList.add("lab-post");
+    metaEl.classList.add("lab-meta");
+    metaEl.innerHTML = [
+      p.kind ? `<span class="lab-kind lab-kind--accent">${escapeHtml(p.kind)}</span>` : "",
+      labStatusHtml(p),
+      p._dt ? `<time class="lab-kind" datetime="${escapeHtml(p.date)}">${formatDate(p._dt)}</time>` : "",
+    ].join("");
+    tagsEl.innerHTML = "";
+    const navTitle = document.getElementById("post-nav-title");
+    if (navTitle) navTitle.textContent = "More from the Lab";
+
+    const side = document.querySelector(".sidebar--nav");
+    if (side) {
+      side.setAttribute("aria-label", "Browse the Lab");
+      side.innerHTML = `
+        <nav class="side-block side-topics" aria-labelledby="lab-side-title">
+          <h2 class="side-title" id="lab-side-title">The Lab</h2>
+          <ul class="side-list">
+            <li><a href="./lab.html"><span>All experiments</span></a></li>
+            ${labPosts.map((x) => `<li><a href="${postUrl(x)}"${x.slug === p.slug ? ' aria-current="page"' : ""}><span>${escapeHtml(x.title)}</span></a></li>`).join("")}
+          </ul>
+        </nav>`;
+    }
+  }
+
+  function addLabSheet(p) {
+    const cells = [["THE QUESTION", p.question], ["TOOLS", p.tools], ["TIME", p.time]]
+      .filter(([, v]) => v)
+      .map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}</dd></div>`);
+    if (p.status) cells.push(`<div><dt>STATUS</dt><dd>${labStatusHtml(p)}</dd></div>`);
+    if (!cells.length) return;
+    const dl = document.createElement("dl");
+    dl.className = "lab-sheet";
+    dl.style.setProperty("--cols", String(cells.length));
+    dl.innerHTML = cells.join("");
+    bodyEl.prepend(dl);
+  }
+
+  // The closing "What it taught us…" heading and what follows it (up to the next h2 or rule) become one block.
+  function wrapLabLesson() {
+    const h = Array.from(bodyEl.querySelectorAll("h2")).find((el) => /what it taught us/i.test(el.textContent));
+    if (!h) return;
+    const box = document.createElement("section");
+    box.className = "lab-taught";
+    h.before(box);
+    let n = h;
+    while (n && !(n !== h && (n.tagName === "H2" || n.tagName === "HR"))) {
+      const next = n.nextElementSibling;
+      box.appendChild(n);
+      n = next;
+    }
+  }
+
   // ---- newer / older ----
 
   function navCard(p, label, dir) {
@@ -373,21 +446,30 @@
       return;
     }
 
-    const posts = await loadPosts();  // newest first
-    const idx = posts.findIndex((p) => p.slug === slug);
-    if (idx === -1) {
+    const all = await loadPosts();  // newest first
+    const found = all.find((p) => p.slug === slug);
+    if (!found) {
       showError("Post not found", `There's no article called "${slug}". It may have been renamed.`);
       return;
     }
-    const current = posts[idx];
+    const lab = isLab(found);
+    // Newer/older stay in the post's own lane: articles link to articles, Lab entries to Lab entries.
+    const posts = all.filter((p) => isLab(p) === lab);
+    const idx = posts.indexOf(found);
+    const current = found;
 
     setMeta(current);
+    if (lab) applyLabChrome(current, posts);
     showSkeleton();
 
     const md = await loadMarkdown(current);
 
     bodyEl.innerHTML = window.marked ? window.marked.parse(md) : `<pre>${escapeHtml(md)}</pre>`;
     removeDuplicateLeadTitle(current.title || "");
+    if (lab) {
+      addLabSheet(current);
+      wrapLabLesson();
+    }
     const diagrams = renderDiagrams();  // before the code blocks, so mermaid fences don't get a Copy bar
     enhanceCodeBlocks();
     diagrams.catch((err) => console.error(err));

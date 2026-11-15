@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Layer Tools · Skills, checkers and examples</title>
+<meta name="description" content="Gold Layer Tools: free things you can use with Power BI and AI. Claude skills, checkers and worked examples, each one tested before it lands here.">
+<meta name="author" content="Jonathan Papworth">
+<meta name="theme-color" content="#0A1328">
+<link rel="canonical" href="https://goldlayerdata.com/tools.html">
+
+<meta property="og:site_name" content="Gold Layer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gold Layer Tools · Skills, checkers and examples">
+<meta property="og:description" content="Gold Layer Tools: free things you can use with Power BI and AI. Claude skills, checkers and worked examples, each one tested before it lands here.">
+<meta property="og:url" content="https://goldlayerdata.com/tools.html">
+<meta property="og:image" content="https://goldlayerdata.com/favicon.svg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="Gold Layer" href="./feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="./assets/css/styles.css?v=78">
+<link rel="stylesheet" href="./assets/css/lab.css?v=3">
+<link rel="stylesheet" href="./assets/css/tools.css?v=1">
+<!-- Cloudflare Web Analytics (cookie-free) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f1e8e8f40eb4d59b3eaab552604aa76"}'></script>
+</head>
+<body data-page="tools">
+<a class="skip-link" href="#main">Skip to the content</a>
+
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="glGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./index.html" aria-label="Gold Layer, home">
+      <!-- Gold Layer mark: three layers, the gold one on top -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#glGold)" stroke="url(#glGold)" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      Gold Layer
+    </a>
+    <nav class="topnav" aria-label="Site">
+      <a href="./index.html">Articles</a>
+      <a href="./shorts.html">Shorts</a>
+      <a class="nav-lab" href="./lab.html">Lab</a>
+      <a class="nav-tools" href="./tools.html" aria-current="page">Tools</a>
+    </nav>
+    <div class="topbar-icons">
+      <a class="topbar-rss topbar-social" href="https://www.youtube.com/@goldlayerdata" rel="me noopener" title="Gold Layer on YouTube">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.2 9.4v5.2l4.5-2.6z" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">Gold Layer on YouTube</span>
+      </a>
+      <a class="topbar-rss topbar-social" href="https://www.instagram.com/goldlayerdata/" rel="me noopener" title="Gold Layer on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.1" cy="6.9" r="1" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">Gold Layer on Instagram</span>
+      </a>
+      <a class="topbar-rss topbar-social" href="https://www.tiktok.com/@goldlayerdata" rel="me noopener" title="Gold Layer on TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5v11a3.75 3.75 0 1 1-3.75-3.75"/><path d="M14 3.5c.5 2.5 2.3 4.2 5 4.4"/></svg>
+        <span class="sr-only">Gold Layer on TikTok</span>
+      </a>
+      <a class="topbar-rss" href="./feed.xml" type="application/atom+xml" title="RSS feed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11a8 8 0 0 1 8 8"/><path d="M5 4.5A14.5 14.5 0 0 1 19.5 19"/><circle cx="6" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">RSS feed</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head page-head--tools" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="eyebrow">Skills, checkers and examples · free to use</div>
+      <h1 id="page-title">Gold Layer <span class="tools-hl">Tools</span></h1>
+    </div>
+  </section>
+
+  <div class="wrap blog-layout blog-layout--home blog-layout--shorts">
+    <section class="blog-main" aria-label="Tools">
+      <div class="results-bar"><span id="toolsCount">2 tools</span></div>
+      <div class="tools-grid" id="toolsGrid">
+
+        <article class="tool-card">
+          <div class="tool-top"><span class="tools-kind tools-kind--accent">Checker</span></div>
+          <h3><a class="cover-link" href="./visual-rules.html">Visual rules for Power BI reports</a></h3>
+          <p>22 report rules from Microsoft Learn, each with the line it comes from, how much it matters to the reader, and whether a script can check it. Filter by category and impact.</p>
+          <div class="tool-get"><b>USE IT</b>Right here on the site, no download</div>
+          <ul class="tool-facts"><li>22 rules</li><li>Microsoft Learn sources</li><li>Human or AI reports</li></ul>
+          <div class="tool-foot"><span class="ts ts--ready">Ready</span><span class="go">Open the rules →</span></div>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-top"><span class="tools-kind tools-kind--accent">Examples</span></div>
+          <h3><a class="cover-link" href="https://github.com/goldlayerdata/gold-layer-examples" rel="noopener">Gold Layer examples</a></h3>
+          <p>The worked Power BI files behind the articles, built on open Contoso data. Open one, click around, take the measures you need.</p>
+          <div class="tool-get"><b>GET IT</b>github.com/goldlayerdata/gold-layer-examples</div>
+          <ul class="tool-facts"><li>PBIX files</li><li>Contoso sample data</li><li>One per article</li></ul>
+          <div class="tool-foot"><span class="ts ts--ready">Ready</span><span class="go">GitHub →</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <aside class="sidebar sidebar--nav" aria-label="What Tools covers">
+      <section class="side-block" aria-labelledby="kinds-title">
+        <h2 class="side-title" id="kinds-title">In Tools</h2>
+        <ul class="tools-kinds">
+          <li>Claude skills<span>teach an AI agent a Power BI job</span></li>
+          <li>Checkers<span>catch report mistakes, human or AI</span></li>
+          <li>Examples<span>the files behind the articles</span></li>
+          <li>Apps<span>small tools that run in the browser</span></li>
+          <li>References<span>designs, icons, cheat sheets</span></li>
+        </ul>
+      </section>
+    </aside>
+
+    <aside class="sidebar sidebar--aside" aria-labelledby="about-tools-title">
+      <section class="side-block">
+        <h2 class="side-title" id="about-tools-title">About Tools</h2>
+        <div class="side-note">
+          <h3>Things that work</h3>
+          <p>Articles explain, the <a href="./lab.html">Lab</a> experiments. Tools is what came out of both and works: tested before it lands here.</p>
+        </div>
+        <div class="side-note">
+          <h3>Free to use</h3>
+          <p>Every tool links to its source. Check each one's licence before you ship it in your own work.</p>
+        </div>
+        <div class="side-note">
+          <h3>From the Lab to Tools</h3>
+          <p>When a Lab experiment turns into something you can use, it moves here.</p>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Gold Layer · by Jonathan Papworth</span>
+    <nav aria-label="Footer">
+      <a href="./index.html">All articles</a>
+      <a href="./shorts.html">Shorts</a>
+      <a href="./lab.html">Lab</a>
+      <a href="./tools.html">Tools</a>
+      <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>
+      <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>
+      <a href="./feed.xml">RSS feed</a>
+      <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="./assets/js/app.js?v=42"></script>
+</body>
+</html>

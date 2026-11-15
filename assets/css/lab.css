@@ -1,5 +1,5 @@
 /* Gold Layer Lab: cyan accent instead of gold; everything else reuses styles.css.
-   Theme rule: no tinted boxes or pills around Lab blocks. Cyan lives in text, lines and small badges only. */
+   Theme rule: no tinted boxes or pills around Lab blocks. Cyan lives in text and lines only; badge pills are for videos, not the pages. */
 :root { --lab: #5FE3F0; }
 
 /* nav: Lab gets a small cyan dot */
@@ -11,8 +11,6 @@
 .lab-hl { color: var(--lab); }
 .page-head--lab .eyebrow { color: var(--lab); }
 body[data-page="lab"] .side-title { color: var(--lab); }
-.lab-badge { display: inline-flex; align-items: center; font: 700 11.5px/1 var(--mono); letter-spacing: .1em;
-  color: #0A1328; background: linear-gradient(180deg, #A8F4FA, var(--lab)); padding: 5px 8px; border-radius: 6px; }
 .lab-kind { font: 600 12.5px/1 var(--mono); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
 
 /* status: honest about what didn't work */
@@ -32,7 +30,7 @@ body[data-page="lab"] .side-title { color: var(--lab); }
 .lab-card a.cover-link:focus-visible { outline: none; }
 .lab-card:has(a.cover-link:focus-visible) { outline: 2px solid var(--lab); outline-offset: 3px; }
 .lab-thumb { aspect-ratio: 4 / 3; background: #0D1A3A; overflow: hidden; border-bottom: 1px solid var(--line); }
-.lab-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 96%; }
+.lab-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .lab-body { display: grid; gap: 8px; padding: 16px 18px 18px; }
 .lab-top { display: flex; align-items: center; gap: 10px; }
 .lab-card h3 { margin: 2px 0 0; font-size: 19px; line-height: 1.28; letter-spacing: -.005em; }
@@ -64,3 +62,25 @@ body[data-page="lab"] .side-title { color: var(--lab); }
 .lab-soon { margin: 26px 0 10px; padding: 4px 0 4px 18px; border-left: 3px solid var(--lab); color: var(--muted); }
 .lab-soon p { margin: 0; }
 .from-lab-note { margin: 8px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+
+/* Lab entry page (post.html with a lane "lab" post): fact strip and the closing lesson */
+.lab-sheet { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); margin: 4px 0 28px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.lab-sheet div { padding: 12px 14px; border-right: 1px solid var(--line); }
+.lab-sheet div:last-child { border-right: 0; }
+.lab-sheet dt { font: 700 11px/1 var(--mono); letter-spacing: .08em; color: var(--muted); margin-bottom: 7px; }
+.lab-sheet dd { margin: 0; font-size: 14.5px; line-height: 1.4; }
+@media (max-width: 720px) {
+  .lab-sheet { grid-template-columns: 1fr 1fr; }
+  .lab-sheet div:nth-child(2n) { border-right: 0; }
+  .lab-sheet div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+.lab-taught { margin: 34px 0 10px; padding: 4px 0 4px 18px; border-left: 3px solid var(--lab); }
+.lab-taught h2 { margin-top: 0; color: var(--lab); }
+.lab-taught p:last-child { margin-bottom: 0; }
+body[data-lane="lab"] .side-title { color: var(--lab); }
+body[data-lane="lab"] .side-list a[aria-current] { color: var(--lab); border-color: var(--lab); }
+/* Lab entries are picture-heavy and the renders are often vertical: keep each image within the screen */
+body[data-lane="lab"] .prose img { display: block; width: auto; max-width: 100%; max-height: min(640px, 75vh); margin-inline: auto; }
+body[data-lane="lab"] .post-toc-link--active { color: var(--lab); }
+/* no badge pills on the pages (they are for videos): the kind label in cyan text carries the Lab mark */
+.lab-kind--accent { color: var(--lab); }

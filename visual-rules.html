@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual rules for Power BI reports · Gold Layer Tools</title>
+<meta name="description" content="Power BI report rules backed by Microsoft Learn, each with the line it comes from: numbers, chart choice, colour and accessibility, layout, performance and mobile.">
+<meta name="author" content="Jonathan Papworth">
+<meta name="theme-color" content="#0A1328">
+<link rel="canonical" href="https://goldlayerdata.com/visual-rules.html">
+
+<meta property="og:site_name" content="Gold Layer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Visual rules for Power BI reports · Gold Layer Tools">
+<meta property="og:description" content="Power BI report rules backed by Microsoft Learn, each with the line it comes from.">
+<meta property="og:url" content="https://goldlayerdata.com/visual-rules.html">
+<meta property="og:image" content="https://goldlayerdata.com/favicon.svg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="Gold Layer" href="./feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="./assets/css/styles.css?v=78">
+<link rel="stylesheet" href="./assets/css/lab.css?v=3">
+<link rel="stylesheet" href="./assets/css/tools.css?v=1">
+<!-- Cloudflare Web Analytics (cookie-free) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f1e8e8f40eb4d59b3eaab552604aa76"}'></script>
+</head>
+<body data-page="tools">
+<a class="skip-link" href="#main">Skip to the content</a>
+
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="glGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="./index.html" aria-label="Gold Layer, home">
+      <!-- Gold Layer mark: three layers, the gold one on top -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#glGold)" stroke="url(#glGold)" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      Gold Layer
+    </a>
+    <nav class="topnav" aria-label="Site">
+      <a href="./index.html">Articles</a>
+      <a href="./shorts.html">Shorts</a>
+      <a class="nav-lab" href="./lab.html">Lab</a>
+      <a class="nav-tools" href="./tools.html" aria-current="true">Tools</a>
+    </nav>
+    <div class="topbar-icons">
+      <a class="topbar-rss topbar-social" href="https://www.youtube.com/@goldlayerdata" rel="me noopener" title="Gold Layer on YouTube">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.2 9.4v5.2l4.5-2.6z" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">Gold Layer on YouTube</span>
+      </a>
+      <a class="topbar-rss topbar-social" href="https://www.instagram.com/goldlayerdata/" rel="me noopener" title="Gold Layer on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.1" cy="6.9" r="1" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">Gold Layer on Instagram</span>
+      </a>
+      <a class="topbar-rss topbar-social" href="https://www.tiktok.com/@goldlayerdata" rel="me noopener" title="Gold Layer on TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5v11a3.75 3.75 0 1 1-3.75-3.75"/><path d="M14 3.5c.5 2.5 2.3 4.2 5 4.4"/></svg>
+        <span class="sr-only">Gold Layer on TikTok</span>
+      </a>
+      <a class="topbar-rss" href="./feed.xml" type="application/atom+xml" title="RSS feed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11a8 8 0 0 1 8 8"/><path d="M5 4.5A14.5 14.5 0 0 1 19.5 19"/><circle cx="6" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <span class="sr-only">RSS feed</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-head page-head--tools" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="eyebrow"><a class="tools-back" href="./tools.html">Tools</a> · Checker · backed by Microsoft Learn</div>
+      <h1 id="page-title">Visual <span class="tools-hl">rules</span></h1>
+    </div>
+  </section>
+
+  <div class="wrap blog-layout blog-layout--home">
+    <section class="blog-main" aria-label="Rules">
+      <p class="vr-intro">Power BI report rules from Microsoft Learn, each with the line it comes from. They apply the same way whether a person or an AI agent built the report.</p>
+      <div class="results-bar"><span id="vrCount" aria-live="polite">Loading the rules…</span><button type="button" class="vr-clear" id="vrClear" hidden>Clear filters</button></div>
+      <div class="vr-list" id="vrList"></div>
+      <noscript><p class="empty">The rules list needs JavaScript.</p></noscript>
+    </section>
+
+    <aside class="sidebar sidebar--nav vr-filters" aria-label="Filter the rules">
+      <div class="side-block search" role="search">
+        <label class="sr-only" for="vrSearch">Search the rules</label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="vrSearch" type="search" placeholder="Search the rules" autocomplete="off" spellcheck="false">
+      </div>
+      <nav class="side-block" aria-labelledby="vr-cat-title">
+        <h2 class="side-title" id="vr-cat-title">Category</h2>
+        <ul class="side-list" id="vrCat"></ul>
+      </nav>
+      <nav class="side-block" aria-labelledby="vr-sev-title">
+        <h2 class="side-title" id="vr-sev-title">Impact</h2>
+        <ul class="side-list" id="vrSev"></ul>
+      </nav>
+      <nav class="side-block" aria-labelledby="vr-chk-title">
+        <h2 class="side-title" id="vr-chk-title">Script can check it</h2>
+        <ul class="side-list" id="vrChk"></ul>
+      </nav>
+    </aside>
+
+    <aside class="sidebar sidebar--aside" aria-labelledby="about-vr-title">
+      <section class="side-block">
+        <h2 class="side-title" id="about-vr-title">About the rules</h2>
+        <div class="side-note">
+          <h3>Only what Learn says</h3>
+          <p>Every rule quotes a Microsoft Learn page and links to it. Popular advice that Learn doesn't back, like a maximum number of visuals per page, isn't here.</p>
+        </div>
+        <div class="side-note">
+          <h3>Impact</h3>
+          <ul class="vr-legend">
+            <li><span class="vr-sev vr-sev--error">Error</span> misleads or excludes readers</li>
+            <li><span class="vr-sev vr-sev--warning">Warning</span> makes the report harder to read</li>
+            <li><span class="vr-sev vr-sev--info">Info</span> polish and performance hints</li>
+          </ul>
+          <p>Impact is our judgement. How strongly Learn words it is shown on each rule.</p>
+        </div>
+        <div class="side-note">
+          <h3>A checker is coming</h3>
+          <p>Rules marked <strong>yes</strong> can be checked by a script that reads a report saved as PBIP. That script is the next tool.</p>
+        </div>
+        <div class="side-note">
+          <h3>Coming as shorts</h3>
+          <p>The rules are becoming a shorts series, one rule each, on <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">@goldlayerdata</a>.</p>
+        </div>
+        <p class="vr-asof" id="vrAsOf"></p>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Gold Layer · by Jonathan Papworth</span>
+    <nav aria-label="Footer">
+      <a href="./index.html">All articles</a>
+      <a href="./shorts.html">Shorts</a>
+      <a href="./lab.html">Lab</a>
+      <a href="./tools.html">Tools</a>
+      <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>
+      <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>
+      <a href="./feed.xml">RSS feed</a>
+      <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="./assets/js/app.js?v=42"></script>
+<script src="./assets/js/visual-rules.js?v=1"></script>
+</body>
+</html>

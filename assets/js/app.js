@@ -87,6 +87,12 @@
     return postsPromise;
   }
 
+  // Gold Layer Lab entries live in the same list with lane "lab". The Articles pages (list, topics,
+  // archive, search, newer/older) never show them; lab.html and lab.js do.
+  const isLab = (p) => p && p.lane === "lab";
+  const loadArticles = () => loadPosts().then((posts) => posts.filter((p) => !isLab(p)));
+  const loadLab = () => loadPosts().then((posts) => posts.filter(isLab));
+
   // A post's Markdown, from content/posts/<slug>.md (or its script copy when opened from disk).
   function loadMarkdown(p) {
     if (OPENED_FROM_DISK) {
@@ -383,7 +389,7 @@
       </article>`;
   }
 
-  window.SiteBlog = { loadPosts, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
+  window.SiteBlog = { loadPosts, loadArticles, loadLab, isLab, loadMarkdown, loadShorts, shortUrl, shortDuration, shortFrameHtml, wireShortFrames, openShortPlayer,
     ytActive, ytIframeHtml, ytWatchUrl,
     parseDate, formatDate, escapeHtml, postUrl, tagUrl, siteUrl, OPENED_FROM_DISK, FROM_DISK_HELP };
 
@@ -542,7 +548,7 @@
       render();
     });
 
-    loadPosts()
+    loadArticles()
       .then((posts) => {
         state.posts = posts;
         // With nothing published, search, topics and archive have nothing to offer.
@@ -569,7 +575,9 @@
     // Post pages: mark the topic and archive entry of the post being read.
     const slug = page === "post" ? new URLSearchParams(location.search).get("slug") : null;
     loadPosts()
-      .then((posts) => {
+      .then((all) => {
+        if (all.some((p) => p.slug === slug && isLab(p))) return;  // a Lab entry: post.js fills the sidebar
+        const posts = all.filter((p) => !isLab(p));
         document.body.classList.toggle("no-posts", !posts.length);
         const current = slug ? posts.find((p) => p.slug === slug) : null;
         renderTopics(posts, current ? current.category || "Notes" : null, "true");

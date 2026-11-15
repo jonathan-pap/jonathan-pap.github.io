@@ -15,6 +15,8 @@ Contract (per source workspace, listed in sources.json):
         excerpt:   optional, defaults to first paragraph
         image:     optional, path relative to the .md file -> copied to assets/img/posts/<slug>.<ext>
         draft:     optional, true = skip
+        lane:      optional, "lab" = a Gold Layer Lab entry: listed on lab.html, never in the Articles list,
+                   topics or archive. Lab entries also carry kind, status, question, tools, time, lesson.
 
 What it writes (idempotent, safe to re-run):
     content/posts/<slug>.md          body with front matter stripped
@@ -58,6 +60,7 @@ POSTS_JS = ROOT / "content" / "posts.js"  # the same list as a script, for pages
 SOURCES_JSON = ROOT / "sources.json"
 
 WORDS_PER_MIN = 200
+LAB_FIELDS = ("kind", "status", "question", "tools", "time", "lesson")
 
 # Cheap guardrail: refuse to publish a post that looks like it carries a secret.
 SECRET_PATTERNS = [
@@ -206,6 +209,11 @@ def collect(source: dict, problems: list[str]) -> list[dict]:
         }
         if meta.get("drafted_with_ai") is True:
             post["drafted_with_ai"] = True  # the site shows an "AI-drafted" label
+        if str(meta.get("lane", "")).lower() == "lab":
+            post["lane"] = "lab"
+            for k in LAB_FIELDS:
+                if meta.get(k):
+                    post[k] = str(meta[k])
         posts.append(post)
     return posts
 
@@ -261,9 +269,10 @@ def render_feed(posts: list[dict]) -> str:
     ]
     for p in posts:
         url = f"{SITE_URL}/post.html?slug={p['slug']}"
+        title = ("Lab: " if p.get("lane") == "lab" else "") + p["title"]
         out += [
             "  <entry>",
-            f"    <title>{escape(p['title'])}</title>",
+            f"    <title>{escape(title)}</title>",
             f'    <link href="{url}" />',
             f"    <id>{url}</id>",
             f"    <updated>{p['date']}T00:00:00Z</updated>",
@@ -288,6 +297,16 @@ def render_sitemap(posts: list[dict]) -> str:
         "  <url>",
         f"    <loc>{SITE_URL}/lab.html</loc>",
         "    <changefreq>weekly</changefreq>",
+        "    <priority>0.6</priority>",
+        "  </url>",
+        "  <url>",
+        f"    <loc>{SITE_URL}/tools.html</loc>",
+        "    <changefreq>weekly</changefreq>",
+        "    <priority>0.6</priority>",
+        "  </url>",
+        "  <url>",
+        f"    <loc>{SITE_URL}/visual-rules.html</loc>",
+        "    <changefreq>monthly</changefreq>",
         "    <priority>0.6</priority>",
         "  </url>",
     ]
@@ -375,7 +394,7 @@ def main() -> int:
     # report
     tag = "[dry-run] " if args.dry_run else ""
     for p in incoming:
-        print(f"{tag}+ {p['source']:<14} {p['date']}  {p['slug']}")
+        print(f"{tag}+ {p['source']:<14} {p['date']}  {p['slug']}" + ("  [lab]" if p.get("lane") == "lab" else ""))
     for slug in removed:
         print(f"{tag}- pruned        {slug}")
     print(f"{tag}{len(incoming)} synced, {len(kept)} kept, {len(removed)} pruned, {len(merged)} total")

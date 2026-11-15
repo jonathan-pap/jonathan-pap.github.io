@@ -1,0 +1,111 @@
+/* Gold Layer Tools: pink accent (Nova's colour from the city race) instead of gold; everything else reuses styles.css.
+   Same theme rule as the Lab: no tinted boxes or pills around blocks. Pink lives in text and lines only; badge pills are for videos, not the pages. */
+:root { --tools: #FF7FB5; }
+
+/* nav: Tools gets a small pink dot */
+.topnav a.nav-tools { display: inline-flex; align-items: center; gap: 7px; }
+.topnav a.nav-tools::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--tools); box-shadow: 0 0 10px var(--tools); }
+.topnav a.nav-tools[aria-current] { color: var(--tools); }
+
+/* page head */
+.tools-hl { color: var(--tools); }
+.page-head--tools .eyebrow { color: var(--tools); }
+body[data-page="tools"] .side-title { color: var(--tools); }
+.tools-kind { font: 600 12.5px/1 var(--mono); letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+
+/* status */
+.ts { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px/1 var(--sans); color: var(--ink); }
+.ts::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+.ts--ready::before { background: #4ADE80; }
+.ts--soon::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--tools); }
+
+/* the tool grid */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; padding: 20px 0 40px; }
+.tool-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px 20px 18px;
+  border: 1px solid var(--line); border-top: 2px solid var(--tools); border-radius: 16px; background: var(--card);
+  transition: border-color .15s, transform .15s; }
+.tool-card:hover { border-color: rgba(255, 127, 181, .45); border-top-color: var(--tools); transform: translateY(-2px); }
+.tool-card a.cover-link::after { content: ""; position: absolute; inset: 0; }
+.tool-card a.cover-link:focus-visible { outline: none; }
+.tool-card:has(a.cover-link:focus-visible) { outline: 2px solid var(--tools); outline-offset: 3px; }
+.tool-top { display: flex; align-items: center; gap: 10px; }
+.tool-card h3 { margin: 0; font-size: 19px; line-height: 1.28; letter-spacing: -.005em; }
+.tool-card h3 a { text-decoration: none; }
+.tool-card:hover h3 a { color: var(--tools); }
+.tool-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+/* "where you get it": one mono line with a pink rule, like a path or a repo */
+.tool-get { margin-top: 2px; padding: 2px 0 2px 12px; border-left: 3px solid var(--tools);
+  font: 500 13px/1.45 var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+.tool-get b { display: block; margin-bottom: 4px; font: 700 11px/1 var(--mono); letter-spacing: .08em; color: var(--tools); }
+.tool-facts { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0; padding: 0; list-style: none;
+  font: 500 12.5px/1.3 var(--mono); color: var(--muted); }
+.tool-foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 4px; }
+.tool-foot .go { font: 600 13px/1 var(--sans); color: var(--tools); }
+
+/* left column: the kinds of tools */
+.tools-kinds { list-style: none; margin: 10px 0 0; padding: 0 0 0 14px; border-left: 1px solid var(--line); display: grid; gap: 10px; }
+.tools-kinds li { font-size: 14.5px; line-height: 1.35; }
+.tools-kinds li span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* four nav links on a phone: tighter links, and on very narrow screens the logo mark stands alone */
+@media (max-width: 480px) {
+  .topnav { gap: 0; }
+  .topnav a { padding: 10px 6px; letter-spacing: .04em; font-size: 11.5px; }
+  .topnav a.nav-lab, .topnav a.nav-tools { gap: 5px; }
+}
+@media (max-width: 430px) {
+  .brand { font-size: 0; gap: 0; }
+  .topbar .topbar-rss:not(.topbar-social) { display: none; }
+}
+
+/* home sidebar: "Tools", plain like "From the Lab" */
+.from-tools { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.from-tools .side-title { color: var(--tools); }
+.from-tools ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.from-tools li a { text-decoration: none; font-weight: 600; font-size: 14.5px; line-height: 1.35; display: block; }
+.from-tools li a:hover { color: var(--tools); }
+.from-tools li span { display: block; font: 500 12px/1.4 var(--mono); color: var(--muted); margin-top: 3px; }
+.from-tools .more { display: inline-block; margin-top: 10px; font: 600 13px/1 var(--sans); color: var(--tools); text-decoration: none; }
+/* no badge pills on the pages (they are for videos): the kind label in pink text carries the Tools mark */
+.tools-kind--accent { color: var(--tools); }
+
+/* ---------- Visual rules page (visual-rules.html) ---------- */
+.tools-back { color: inherit; text-decoration: none; }
+.tools-back:hover { text-decoration: underline; }
+.vr-intro { margin: 0 0 6px; max-width: 62ch; color: var(--muted); font-size: 16px; line-height: 1.55; }
+.vr-clear { font: 600 12.5px/1 var(--sans); color: var(--tools); background: none; border: 0; padding: 4px 0; cursor: pointer; }
+.vr-clear:hover { text-decoration: underline; }
+body[data-page="tools"] .results-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.vr-filters .side-list a[aria-current] { color: var(--tools); border-left-color: var(--tools); }
+.vr-filters .side-list a[aria-current] .side-count { color: var(--tools); }
+.vr-filters .search input:focus-visible { outline-color: var(--tools); }
+.vr-list { display: grid; gap: 0; padding: 4px 0 40px; }
+/* each rule: a severity line on the left, no box */
+.vr-rule { padding: 18px 0 20px 18px; border-left: 3px solid var(--sev, var(--line)); border-bottom: 1px solid var(--line); scroll-margin-top: 90px; }
+.vr-rule:last-child { border-bottom: 0; }
+.vr-rule--error { --sev: #FF8A7A; }
+.vr-rule--warning { --sev: var(--gold); }
+.vr-rule--info { --sev: #7FB3FF; }
+.vr-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font: 600 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.vr-sev { font: 700 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.vr-sev--error { color: #FF8A7A; } .vr-sev--warning { color: var(--gold); } .vr-sev--info { color: #7FB3FF; }
+.vr-cat { color: var(--muted); }
+.vr-id { margin-left: auto; color: var(--muted); text-decoration: none; font-weight: 500; }
+.vr-id:hover { color: var(--tools); }
+.vr-rule h3 { margin: 10px 0 8px; font-size: 19px; line-height: 1.3; }
+.vr-rule blockquote { margin: 0 0 12px; padding: 0 0 0 14px; border-left: 2px solid var(--line); color: var(--ink); font-size: 15.5px; line-height: 1.55; }
+.vr-facts { display: grid; gap: 6px; margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.vr-facts div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px; }
+.vr-facts dt { font: 600 11px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.vr-facts dd { margin: 0; }
+.vr-facts a { color: var(--tools); }
+.vr-legend { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.vr-legend li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 8px; align-items: baseline; }
+.vr-asof { margin: 6px 0 0; font: 500 12px/1.5 var(--mono); color: var(--muted); }
+@media (max-width: 900px) {
+  .blog-layout--home .vr-filters .side-list a[aria-current] { color: var(--tools); text-decoration-color: var(--tools); }
+}
+@media (max-width: 640px) {
+  .vr-facts div { grid-template-columns: 1fr; gap: 2px; }
+  .vr-rule { padding-left: 14px; }
+}

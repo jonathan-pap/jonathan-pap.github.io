@@ -26,7 +26,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
 <link rel="stylesheet" href="./assets/css/styles.css?v=76">
-<link rel="stylesheet" href="./assets/css/lab.css?v=1">
+<link rel="stylesheet" href="./assets/css/lab.css?v=3">
+<link rel="stylesheet" href="./assets/css/tools.css?v=1">
 <!-- Cloudflare Web Analytics (cookie-free) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f1e8e8f40eb4d59b3eaab552604aa76"}'></script>
 </head>
 <body data-page="home">
@@ -53,6 +54,7 @@
       <a href="./index.html" aria-current="page">Articles</a>
       <a href="./shorts.html">Shorts</a>
       <a class="nav-lab" href="./lab.html">Lab</a>
+      <a class="nav-tools" href="./tools.html">Tools</a>
     </nav>
     <div class="topbar-icons">
       <a class="topbar-rss topbar-social" href="https://www.youtube.com/@goldlayerdata" rel="me noopener" title="Gold Layer on YouTube">
@@ -118,18 +120,21 @@
     </aside>
 
     <!-- Right: about the site -->
-    <aside class="sidebar sidebar--aside" aria-labelledby="about-blog-title">
+    <aside class="sidebar sidebar--aside" aria-label="Lab, tools and more">
       <section class="side-block from-lab" aria-labelledby="from-lab-title">
         <h2 class="side-title" id="from-lab-title">From the Lab</h2>
-        <p class="from-lab-note">Experiments with AI outside BI: apps, music, anime shorts, voices. First ones coming soon.</p>
+        <div id="fromLabList"><p class="from-lab-note">Experiments with AI outside BI: apps, music, anime shorts, voices. First ones coming soon.</p></div>
         <a class="more" href="./lab.html">Visit the Lab &rarr;</a>
       </section>
+      <section class="side-block from-tools" aria-labelledby="from-tools-title">
+        <h2 class="side-title" id="from-tools-title">Tools</h2>
+        <ul>
+          <li><a href="./visual-rules.html">Visual rules for Power BI reports</a><span>Checker · 22 rules</span></li>
+          <li><a href="https://github.com/goldlayerdata/gold-layer-examples" rel="noopener">Gold Layer examples</a><span>PBIX files</span></li>
+        </ul>
+        <a class="more" href="./tools.html">All tools &rarr;</a>
+      </section>
       <section class="side-block">
-        <h2 class="side-title" id="about-blog-title">About Gold Layer</h2>
-        <div class="side-note">
-          <h3>Static and simple</h3>
-          <p>A static site, hosted on GitHub Pages.</p>
-        </div>
         <div class="side-note">
           <h3>Follow along</h3>
           <p>Shorts go out as <strong>@goldlayerdata</strong> on <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>, <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a> and <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>.</p>
@@ -162,6 +167,7 @@
     <span>© <span id="year">2026</span> Gold Layer · by Jonathan Papworth</span>
     <nav aria-label="Footer">
       <a href="./lab.html">Lab</a>
+      <a href="./tools.html">Tools</a>
       <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>
       <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a>
       <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>
@@ -175,7 +181,8 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
 </button>
 
-<script src="./assets/js/app.js?v=41"></script>
+<script src="./assets/js/app.js?v=42"></script>
+<script src="./assets/js/lab.js?v=2"></script>
 <script src="./assets/js/back-to-top.js?v=2" defer></script>
 </body>
 </html>

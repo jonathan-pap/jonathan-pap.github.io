@@ -11,6 +11,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://goldlayerdata.com/tools.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://goldlayerdata.com/visual-rules.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://goldlayerdata.com/post.html?slug=semantic-model-compatibility-levels</loc>
     <lastmod>2026-11-15</lastmod>
     <priority>0.8</priority>
