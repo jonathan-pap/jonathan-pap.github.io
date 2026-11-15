@@ -3,6 +3,16 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "report-folder",
+      "file": "report-folder",
+      "title": "Every visual is its own file: the report folder",
+      "topic": "Power BI",
+      "duration": 50,
+      "post": "pbip-folder-structure",
+      "summary": "Save a Power BI report as a project (PBIP) and the report becomes a folder of JSON files in PBIR: one folder per page, one per visual, a file per bookmark, and your themes in StaticResources. Watch out: filter values like 'Contoso' can land in visual.json.",
+      "youtube": "SAzyPnTr9qM"
+    },
+    {
       "id": "model-folder",
       "file": "model-folder",
       "title": "One table, one file: the semantic model folder",
