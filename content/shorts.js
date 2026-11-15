@@ -3,6 +3,16 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "anime-teachers",
+      "file": "anime-teachers",
+      "title": "14 tests, 2 days: what broke making an AI anime teacher",
+      "topic": "Lab",
+      "duration": 50,
+      "post": "anime-characters-for-our-videos",
+      "summary": "We tried giving our videos anime characters, starting with a teacher for a quiz short. The AI wrote every line of motion code. Each mistake next to its fix: a hologram that just stood there, stand-in school uniforms, the same wave every line, bikes that weren't bikes. And one thing that's still broken: the hair goes through the arm. Narrated by an AI voice.",
+      "youtube": "xdhMjFtxpwY"
+    },
+    {
       "id": "report-folder",
       "file": "report-folder",
       "title": "Every visual is its own file: the report folder",

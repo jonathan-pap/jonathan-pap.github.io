@@ -22,6 +22,35 @@
       "drafted_with_ai": true
     },
     {
+      "slug": "anime-characters-for-our-videos",
+      "title": "Anime characters for our videos, animated by AI",
+      "date": "2026-11-15",
+      "category": "Lab",
+      "tags": [
+        "Lab",
+        "Anime",
+        "Video",
+        "VRoid",
+        "three.js",
+        "AI"
+      ],
+      "excerpt": "Can 3D anime characters make our videos more fun to watch: a quiz short, the trailer, a race through the data city? Fourteen tests in two days: what worked, what looked wrong, and what an AI can and can't do for character animation.",
+      "readTime": 6,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/anime-characters-for-our-videos.jpg",
+      "source": "drafts",
+      "drafted_with_ai": true,
+      "lane": "lab",
+      "kind": "Anime",
+      "status": "In progress",
+      "question": "Can 3D anime characters, animated by AI, make our videos more fun to watch?",
+      "tools": "VRoid Studio, three.js, three-vrm, HyperFrames, Claude",
+      "time": "2 days, 14 test renders",
+      "lesson": "The AI wrote every line of motion code, but the parts that made it look right were human: the characters came from a real art tool, and every 'that looks off' came from a person watching."
+    },
+    {
       "slug": "pareto-in-power-bi-dax-vs-visual-calculations",
       "title": "Pareto in Power BI: DAX measures or visual calculations?",
       "date": "2026-11-13",
