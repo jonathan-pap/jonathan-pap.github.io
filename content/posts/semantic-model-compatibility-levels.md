@@ -1,4 +1,4 @@
-# Compatibility levels in Power BI: what each one unlocks
+# Compatibility levels in Power BI: what each one unlocks (as of November 2026)
 
 *As of 15 November 2026. Levels move: four new ones appeared between October and November alone. The change log at the end lists every update to this page.*
 
