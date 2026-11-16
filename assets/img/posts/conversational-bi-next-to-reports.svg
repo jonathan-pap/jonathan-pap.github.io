@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Conversational BI next to reports: a report page and a chat answer, both fed by the same semantic model">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">AI · POWER BI</text>
+    <text x="72" y="246" font-size="68" font-weight="800" fill="#E8ECF5" letter-spacing="-1.5">Conversational</text>
+    <text x="72" y="326" font-size="68" font-weight="800" fill="url(#gold)" letter-spacing="-1.5">BI.</text>
+    <text x="72" y="392" font-size="28" fill="#A3AEC8">An alternative to reports,</text>
+    <text x="72" y="430" font-size="28" fill="#A3AEC8">not a replacement.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: a report and a chat, side by side, on one model -->
+  <g transform="translate(660 96)">
+    <!-- report -->
+    <rect width="226" height="268" rx="16" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <text x="20" y="34" font-family="'IBM Plex Mono', Consolas, monospace" font-size="14" letter-spacing="2" fill="#A3AEC8">REPORT</text>
+    <rect x="20" y="52" width="86" height="50" rx="8" fill="#16295C"/><rect x="120" y="52" width="86" height="50" rx="8" fill="#16295C"/>
+    <rect x="32" y="66" width="44" height="8" rx="4" fill="#A3AEC8" fill-opacity=".5"/><rect x="32" y="82" width="58" height="10" rx="5" fill="#E8ECF5"/>
+    <rect x="132" y="66" width="44" height="8" rx="4" fill="#A3AEC8" fill-opacity=".5"/><rect x="132" y="82" width="50" height="10" rx="5" fill="#E8ECF5"/>
+    <rect x="20" y="116" width="186" height="132" rx="8" fill="#16295C"/>
+    <rect x="38" y="196" width="22" height="38" rx="3" fill="#4069C4"/><rect x="70" y="172" width="22" height="62" rx="3" fill="#4069C4"/>
+    <rect x="102" y="184" width="22" height="50" rx="3" fill="#4069C4"/><rect x="134" y="150" width="22" height="84" rx="3" fill="url(#gold)"/>
+    <rect x="166" y="166" width="22" height="68" rx="3" fill="#4069C4"/>
+
+    <!-- chat -->
+    <g transform="translate(254 0)">
+      <rect width="226" height="268" rx="16" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+      <text x="20" y="34" font-family="'IBM Plex Mono', Consolas, monospace" font-size="14" letter-spacing="2" fill="#A3AEC8">QUESTION</text>
+      <rect x="54" y="52" width="152" height="46" rx="12" fill="#4069C4"/>
+      <rect x="68" y="66" width="124" height="7" rx="3.5" fill="#E8ECF5"/><rect x="68" y="80" width="84" height="7" rx="3.5" fill="#E8ECF5" fill-opacity=".8"/>
+      <rect x="20" y="114" width="172" height="134" rx="12" fill="#16295C"/>
+      <rect x="34" y="130" width="120" height="7" rx="3.5" fill="#A3AEC8"/><rect x="34" y="146" width="92" height="7" rx="3.5" fill="#A3AEC8"/>
+      <rect x="34" y="168" width="144" height="26" rx="6" fill="#0A1328"/>
+      <text x="44" y="186" font-family="'IBM Plex Mono', Consolas, monospace" font-size="13" fill="#FFE785">EVALUATE …</text>
+      <rect x="34" y="208" width="70" height="24" rx="6" fill="url(#gold)"/>
+      <text x="44" y="225" font-family="'IBM Plex Mono', Consolas, monospace" font-size="13" font-weight="700" fill="#1A1400">150.6M</text>
+    </g>
+
+    <!-- both read the same model -->
+    <path d="M113 268 V312 H240" fill="none" stroke="#4069C4" stroke-width="3" stroke-linecap="round"/>
+    <path d="M367 268 V312 H240" fill="none" stroke="#4069C4" stroke-width="3" stroke-linecap="round"/>
+    <path d="M240 312 V338" fill="none" stroke="#4069C4" stroke-width="3" stroke-linecap="round"/>
+    <rect x="90" y="340" width="300" height="64" rx="14" fill="url(#gold)"/>
+    <text x="240" y="380" text-anchor="middle" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="800" fill="#1A1400">One semantic model</text>
+    <text x="240" y="436" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, monospace" font-size="14" fill="#A3AEC8">same measures, same numbers</text>
+  </g>
+</svg>

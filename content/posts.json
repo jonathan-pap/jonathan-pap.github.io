@@ -42,12 +42,12 @@
         "Semantic model",
         "DAX"
       ],
-      "excerpt": "Asking your data a question in plain words is finally real. I built a small app to see how far it goes. My take: it sits next to Power BI reports, it doesn't replace them, and it changes what a good semantic model looks like.",
-      "readTime": 8,
+      "excerpt": "Asking your data a question in plain words is finally real. My take: it sits next to Power BI reports, it doesn't replace them, and it changes what a good semantic model looks like.",
+      "readTime": 6,
       "author": {
         "name": "Jonathan Pap"
       },
-      "image": "./assets/img/posts/conversational-bi-next-to-reports.png",
+      "image": "./assets/img/posts/conversational-bi-next-to-reports.svg",
       "source": "drafts",
       "drafted_with_ai": true
     },

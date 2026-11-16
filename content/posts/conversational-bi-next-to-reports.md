@@ -2,7 +2,7 @@
 
 Most people who open a report don't want the report. They want one number, or the answer to one question, and the report is the place they have to go to find it. That gap is what conversational BI tries to close: you ask "Which region slipped last quarter?" and get the answer, with the measure it used, in a sentence.
 
-I've been exploring this for a while, partly through Copilot and partly by building a small app of my own to see what's going on under the hood. This post is where I've landed so far. Short version: it's a real alternative for a real set of questions. It's not a replacement for Power BI reports, and the teams that treat it as one will end up with two half-working things instead of one good one.
+I've been exploring this for a while, partly through Copilot and partly through an experiment of my own in the Lab. This post is where I've landed so far. Short version: it's a real alternative for a real set of questions. It's not a replacement for Power BI reports, and the teams that treat it as one will end up with two half-working things instead of one good one.
 
 ## What "conversational BI" means here
 
@@ -30,25 +30,19 @@ You don't have to build anything to try this:
 
 Two things in Microsoft's own documentation are worth reading twice. Copilot's output is nondeterministic: the same question can come back with a different answer. And the guidance for data agents says to review the DAX query behind each response while you test it. Neither of those is a reason to stay away. They are reasons to treat the answers as answers you can check, not answers you have to trust.
 
-## What I built to understand it
+## The rules matter more than the chat
 
-Reading docs only gets you so far, so I built a small experiment: a local app I call the Semantic Hub. It finds the models I have open in Power BI Desktop, lets me approve them into a hub, designs a simple dashboard for each one, and puts a chat panel next to it that answers with read-only DAX.
+An AI that can run queries is an AI that can run the wrong query. So the part that decides whether you can trust a setup like this isn't the chat window. It's the rules around it:
 
-![A chat answer in the app: the steps it took, the query result as a table, and the dashboard beside it](./assets/img/posts/conversational-bi-next-to-reports/demo-answer.png)
+- **Read-only.** The AI can ask the model questions. It can't change anything.
+- **Approved models only.** It reaches the models someone has agreed to, and nothing else.
+- **Limits.** A cap on rows, on time per query and on steps per question, so one bad question can't run away.
+- **Grounded answers.** It answers only from query results, names the measure and filters it used, and says so when the data can't answer.
+- **Everything is logged.** Every question and every generated query, so an answer can be checked afterwards.
 
-The interesting part wasn't the chat. It was the rules around it, because an AI that can run queries is an AI that can run the wrong query:
+The products above handle much of this for you: a data agent runs each query with the asking user's own permissions, for example. If you build something yourself, these rules belong in code that every query has to pass, not in the instructions you give the AI.
 
-- **Read-only.** A query has to start with `EVALUATE` or `DEFINE`, or it never reaches the model.
-- **Approved models only.** The AI asks for a model by its id in the hub. It never gets a server name or a connection string, so it can't wander off to something else.
-- **Limits.** At most 500 rows come back to the AI, a query gets 30 seconds, and a question gets 10 tool calls.
-- **Grounded answers.** The instructions say: answer only from query results, name the measure and filters you used, and say so when the data can't answer.
-- **Everything is logged.** Every question, every generated query, the row count and the time it took.
-
-All of that sits in one place in the code that every query has to pass, so the rules don't depend on the AI behaving. The browser never sends DAX either: a filter arrives as a column and values, and the server writes the query itself.
-
-It runs on my PC against Desktop, and right now the chat uses a local model (Qwen3 14B in LM Studio) rather than a cloud one. A switch to Claude exists, but it's experimental and untested. It's an experiment, not a product. The full build log, with what broke, is in the Lab: [Semantic Hub: ask your Power BI model, on your own PC](./post.html?slug=semantic-hub-ask-your-power-bi-model).
-
-What it taught me is the rest of this post.
+I tested that by building a small proof of concept. It's a Lab experiment, so the build log lives there, with what broke: [Semantic Hub: ask your Power BI model, on your own PC](./post.html?slug=semantic-hub-ask-your-power-bi-model).
 
 ## Where conversation wins
 
@@ -69,9 +63,9 @@ So I don't see one replacing the other. Reports are the agreed view. Conversatio
 
 ## It changes what a good model looks like
 
-This is the part I didn't expect. The more of the app I built, the more the quality of an answer seemed to live in the semantic model, not in my code:
+This is the part I didn't expect. The quality of an answer lives mostly in the semantic model, not in the tool on top of it:
 
-- **Descriptions are the documentation the AI reads.** The AI only knows what a measure means from its name and description. The hub flags every measure and column that has no description, because that's where a wrong guess starts.
+- **Descriptions are the documentation the AI reads.** The AI only knows what a measure means from its name and description. A measure or column without a description is where a wrong guess starts.
 - **Names matter more than ever.** Two columns called `Name` in different tables, or a measure called `TR_AMT`, confuse a person a little and an AI a lot. Microsoft's guidance for data agents makes the same point with almost the same example.
 - **Measures beat raw columns.** If the AI sums a column itself instead of using your `Total Sales` measure, it can quietly skip the logic in that measure. Pointing it at existing measures is what keeps chat answers and report numbers the same.
 - **Less is more.** Hiding helper columns and narrowing what the AI can see (the AI data schema in Prep data for AI) removes whole classes of wrong answers.
@@ -85,7 +79,5 @@ None of that is new advice for model builders. What's new is the reader: the sem
 3. Try Copilot or a Fabric data agent on it, and write down ten questions with answers you already know.
 4. For every answer, look at the query behind it. If it's wrong, fix the model (a name, a description, an instruction), not the question.
 5. Keep the report. Add the conversation next to it.
-
-The full build log of the Semantic Hub is in the Lab, there's a [short demo on YouTube](https://youtu.be/hI4K2-Tpefk) (1:25, no sound), and the code is public on [GitHub](https://github.com/goldlayerdata/semantic-hub).
 
 Where do you see it landing in your team: next to the reports, instead of some of them, or not yet?
