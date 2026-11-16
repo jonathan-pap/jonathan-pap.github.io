@@ -69,7 +69,7 @@
       "quote": "Set tab order and turn off tab order (mark the item as hidden) on any decorative items.",
       "check": "yes", "checkHint": "shapes/images still in the tab order", "short": null },
     { "id": "VR18", "rule": "Don't hide key facts in tooltips", "category": "Colour & accessibility", "severity": "warning", "learnStrength": "explicit", "source": "accessibility", "verified": true,
-      "quote": "Don't use tooltips to convey important information.",
+      "quote": "Don't use tooltips to convey important information. Users with motor problems and users who don't use a mouse have difficulties accessing them.",
       "check": "no", "checkHint": "needs a human read", "short": null },
     { "id": "VR19", "rule": "Keep visuals per page to what's necessary", "category": "Performance", "severity": "info", "learnStrength": "recommendation", "source": "optimization", "verified": true,
       "quote": "It's highly recommended you limit the number of visuals on a particular report page to only what is necessary.",

@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
-<link rel="stylesheet" href="./assets/css/styles.css?v=76">
+<link rel="stylesheet" href="./assets/css/styles.css?v=79">
 <link rel="stylesheet" href="./assets/css/lab.css?v=3">
 <link rel="stylesheet" href="./assets/css/tools.css?v=1">
 <!-- Cloudflare Web Analytics (cookie-free) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f1e8e8f40eb4d59b3eaab552604aa76"}'></script>
@@ -140,6 +140,18 @@
           <p>Shorts go out as <strong>@goldlayerdata</strong> on <a href="https://www.youtube.com/@goldlayerdata" rel="me noopener">YouTube</a>, <a href="https://www.instagram.com/goldlayerdata/" rel="me noopener">Instagram</a> and <a href="https://www.tiktok.com/@goldlayerdata" rel="me noopener">TikTok</a>.</p>
           <p>New posts land in the <a href="./feed.xml">RSS feed</a> as soon as they're published. The code behind the tools I write about is on <a href="https://github.com/jonathan-pap" rel="noopener">GitHub</a>.</p>
         </div>
+        <!-- Today's short: filled in by app.js from content/shorts.json, one short per day, in turn -->
+        <div class="side-note" id="todayShort" hidden>
+          <h3>Today's short</h3>
+          <a class="today-short" id="todayShortLink" href="./shorts.html">
+            <span class="today-short-thumb"><img id="todayShortImg" src="" width="90" height="160" alt="" decoding="async"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span></span>
+            <span class="today-short-text">
+              <span class="today-short-kicker" id="todayShortKicker"></span>
+              <span class="trailer-title" id="todayShortTitle"></span>
+              <span class="trailer-cta">Watch the short →</span>
+            </span>
+          </a>
+        </div>
         <div class="side-note">
           <h3>Watch the trailer</h3>
           <a class="trailer" href="https://www.youtube.com/watch?v=Ed4PGJp5V5Q" rel="noopener">
@@ -181,7 +193,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
 </button>
 
-<script src="./assets/js/app.js?v=42"></script>
+<script src="./assets/js/app.js?v=43"></script>
 <script src="./assets/js/lab.js?v=2"></script>
 <script src="./assets/js/back-to-top.js?v=2" defer></script>
 </body>

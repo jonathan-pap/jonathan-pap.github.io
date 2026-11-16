@@ -435,6 +435,21 @@ html:has(dialog.short-player[open]){overflow:hidden}
   .post-skeleton span{animation:none}
 }
 
+/* Home sidebar: today's short, a small poster beside its title (kept smaller than the trailer on purpose) */
+.today-short{display:flex;align-items:center;gap:12px;margin-top:4px;text-decoration:none;color:var(--ink)}
+.today-short:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:10px}
+.today-short-thumb{position:relative;flex:none;width:64px;aspect-ratio:9/16;border-radius:8px;overflow:hidden;
+  border:1px solid var(--line);background:var(--navy-800);transition:border-color .15s}
+.today-short:hover .today-short-thumb{border-color:rgba(242,200,17,.55)}
+.today-short-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.today-short-thumb span{position:absolute;inset:0;margin:auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:var(--gold);color:var(--navy-900);box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.today-short-thumb svg{width:14px;height:14px;margin-left:1px}
+.today-short-text{display:flex;flex-direction:column;gap:4px;min-width:0}
+.today-short-kicker{font:500 11px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.today-short .trailer-title{margin-top:0}
+.today-short:hover .trailer-cta{text-decoration:underline;text-underline-offset:3px}
+
 /* Home sidebar: the channel trailer, linked to YouTube (no embed, so no third-party load) */
 .trailer{display:flex;flex-direction:column;gap:6px;margin-top:4px;text-decoration:none;color:var(--ink)}
 .trailer:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:10px}

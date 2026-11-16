@@ -26,14 +26,13 @@
 
   // ---- filters, laid out like the Articles page: search, Show and Topics in the left rail ----
   // The state lives in the address (?show=article&topic=Power+BI&q=cache) so a filtered view can be shared.
-  // Each control appears only once it has something to filter: Show when shorts differ (some with an
-  // article, some without), Topics always (like Articles), search from SEARCH_FROM shorts up.
+  // Search and Topics always show, like on Articles, Lab and Tools. Show appears only when shorts differ
+  // (some with an article, some without).
   const SHOWS = [
     ["", "All", () => true],
     ["article", "With an article", (s) => !!s.articleUrl],
     ["solo", "Shorts only", (s) => !s.articleUrl],
   ];
-  const SEARCH_FROM = 8;
 
   function setUpFilters(all) {
     const showBlock = document.getElementById("showBlock");
@@ -53,7 +52,7 @@
     const showUseful = SHOWS.slice(1).every(([, , fn]) => all.some(fn));  // both kinds exist
     showBlock.hidden = !showUseful;
     if (!showUseful) state.show = "";
-    formEl.hidden = all.length < SEARCH_FROM && !state.q;
+    formEl.hidden = false;
 
     const matchesText = (s) => {
       const words = state.q.toLowerCase().split(/\s+/).filter(Boolean);

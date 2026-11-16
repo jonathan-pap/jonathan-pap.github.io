@@ -568,6 +568,23 @@
 
   // ---------------------------------------------------------------- start
 
+  // Home sidebar: today's short. One short per day, in turn through the list, the same for every visitor
+  // (a random pick would change on each reload). Stays hidden when there are no shorts.
+  const todayEl = document.getElementById("todayShort");
+  if (todayEl) {
+    loadShorts().then((shorts) => {
+      if (!shorts.length) return;
+      const now = new Date();
+      const day = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 864e5);
+      const s = shorts[day % shorts.length];
+      document.getElementById("todayShortLink").href = siteUrl(`shorts.html#short-${encodeURIComponent(s.id)}`);
+      document.getElementById("todayShortImg").src = siteUrl(`assets/shorts/posters/${encodeURIComponent(s.file)}.jpg`);
+      document.getElementById("todayShortKicker").textContent = `${s.topic || "Short"} · ${shortDuration(s)}`;
+      document.getElementById("todayShortTitle").textContent = s.title;
+      todayEl.hidden = false;
+    }).catch((err) => console.error(err));
+  }
+
   const blogEl = document.getElementById("blogApp");
   if (blogEl) {
     initBlog(blogEl);
