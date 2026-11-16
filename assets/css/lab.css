@@ -84,3 +84,13 @@ body[data-lane="lab"] .prose img { display: block; width: auto; max-width: 100%;
 body[data-lane="lab"] .post-toc-link--active { color: var(--lab); }
 /* no badge pills on the pages (they are for videos): the kind label in cyan text carries the Lab mark */
 .lab-kind--accent { color: var(--lab); }
+
+/* lab.html rail: search + Topics like Articles; the active filter and focus ring in Lab cyan */
+body[data-page="lab"] .sidebar--nav .side-list a[aria-current] { color: var(--lab); border-left-color: var(--lab); }
+body[data-page="lab"] .sidebar--nav .side-list a[aria-current] .side-count { color: var(--lab); }
+body[data-page="lab"] .sidebar--nav .search input:focus-visible { outline-color: var(--lab); }
+body[data-page="lab"] .sidebar--aside .lab-kinds { margin-bottom: 8px; }
+@media (max-width: 900px) {
+  body[data-page="lab"] .blog-layout--home .sidebar--nav .side-list a[aria-current] { color: var(--lab); text-decoration-color: var(--lab); }
+}
+body[data-page="lab"] .blog-main .linkbtn { color: var(--lab); text-decoration-color: var(--lab); }

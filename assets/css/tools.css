@@ -109,3 +109,13 @@ body[data-page="tools"] .results-bar { display: flex; justify-content: space-bet
   .vr-facts div { grid-template-columns: 1fr; gap: 2px; }
   .vr-rule { padding-left: 14px; }
 }
+
+/* tools.html rail: search + Topics like Articles; the active filter and focus ring in Tools pink */
+body[data-page="tools"] .sidebar--nav .side-list a[aria-current] { color: var(--tools); border-left-color: var(--tools); }
+body[data-page="tools"] .sidebar--nav .side-list a[aria-current] .side-count { color: var(--tools); }
+body[data-page="tools"] .sidebar--nav .search input:focus-visible { outline-color: var(--tools); }
+body[data-page="tools"] .sidebar--aside .tools-kinds { margin-bottom: 8px; }
+@media (max-width: 900px) {
+  body[data-page="tools"] .blog-layout--home .sidebar--nav .side-list a[aria-current] { color: var(--tools); text-decoration-color: var(--tools); }
+}
+body[data-page="tools"] .blog-main .linkbtn { color: var(--tools); text-decoration-color: var(--tools); }
