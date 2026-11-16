@@ -1,6 +1,57 @@
 {
   "posts": [
     {
+      "slug": "semantic-hub-ask-your-power-bi-model",
+      "title": "Semantic Hub: ask your Power BI model, on your own PC",
+      "date": "2026-11-16",
+      "category": "Lab",
+      "tags": [
+        "Lab",
+        "Apps",
+        "Power BI",
+        "DAX",
+        "AI",
+        "Local LLM"
+      ],
+      "excerpt": "A small app that turns the Power BI models open on my PC into live dashboards I can question in plain words. A local AI writes read-only DAX, and nothing leaves the machine. What worked, what broke, and why the rules sit in code, not in the prompt.",
+      "readTime": 7,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/semantic-hub-ask-your-power-bi-model.png",
+      "source": "drafts",
+      "drafted_with_ai": true,
+      "lane": "lab",
+      "kind": "Apps",
+      "status": "Works",
+      "question": "Can a local AI answer questions about a Power BI model safely, with every number coming from a real query?",
+      "tools": ".NET 10, React, ADOMD.NET, LM Studio (Qwen3 14B), Claude Code",
+      "time": "3 days",
+      "lesson": "The AI is a query writer, not a source of numbers. What makes it safe is one gate in code that every query has to pass, and what makes it good is the model's own names and descriptions."
+    },
+    {
+      "slug": "conversational-bi-next-to-reports",
+      "title": "Conversational BI: an alternative to reports, not a replacement",
+      "date": "2026-11-16",
+      "category": "AI",
+      "tags": [
+        "Power BI",
+        "AI",
+        "Copilot",
+        "Fabric",
+        "Semantic model",
+        "DAX"
+      ],
+      "excerpt": "Asking your data a question in plain words is finally real. I built a small app to see how far it goes. My take: it sits next to Power BI reports, it doesn't replace them, and it changes what a good semantic model looks like.",
+      "readTime": 8,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/conversational-bi-next-to-reports.png",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "semantic-model-compatibility-levels",
       "title": "Compatibility levels in Power BI: what each one unlocks (as of November 2026)",
       "date": "2026-11-15",

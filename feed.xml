@@ -4,11 +4,29 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-15T00:00:00Z</updated>
+  <updated>2026-11-16T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Lab: Semantic Hub: ask your Power BI model, on your own PC</title>
+    <link href="https://goldlayerdata.com/post.html?slug=semantic-hub-ask-your-power-bi-model" />
+    <id>https://goldlayerdata.com/post.html?slug=semantic-hub-ask-your-power-bi-model</id>
+    <updated>2026-11-16T00:00:00Z</updated>
+    <summary>A small app that turns the Power BI models open on my PC into live dashboards I can question in plain words. A local AI writes read-only DAX, and nothing leaves the machine. What worked, what broke, and why the rules sit in code, not in the prompt.</summary>
+    <category term="Lab" />
+  </entry>
+
+  <entry>
+    <title>Conversational BI: an alternative to reports, not a replacement</title>
+    <link href="https://goldlayerdata.com/post.html?slug=conversational-bi-next-to-reports" />
+    <id>https://goldlayerdata.com/post.html?slug=conversational-bi-next-to-reports</id>
+    <updated>2026-11-16T00:00:00Z</updated>
+    <summary>Asking your data a question in plain words is finally real. I built a small app to see how far it goes. My take: it sits next to Power BI reports, it doesn't replace them, and it changes what a good semantic model looks like.</summary>
+    <category term="AI" />
+  </entry>
 
   <entry>
     <title>Compatibility levels in Power BI: what each one unlocks (as of November 2026)</title>
