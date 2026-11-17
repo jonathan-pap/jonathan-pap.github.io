@@ -3,6 +3,24 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "visual-rule-zero-axis",
+      "file": "visual-rule-zero-axis",
+      "title": "Power BI: be careful with axes not at zero",
+      "topic": "Power BI",
+      "duration": 34,
+      "summary": "On-time delivery, 97.0% vs 98.5%, on an axis that starts at 96%: it looks like a huge jump. From zero, the same data shows a 1.5 point gap. Microsoft Learn: \"Be careful when you use charts that distort reality, such as 3-D charts and charts that don't start at zero.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "_0UOpzeXoYE"
+    },
+    {
+      "id": "visual-rule-numerals",
+      "file": "visual-rule-numerals",
+      "title": "Power BI: show 3.4M, not 3,400,000",
+      "topic": "Power BI",
+      "duration": 31,
+      "summary": "A report with every number in full (3,412,876). Cards on Display units Auto with one decimal read 3.4M and 48.2K; data labels on Millions with one decimal read 1.3M. Microsoft Learn: \"Don't exceed three or four numerals when displaying numbers... use 3.4 million instead of 3,400,000.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "usVt9EkoyZQ"
+    },
+    {
       "id": "anime-teachers",
       "file": "anime-teachers",
       "title": "14 tests, 2 days: what broke making an AI anime teacher",
