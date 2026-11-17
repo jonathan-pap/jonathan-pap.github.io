@@ -159,6 +159,10 @@ One trap: if `.pbi/unappliedChanges.json` exists, apply those pending changes be
 
 **5. Review the diff, not the summary.** The whole point of PBIP is that every change is a readable line in a file, so read it. A new measure is a few lines in one table file. A "formatting tweak" that touches forty `visual.json` files deserves a closer look. Automated checks help too: Microsoft's Azure DevOps build-pipeline guide runs Tabular Editor's Best Practice Analyzer on models and PBI Inspector on reports for every pull request. Both are community tools Microsoft doesn't support, but they make a good safety net for agent changes.
 
+The folder and these rules on one page, to save or share:
+
+![Cheat sheet: the PBIP model and report folders, each file marked as agent can edit, with care, hands off or never share](./assets/img/posts/pbip-folder-structure/pbip-ai-edit-map.png)
+
 ## Small things that bite
 
 - **Schemas catch mistakes.** Every PBIR file starts with a `$schema` link. VS Code validates against it, and an agent can too. A file that breaks its schema stops Desktop loading the report, and the error names the file to fix.
