@@ -78,4 +78,47 @@
   if (emptyEl) emptyEl.addEventListener("click", (e) => { if (e.target.closest("[data-clear]")) clearAll(); });
 
   render();
+
+  // Reference sheets (a card link with data-sheet) open over the page, not as a bare picture in the tab.
+  // Without JavaScript, or with a modified click, the link still opens the picture itself.
+  let dlg = null, opener = null;
+  function sheetDialog() {
+    if (dlg) return dlg;
+    dlg = document.createElement("dialog");
+    dlg.className = "sheet-dlg";
+    dlg.innerHTML = `
+      <div class="sheet-bar">
+        <span class="sheet-title"></span>
+        <span class="sheet-actions">
+          <a class="sheet-more" hidden></a>
+          <a class="sheet-save" download>Save the picture</a>
+          <button type="button" class="sheet-close" aria-label="Close">Close</button>
+        </span>
+      </div>
+      <div class="sheet-scroll"><img alt=""></div>`;
+    document.body.appendChild(dlg);
+    dlg.querySelector(".sheet-close").addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });  // a click on the backdrop
+    dlg.addEventListener("close", () => { if (opener) opener.focus(); });
+    return dlg;
+  }
+  grid.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-sheet]");
+    if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (typeof HTMLDialogElement === "undefined") return;  // very old browser: just follow the link
+    e.preventDefault();
+    const d = sheetDialog();
+    opener = a;
+    d.querySelector(".sheet-title").textContent = a.textContent.trim();
+    d.setAttribute("aria-label", a.textContent.trim());
+    const img = d.querySelector("img");
+    img.src = a.href;
+    img.alt = a.dataset.sheetAlt || a.textContent.trim();
+    d.querySelector(".sheet-save").href = a.href;
+    const more = d.querySelector(".sheet-more");
+    more.hidden = !a.dataset.sheetMore;
+    if (a.dataset.sheetMore) { more.href = a.dataset.sheetMore; more.textContent = (a.dataset.sheetMoreLabel || "Read more") + " →"; }
+    d.querySelector(".sheet-scroll").scrollTop = 0;
+    d.showModal();
+  });
 })();

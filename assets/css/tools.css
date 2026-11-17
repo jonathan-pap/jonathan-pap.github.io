@@ -119,3 +119,20 @@ body[data-page="tools"] .sidebar--aside .tools-kinds { margin-bottom: 8px; }
   body[data-page="tools"] .blog-layout--home .sidebar--nav .side-list a[aria-current] { color: var(--tools); text-decoration-color: var(--tools); }
 }
 body[data-page="tools"] .blog-main .linkbtn { color: var(--tools); text-decoration-color: var(--tools); }
+
+/* A reference sheet opened over the Tools page (tools.js): the picture, with Save and Close above it */
+.sheet-dlg { padding: 0; border: 1px solid var(--line); border-radius: 14px; background: #0A1328; color: var(--ink);
+  width: min(720px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow: hidden; }
+.sheet-dlg[open] { display: flex; flex-direction: column; }
+.sheet-dlg::backdrop { background: rgba(4, 9, 22, .78); }
+.sheet-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.sheet-title { font-weight: 700; font-size: 15.5px; }
+.sheet-actions { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+.sheet-actions a { color: var(--tools); text-underline-offset: 3px; }
+.sheet-close { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 12px; cursor: pointer; }
+.sheet-close:hover { border-color: var(--tools); }
+.sheet-close:focus-visible, .sheet-actions a:focus-visible { outline: 2px solid var(--tools); outline-offset: 2px; }
+.sheet-scroll { overflow: auto; min-height: 0; }
+.sheet-scroll img { display: block; width: 100%; height: auto; }
