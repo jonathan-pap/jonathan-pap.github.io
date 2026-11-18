@@ -3,6 +3,15 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
   "shorts": [
     {
+      "id": "visual-rule-colour-only",
+      "file": "visual-rule-colour-only",
+      "title": "Power BI: don't rely on colour alone",
+      "topic": "Power BI",
+      "duration": 37,
+      "summary": "Two lines told apart only by colour. In a simulated colour-blind view they look the same. The fix: markers, a dashed line and direct labels, in blue and gold. Microsoft Learn: \"Avoid using color... as the only way of conveying information. Instead, use markers to convey different series.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "LH06kNmuLHY"
+    },
+    {
       "id": "visual-rule-zero-axis",
       "file": "visual-rule-zero-axis",
       "title": "Power BI: be careful with axes not at zero",
