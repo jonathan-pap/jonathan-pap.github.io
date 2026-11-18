@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "slug": "fabric-apps-can-you-read-what-the-ai-wrote",
+      "title": "Fabric apps: do you know what the AI is writing?",
+      "date": "2026-11-18",
+      "category": "Fabric",
+      "tags": [
+        "Fabric",
+        "Fabric apps",
+        "Rayfin",
+        "AI",
+        "Power BI"
+      ],
+      "excerpt": "A coding agent can build a Fabric app from a prompt. This is the folder it starts from: what each part is, which files you edit, what each command really does, and the questions to ask before you ship one.",
+      "readTime": 14,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/fabric-apps-can-you-read-what-the-ai-wrote.svg",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "semantic-hub-ask-your-power-bi-model",
       "title": "Semantic Hub: ask your Power BI model, on your own PC",
       "date": "2026-11-16",

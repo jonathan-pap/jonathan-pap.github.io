@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Fabric apps: the project folder, with rayfin.yml, the packages for frontend, data and shared, package.json and the agent instructions">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#FFFFFF" fill-opacity=".055"/></pattern>
+    <radialGradient id="glow" cx=".82" cy=".18" r=".6"><stop offset="0" stop-color="#5B8BF0" stop-opacity=".30"/><stop offset="1" stop-color="#5B8BF0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE785"/><stop offset="1" stop-color="#EDB40C"/></linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A1328"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left: title -->
+  <g font-family="Figtree, 'Segoe UI', system-ui, sans-serif">
+    <text x="72" y="150" font-family="'IBM Plex Mono', Consolas, monospace" font-size="20" letter-spacing="4" fill="#F2C811">FABRIC · APPS</text>
+    <text x="72" y="240" font-size="62" font-weight="800" fill="#E8ECF5" letter-spacing="-1.4">Do you know</text>
+    <text x="72" y="312" font-size="62" font-weight="800" fill="#E8ECF5" letter-spacing="-1.4">what the AI</text>
+    <text x="72" y="384" font-size="62" font-weight="800" fill="url(#gold)" letter-spacing="-1.4">is writing?</text>
+    <text x="72" y="440" font-size="26" fill="#A3AEC8">The project folder, file by file.</text>
+  </g>
+
+  <!-- left bottom: brand -->
+  <g transform="translate(72 520)">
+    <g transform="scale(1.6)">
+      <path d="M3 16.6 12 21.2 21 16.6" fill="none" stroke="#2A4A8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.1 12 16.7 21 12.1" fill="none" stroke="#4069C4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3 21 7.6 12 12.2 3 7.6Z" fill="url(#gold)" stroke="url(#gold)" stroke-width="1.2" stroke-linejoin="round"/>
+    </g>
+    <text x="52" y="27" font-family="Figtree, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#E8ECF5">Gold Layer</text>
+  </g>
+
+  <!-- right: the folder -->
+  <g transform="translate(640 96)">
+    <rect width="490" height="438" rx="18" fill="#10204A" stroke="#FFFFFF" stroke-opacity=".10"/>
+    <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="21">
+      <text x="30" y="52" fill="#E8ECF5" font-weight="700">my-app/</text>
+      <text x="30" y="96" fill="#4A5E94">├─</text><text x="72" y="96" fill="#E8ECF5">rayfin/</text><text x="300" y="96" fill="#FFE785">rayfin.yml</text>
+      <text x="30" y="140" fill="#4A5E94">├─</text><text x="72" y="140" fill="#E8ECF5">packages/</text>
+      <text x="30" y="184" fill="#4A5E94">│  ├─</text><text x="114" y="184" fill="#E8ECF5">frontend/</text><text x="300" y="184" fill="#A3AEC8">pages</text>
+      <text x="30" y="228" fill="#4A5E94">│  ├─</text><text x="114" y="228" fill="#FFE785">data/</text><text x="300" y="228" fill="#FFE785">tables + rules</text>
+      <text x="30" y="272" fill="#4A5E94">│  └─</text><text x="114" y="272" fill="#E8ECF5">shared/</text><text x="300" y="272" fill="#A3AEC8">types</text>
+      <text x="30" y="316" fill="#4A5E94">├─</text><text x="72" y="316" fill="#FFE785">package.json</text><text x="300" y="316" fill="#FFE785">commands</text>
+      <text x="30" y="360" fill="#4A5E94">├─</text><text x="72" y="360" fill="#5FE3F0">AGENTS.md</text><text x="300" y="360" fill="#5FE3F0">agent rules</text>
+      <text x="30" y="404" fill="#4A5E94">└─</text><text x="72" y="404" fill="#5FE3F0">.agents/skills/</text><text x="300" y="404" fill="#5FE3F0">24 sets</text>
+    </g>
+  </g>
+</svg>
