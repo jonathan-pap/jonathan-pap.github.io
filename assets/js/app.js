@@ -120,7 +120,8 @@
           if (!res.ok) throw new Error(`shorts.json fetch failed: ${res.status}`);
           return res.json();
         });
-      shortsPromise = data.then((d) => d.shorts || []);
+      // A short with a "showFrom" time (its scheduled YouTube publish time) stays hidden until then.
+      shortsPromise = data.then((d) => (d.shorts || []).filter((s) => !s.showFrom || Date.now() >= Date.parse(s.showFrom)));
     }
     return shortsPromise;
   }

@@ -1,7 +1,114 @@
 // Script copy of shorts.json, for pages opened straight from disk.
 window.GOLD_LAYER_SHORTS = {
-  "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4.",
+  "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4. \"showFrom\" (optional) hides a short until that time, e.g. while its YouTube upload is scheduled.",
   "shorts": [
+    {
+      "id": "visual-rule-top-left",
+      "file": "visual-rule-top-left",
+      "title": "Power BI layout: headline number top-left",
+      "topic": "Power BI",
+      "duration": 38,
+      "summary": "A report page with the detail on top and the total at the bottom: reading starts top-left, so the total comes last. Move it top-left: big number first, detail follows. Microsoft Learn: \"Put the highest level of data at the top left corner and show more detail as you move in the direction the audience uses for reading (left-to-right, top-to-bottom).\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "G2vEsvKOp34",
+      "showFrom": "2026-11-20T13:30:00+01:00"
+    },
+    {
+      "id": "visual-rule-alt-text",
+      "file": "visual-rule-alt-text",
+      "title": "Power BI alt text on every visual with meaning",
+      "topic": "Power BI",
+      "duration": 40,
+      "summary": "Without looking at the chart, a screen reader gets the title, the visual type, then nothing. Add alt text in Format → General → Alt text (limit: 250 characters) and the chart gets described. The strip in the short is an illustration, not a real screen reader's exact words. Microsoft Learn: \"Ensure alt text is added to all non-decorative visuals on the page.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "h8pzIB7L384",
+      "showFrom": "2026-11-20T11:00:00+01:00"
+    },
+    {
+      "id": "visual-rule-data-labels",
+      "file": "visual-rule-data-labels",
+      "title": "Power BI data labels: the squint test",
+      "topic": "Power BI",
+      "duration": 38,
+      "summary": "A chart with a label on every point. Blur it, and the labels win over the trend. Cut the labels you don't need and keep the one that matters. Microsoft Learn: \"Avoid cluttering your charts with data labels that aren't needed.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "ssEjE6HDCkI",
+      "showFrom": "2026-11-20T00:00:00+01:00"
+    },
+    {
+      "id": "visual-rule-red-green",
+      "file": "visual-rule-red-green",
+      "title": "Avoid red + green in Power BI",
+      "topic": "Power BI",
+      "duration": 37,
+      "summary": "Green for met, red for missed. Under a simulated colour-blind lens they look almost the same. The fix in the short: blue and orange, plus an icon and a word in every cell (our choice of pair; Learn names none). Microsoft Learn: \"Certain color combinations can be difficult for users to distinguish. These combinations include the following: green and red... Avoid using these colors together in a chart or on the same report page.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "KUgp1L6QLWo",
+      "showFrom": "2026-11-19T17:30:00+01:00"
+    },
+    {
+      "id": "visual-rule-acronyms",
+      "file": "visual-rule-acronyms",
+      "title": "Power BI titles: avoid acronyms and jargon",
+      "topic": "Power BI",
+      "duration": 32,
+      "summary": "Visual titles only insiders can read: CY Totals, YTD Rev LC, AOV MTD. Spelled out, they say what each visual shows. CY Totals to Current Year Sales Amount USD Totals is Learn's own example. Microsoft Learn: \"Avoid using acronyms or jargon in your report titles.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "7l0I_lOUBXs",
+      "showFrom": "2026-11-19T12:00:00+01:00"
+    },
+    {
+      "id": "visual-rule-contrast",
+      "file": "visual-rule-contrast",
+      "title": "Power BI text contrast: at least 4.5 to 1",
+      "topic": "Power BI",
+      "duration": 36,
+      "summary": "Pale grey text (#ABABAB) on a white page: a contrast of only 2.3 to 1. Darken the text until it passes 4.5 to 1. Microsoft Learn: \"Ensure color contrast between title, axis label, and data label text and the background are at least 4.5:1.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "1vuYt8RsFX8",
+      "showFrom": "2026-11-19T10:30:00+01:00"
+    },
+    {
+      "id": "visual-rule-mixed-scales",
+      "file": "visual-rule-mixed-scales",
+      "title": "Power BI secondary axis: fix the flat line",
+      "topic": "Power BI",
+      "duration": 33,
+      "summary": "Revenue (millions) and Orders (thousands) on one axis: Orders looks flat all year. As a line and clustered column chart with the secondary y-axis on, Orders shows its real shape. Microsoft Learn: \"Try to avoid mixing large and small measures on the same scale... If you need to mix, choose a visualization like a combo chart that allows the use of a second axis.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "rxRIfq8sfV4",
+      "showFrom": "2026-11-19T06:00:00+01:00"
+    },
+    {
+      "id": "visual-rule-sort",
+      "file": "visual-rule-sort",
+      "title": "Power BI: sort every visual on purpose",
+      "topic": "Power BI",
+      "duration": 37,
+      "summary": "A bar chart sorted A to Z: the eye has to hunt. Sort by the measure and the biggest is answered at a glance. Looking up one name in a long list? Then sort by the axis. Microsoft Learn: \"Pay attention to how charts are sorted. If you want to draw attention to the highest or lowest number, sort by the measure.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "MpmTYJ49ldA",
+      "showFrom": "2026-11-19T03:45:00+01:00"
+    },
+    {
+      "id": "visual-rule-consistency",
+      "file": "visual-rule-consistency",
+      "title": "Consistent Power BI charts: colour, order, scale",
+      "topic": "Power BI",
+      "duration": 40,
+      "summary": "Two charts on one page where colour, order and scale don't match. Match colour, order, then scale, and it shows: West halved, $6.0M to $3.0M. Microsoft Learn: \"Be consistent with chart scales on axes, chart dimension ordering, and the colors used for dimension values within charts.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "8Xld2L6AJMU"
+    },
+    {
+      "id": "visual-rule-pie-slices",
+      "file": "visual-rule-pie-slices",
+      "title": "Pie charts: fewer than eight categories",
+      "topic": "Power BI",
+      "duration": 34,
+      "summary": "A pie with twelve slices: which product sells most? The slices become sorted bars and the answer is clear. Or keep the pie: top 5 + Other. Microsoft Learn: \"Pie charts are best if they have fewer than eight categories.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "FyFHapgK80U"
+    },
+    {
+      "id": "visual-rule-tooltips",
+      "file": "visual-rule-tooltips",
+      "title": "Power BI tooltips: don't hide key facts",
+      "topic": "Power BI",
+      "duration": 37,
+      "summary": "The answer (North missed target by 12%) hides in a tooltip. Without a mouse it is hard to reach. The fix in the short: the fact goes on the chart, the extras stay in the tooltip. Microsoft Learn: \"Don't use tooltips to convey important information.\" Same rule whether a person or an AI agent built the report.",
+      "youtube": "bCM470Rcr68"
+    },
     {
       "id": "visual-rule-colour-only",
       "file": "visual-rule-colour-only",
