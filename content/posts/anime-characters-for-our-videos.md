@@ -50,7 +50,7 @@ The hard part was never getting a character on screen. It was making it look rig
 - **Hair and cloth broke video rendering.** The renderer jumps to any frame in any order, but hair physics depends on the frames before it. Each frame now replays the physics from the start, so frame 300 always looks the same.
 - **A hologram is a still image with effects.** The scanlines didn't hide that nothing moved. The cartoon classroom with two characters interacting worked far better.
 - **Looking at things is harder than it sounds.** If the panel the teacher talks about sits behind the character, the head turns all the way round to look at it. The panel has to float in front.
-- **Clipping.** In one over-the-shoulder shot a strand of hair passes through the teacher's arm. It's still there.
+- **Clipping.** In one over-the-shoulder shot a strand of hair passes through the teacher's arm. *Update, 19 November 2026:* solved in a later experiment. The model treats each strand of hair as 5 mm thick, while the long hair tails are about 9 cm, so the middle of the hair stayed clear of the arm while its surface went through. Giving the hair its real thickness fixed it.
 - **Stand-in characters.** Free models come in school uniforms or random outfits. A real teacher meant building one in VRoid Studio, and VRoid has no API: Claude drove it with simulated clicks and keystrokes. That worked, slowly, with quirks (typing 35 into a slider meant for -1 to 1 broke the model). When it started recolouring a dress click by click, I stopped it, and the outfits became a costume layer in code instead.
 - **Repetitive hands.** My note after the first talking version: "the hand and arm gestures are very repetitive and sometimes unnatural." Hence the gesture library, with a rule never to repeat the same gesture twice in a row.
 - **Two hosts is harder than one.** With two characters talking, every flaw doubles. My note was to focus on one character first and get the motion right there.
@@ -59,7 +59,9 @@ The hard part was never getting a character on screen. It was making it look rig
 
 ## What's next
 
-Put the characters to work in real videos: a teacher version of the DIVIDE short next to the original, to see which one people watch longer, and hosts for the next trailer. Action scenes are already in testing too, like a fight with fighting-game touches and walking from motion capture instead of hand-written formulas. The hair clipping still comes first.
+Put the characters to work in real videos: a teacher version of the DIVIDE short next to the original, to see which one people watch longer, and hosts for the next trailer. Action scenes are already in testing too, like a fight with fighting-game touches and walking from motion capture instead of hand-written formulas.
+
+*Update, 19 November 2026:* the characters now have a city, a third cast member and an opening sequence of their own. That is written up as a separate Lab entry: [Gold Layer City: an anime opening, directed in chat](./post.html?slug=gold-layer-city-an-anime-opening-directed-in-chat).
 
 ## What it taught us about AI
 

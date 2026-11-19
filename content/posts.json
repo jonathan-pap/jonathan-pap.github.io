@@ -1,6 +1,35 @@
 {
   "posts": [
     {
+      "slug": "gold-layer-city-an-anime-opening-directed-in-chat",
+      "title": "Gold Layer City: an anime opening, directed in chat",
+      "date": "2026-11-19",
+      "category": "Lab",
+      "tags": [
+        "Lab",
+        "Anime",
+        "Video",
+        "three.js",
+        "AI",
+        "Music"
+      ],
+      "excerpt": "A 47-second anime opening for Gold Layer: a city built from code, three characters, and a theme tune made on my own PC. I directed it in chat and the AI wrote all of it. Twenty renders in two days, and what each one got wrong.",
+      "readTime": 7,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/gold-layer-city-an-anime-opening-directed-in-chat.jpg",
+      "source": "drafts",
+      "drafted_with_ai": true,
+      "lane": "lab",
+      "kind": "Anime",
+      "status": "Works",
+      "question": "Can I direct a full anime opening by chatting with an AI, without touching the code?",
+      "tools": "three.js, three-vrm, HyperFrames, VRoid models, ACE-Step, Claude",
+      "time": "2 days, 20 renders",
+      "lesson": "The AI can build a city in an afternoon, but it can't watch its own video. It checks still frames. Almost every real fix started with me pressing play and saying 'that looks off'."
+    },
+    {
       "slug": "fabric-apps-can-you-read-what-the-ai-wrote",
       "title": "Fabric apps: do you know what the AI is writing?",
       "date": "2026-11-18",
@@ -107,7 +136,7 @@
         "AI"
       ],
       "excerpt": "Can 3D anime characters make our videos more fun to watch: a quiz short, the trailer, a race through the data city? Fourteen tests in two days: what worked, what looked wrong, and what an AI can and can't do for character animation.",
-      "readTime": 6,
+      "readTime": 7,
       "author": {
         "name": "Jonathan Pap"
       },

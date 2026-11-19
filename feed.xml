@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-18T00:00:00Z</updated>
+  <updated>2026-11-19T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Lab: Gold Layer City: an anime opening, directed in chat</title>
+    <link href="https://goldlayerdata.com/post.html?slug=gold-layer-city-an-anime-opening-directed-in-chat" />
+    <id>https://goldlayerdata.com/post.html?slug=gold-layer-city-an-anime-opening-directed-in-chat</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>A 47-second anime opening for Gold Layer: a city built from code, three characters, and a theme tune made on my own PC. I directed it in chat and the AI wrote all of it. Twenty renders in two days, and what each one got wrong.</summary>
+    <category term="Lab" />
+  </entry>
 
   <entry>
     <title>Fabric apps: do you know what the AI is writing?</title>
