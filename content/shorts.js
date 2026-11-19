@@ -3,6 +3,16 @@ window.GOLD_LAYER_SHORTS = {
   "_comment": "Gold Layer Shorts. One entry per clip; files live in assets/shorts/<file>.mp4 and assets/shorts/posters/<file>.jpg. \"post\" names the slug of the article behind a short, if there is one: the short then appears inside that article. \"summary\" is the text version of the clip. \"youtube\" is the YouTube id; from \"youtubeFrom\" on, the short plays on YouTube (click-to-load) instead of our MP4. \"showFrom\" (optional) hides a short until that time, e.g. while its YouTube upload is scheduled.",
   "shorts": [
     {
+      "id": "gold-layer-city",
+      "file": "gold-layer-city",
+      "title": "Welcome to Gold Layer City: an anime opening made with AI",
+      "topic": "Lab",
+      "duration": 47,
+      "post": "gold-layer-city-an-anime-opening-directed-in-chat",
+      "summary": "An anime opening for Gold Layer: a night city built from code, three characters and a theme tune made on my own PC. Prof explains why, Nova learns by trying, Kit makes it work. Directed in chat; the AI wrote the city, the cameras, the credits and the motion. No narration: music only, AI-generated.",
+      "youtube": "fiJVgD_O47g"
+    },
+    {
       "id": "visual-rule-top-left",
       "file": "visual-rule-top-left",
       "title": "Power BI layout: headline number top-left",
