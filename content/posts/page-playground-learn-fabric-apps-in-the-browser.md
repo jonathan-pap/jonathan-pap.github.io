@@ -2,7 +2,7 @@
 
 Fabric apps are written in TypeScript and React. Most Power BI developers I know have never opened either. Reading about it only goes so far, so I wanted a place to type the code and watch a report page appear, without installing anything or needing a Fabric capacity.
 
-The result is the [Fabric app playground](https://goldlayerdata.github.io/page-playground/). It's free, it runs in a desktop browser, and it's on the [Tools](./tools.html) page now; the code is on [GitHub](https://github.com/goldlayerdata/page-playground). It's unofficial and not affiliated with Microsoft.
+The result is the [Fabric app playground](https://goldlayerdata.github.io/fabric-app-playground/). It's free, it runs in a desktop browser, and it's on the [Tools](./tools.html) page now; the code is on [GitHub](https://github.com/goldlayerdata/fabric-app-playground). It's unofficial and not affiliated with Microsoft.
 
 This entry is how it was built, with an AI writing the code.
 
