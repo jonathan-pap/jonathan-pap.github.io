@@ -27,6 +27,9 @@ body[data-page="tools"] .side-title { color: var(--tools); }
 .tool-card:hover { border-color: rgba(255, 127, 181, .45); border-top-color: var(--tools); transform: translateY(-2px); }
 .tool-card a.cover-link::after { content: ""; position: absolute; inset: 0; }
 .tool-card a.cover-link:focus-visible { outline: none; }
+/* a second link on a card (for example the story behind a tool) sits above the card-wide cover link */
+.tool-card a.tool-more { position: relative; z-index: 1; color: var(--tools); text-decoration: none; font-size: 14px; }
+.tool-card a.tool-more:hover { text-decoration: underline; }
 .tool-card:has(a.cover-link:focus-visible) { outline: 2px solid var(--tools); outline-offset: 3px; }
 .tool-top { display: flex; align-items: center; gap: 10px; }
 .tool-card h3 { margin: 0; font-size: 19px; line-height: 1.28; letter-spacing: -.005em; }

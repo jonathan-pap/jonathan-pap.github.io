@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-19T00:00:00Z</updated>
+  <updated>2026-11-20T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Lab: Page playground: learn to build a Fabric app, in the browser</title>
+    <link href="https://goldlayerdata.com/post.html?slug=page-playground-learn-fabric-apps-in-the-browser" />
+    <id>https://goldlayerdata.com/post.html?slug=page-playground-learn-fabric-apps-in-the-browser</id>
+    <updated>2026-11-20T00:00:00Z</updated>
+    <summary>A course in a browser tab for Power BI developers who know DAX and have never written TypeScript. You start with an empty folder and end with a report page on a semantic model. Everything is simulated, and the first step didn't work.</summary>
+    <category term="Lab" />
+  </entry>
 
   <entry>
     <title>Lab: Gold Layer City: an anime opening, directed in chat</title>

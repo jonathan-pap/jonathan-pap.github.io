@@ -1,6 +1,36 @@
 {
   "posts": [
     {
+      "slug": "page-playground-learn-fabric-apps-in-the-browser",
+      "title": "Page playground: learn to build a Fabric app, in the browser",
+      "date": "2026-11-20",
+      "category": "Lab",
+      "tags": [
+        "Lab",
+        "Apps",
+        "Fabric",
+        "TypeScript",
+        "React",
+        "Power BI",
+        "AI"
+      ],
+      "excerpt": "A course in a browser tab for Power BI developers who know DAX and have never written TypeScript. You start with an empty folder and end with a report page on a semantic model. Everything is simulated, and the first step didn't work.",
+      "readTime": 4,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/page-playground-learn-fabric-apps-in-the-browser.jpg",
+      "source": "drafts",
+      "drafted_with_ai": true,
+      "lane": "lab",
+      "kind": "Apps",
+      "status": "Works",
+      "question": "Can an AI build a hands-on course that a Power BI developer can follow from an empty folder, with nothing to install?",
+      "tools": "TypeScript, React, Monaco editor, esbuild, Claude Code",
+      "time": "2 days",
+      "lesson": "The AI wrote a whole course in two days and checked its own code after every step. It still couldn't tell that step one was impossible to follow. That took a person trying it."
+    },
+    {
       "slug": "gold-layer-city-an-anime-opening-directed-in-chat",
       "title": "Gold Layer City: an anime opening, directed in chat",
       "date": "2026-11-19",
