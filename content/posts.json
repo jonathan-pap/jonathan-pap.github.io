@@ -175,7 +175,7 @@
       "drafted_with_ai": true,
       "lane": "lab",
       "kind": "Anime",
-      "status": "In progress",
+      "status": "Works",
       "question": "Can 3D anime characters, animated by AI, make our videos more fun to watch?",
       "tools": "VRoid Studio, three.js, three-vrm, HyperFrames, Claude",
       "time": "2 days, 14 test renders",

@@ -2,7 +2,7 @@
 
 The Gold Layer videos are motion graphics: a chart, some code, a caption, a logo at the end. They're clear, but nobody remembers a bar chart's face. So I wanted to try characters: anime presenters who can react in a quiz short, talk through the trailer, or race through the data city.
 
-This is a Lab entry, so it's a log, not a how-to. It's still in progress, and most of it is about what went wrong. If you only have a minute, the short at the end puts each mistake next to its fix.
+This is a Lab entry, so it's a log, not a how-to. The experiment is done, and most of it is about what went wrong. If you only have a minute, the short at the end puts each mistake next to its fix.
 
 ## The idea
 
