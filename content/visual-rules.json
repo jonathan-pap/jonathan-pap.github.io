@@ -44,7 +44,7 @@
     { "id": "VR09", "rule": "Keep scales, order and colours consistent", "category": "Layout & consistency", "severity": "warning", "learnStrength": "explicit", "source": "tips", "verified": true,
       "quote": "Be consistent with chart scales on axes, chart dimension ordering, and the colors used for dimension values within charts.",
       "check": "partly", "checkHint": "per-visual colour overrides for the same category value that differ", "short": null },
-    { "id": "VR10", "rule": "Don't mix time frames on one page", "category": "Layout & consistency", "severity": "warning", "learnStrength": "explicit", "source": "tips", "verified": true,
+    { "id": "VR10", "rule": "Try to avoid mixing time frames", "category": "Layout & consistency", "severity": "warning", "learnStrength": "explicit", "source": "tips", "verified": true,
       "quote": "Try to avoid mixing levels of precision and time... Don't have one chart that has last month next to filtered charts from a specific month of the year.",
       "check": "partly", "checkHint": "different date filters across visuals on one page", "short": null },
     { "id": "VR11", "rule": "Put the top-level number top-left", "category": "Layout & consistency", "severity": "info", "learnStrength": "recommendation", "source": "dashboard-tips", "verified": true,
