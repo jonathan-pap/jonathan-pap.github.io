@@ -4,11 +4,29 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-20T00:00:00Z</updated>
+  <updated>2026-11-22T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>TypeScript for Power BI developers: one 16:9 page</title>
+    <link href="https://goldlayerdata.com/post.html?slug=typescript-for-power-bi-developers" />
+    <id>https://goldlayerdata.com/post.html?slug=typescript-for-power-bi-developers</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A coding agent can write a Fabric app for you. To check it, you need to read it. This is the TypeScript a Power BI developer needs for that, built up as one report-style page: a 16:9 canvas, two cards, a bar chart and a text panel over a DAX query.</summary>
+    <category term="Fabric" />
+  </entry>
+
+  <entry>
+    <title>Upskilling for 2027: DAX and modeling are not enough anymore</title>
+    <link href="https://goldlayerdata.com/post.html?slug=dax-and-modeling-are-not-enough" />
+    <id>https://goldlayerdata.com/post.html?slug=dax-and-modeling-are-not-enough</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>Most of us write measures every day and almost never write a DAX query. But a DAX query is how report visuals, and more and more AI tools and apps, read data from your model. If you're planning what to learn in 2027, here's why I'd put reading DAX queries and a little TypeScript on the list, and where I'd start.</summary>
+    <category term="Power BI" />
+  </entry>
 
   <entry>
     <title>Lab: Fabric app playground: learn to build one, in the browser</title>

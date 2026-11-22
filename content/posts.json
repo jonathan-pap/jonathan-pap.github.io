@@ -1,6 +1,51 @@
 {
   "posts": [
     {
+      "slug": "typescript-for-power-bi-developers",
+      "title": "TypeScript for Power BI developers: one 16:9 page",
+      "date": "2026-11-22",
+      "category": "Fabric",
+      "tags": [
+        "Fabric",
+        "Fabric apps",
+        "TypeScript",
+        "React",
+        "Power BI",
+        "DAX"
+      ],
+      "excerpt": "A coding agent can write a Fabric app for you. To check it, you need to read it. This is the TypeScript a Power BI developer needs for that, built up as one report-style page: a 16:9 canvas, two cards, a bar chart and a text panel over a DAX query.",
+      "readTime": 14,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/typescript-for-power-bi-developers.png",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
+      "slug": "dax-and-modeling-are-not-enough",
+      "title": "Upskilling for 2027: DAX and modeling are not enough anymore",
+      "date": "2026-11-22",
+      "category": "Power BI",
+      "tags": [
+        "Power BI",
+        "DAX",
+        "DAX queries",
+        "TypeScript",
+        "Fabric apps",
+        "AI",
+        "Career"
+      ],
+      "excerpt": "Most of us write measures every day and almost never write a DAX query. But a DAX query is how report visuals, and more and more AI tools and apps, read data from your model. If you're planning what to learn in 2027, here's why I'd put reading DAX queries and a little TypeScript on the list, and where I'd start.",
+      "readTime": 10,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/dax-and-modeling-are-not-enough.png",
+      "source": "drafts",
+      "drafted_with_ai": true
+    },
+    {
       "slug": "page-playground-learn-fabric-apps-in-the-browser",
       "title": "Fabric app playground: learn to build one, in the browser",
       "date": "2026-11-20",

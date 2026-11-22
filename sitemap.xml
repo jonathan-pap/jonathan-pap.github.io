@@ -21,6 +21,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://goldlayerdata.com/post.html?slug=typescript-for-power-bi-developers</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://goldlayerdata.com/post.html?slug=dax-and-modeling-are-not-enough</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://goldlayerdata.com/post.html?slug=page-playground-learn-fabric-apps-in-the-browser</loc>
     <lastmod>2026-11-20</lastmod>
     <priority>0.8</priority>
