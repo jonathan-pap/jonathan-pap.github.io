@@ -139,3 +139,19 @@ body[data-page="tools"] .blog-main .linkbtn { color: var(--tools); text-decorati
 .sheet-close:focus-visible, .sheet-actions a:focus-visible { outline: 2px solid var(--tools); outline-offset: 2px; }
 .sheet-scroll { overflow: auto; min-height: 0; }
 .sheet-scroll img { display: block; width: 100%; height: auto; }
+
+/* Pinned card: a gold push pin in the top border, with a small tag hanging from it.
+   Pinned cards always come first (tools.js moves them; the HTML lists them first too). */
+.tool-pin { position: absolute; top: -13px; right: 22px; z-index: 2; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+.tool-pin-head { width: 22px; height: 22px; fill: var(--gold); stroke: #0A1328; stroke-width: 1.2; stroke-linejoin: round;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .45)) drop-shadow(0 0 6px rgba(242, 200, 17, .4)); }
+.tool-pin-tag { position: relative; margin-top: 7px; padding: 4px 7px 4px 13px; transform: rotate(-6deg); transform-origin: 50% -7px;
+  font: 700 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tools);
+  background: var(--card); border: 1px solid rgba(255, 127, 181, .55); border-radius: 3px 5px 5px 3px; }
+.tool-pin-tag::before { content: ""; position: absolute; left: 50%; top: -8px; width: 1px; height: 8px; background: rgba(255, 127, 181, .7); }
+.tool-pin-tag::after { content: ""; position: absolute; left: 5px; top: 50%; width: 3px; height: 3px; margin-top: -1.5px; border-radius: 50%; background: rgba(255, 127, 181, .7); }
+.tool-card--pinned { border-color: rgba(255, 127, 181, .35); border-top-color: var(--tools); }
+.tool-card--pinned .tool-top { padding-right: 70px; }
+@media (prefers-reduced-motion: no-preference) {
+  .tool-card--pinned:hover .tool-pin-tag { transform: rotate(-2deg); transition: transform .3s ease; }
+}

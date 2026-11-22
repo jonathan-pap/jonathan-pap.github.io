@@ -7,6 +7,8 @@
 
   const grid = document.getElementById("toolsGrid");
   if (!grid) return;
+  // Pinned cards (data-pinned) always come first, in their own order, whatever is added above them.
+  [...grid.querySelectorAll(".tool-card[data-pinned]")].reverse().forEach((el) => grid.prepend(el));
   const cards = [...grid.querySelectorAll(".tool-card")].map((el) => ({
     el,
     topic: (el.querySelector(".tools-kind") || {}).textContent ? el.querySelector(".tools-kind").textContent.trim() : "",
