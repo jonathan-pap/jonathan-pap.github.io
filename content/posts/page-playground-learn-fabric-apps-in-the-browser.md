@@ -12,7 +12,7 @@ It's a Lab entry, so it's a log of what I tried and what went wrong, not a how-t
 
 ## What it does
 
-You get an editor, a terminal, and a 16:9 page that redraws as you type. The course has 17 lessons in 6 modules:
+You get an editor, a terminal, and a 16:9 page that redraws as you type. At launch it had 17 lessons in 6 modules:
 
 - **Start here.** Find your way around.
 - **Set up the project.** Create the app, connect it to a semantic model, wire the client.
@@ -29,7 +29,7 @@ Each lesson is a handful of steps, one per card. A step says what to do, what yo
 
 Nothing in the playground talks to Fabric or Power BI. That was the point: no sign-in, no capacity, no cost.
 
-- **The terminal** knows the handful of commands the course uses and writes the files they would write.
+- **The terminal** knows the handful of commands the lessons use and writes the files they would write.
 - **The data** is 114 saved query results from a Contoso model, returned in the same shape the real connector returns.
 - **The editor** checks your code against the real type signatures of the packages (a subset of them), so a red line in the playground is one you would also get in a real project.
 
@@ -39,7 +39,7 @@ The page says so in the header, and lines that couldn't be checked against the r
 
 **The code wasn't empty.** The first version opened with a finished page and asked you to change it. That teaches editing, not building. I had it rebuilt as one project that grows from an empty folder, with the setup commands first.
 
-**Step one was impossible.** The very first step told you to move into the project folder and install packages. There was no project yet, so nothing worked. Every automatic check had passed, because the checks start from the course's own idea of the project. I found it by trying the first step myself.
+**Step one was impossible.** The very first step told you to move into the project folder and install packages. There was no project yet, so nothing worked. Every automatic check had passed, because the checks start from the playground's own idea of the project. I found it by trying the first step myself.
 
 **Some facts were wrong.** The first draft said a failed network request comes back as an error result. In a browser app it throws. That's one line in the docs and a whole lesson's worth of difference in the code. A second pass against the official docs found a few more like it.
 
@@ -49,9 +49,9 @@ The page says so in the header, and lines that couldn't be checked against the r
 
 ## What made it trustworthy
 
-One script builds the whole course from an empty folder, step by step, and type-checks the project after every step. If a step is supposed to leave an error on screen for you to fix, the script expects exactly that error. A course where the steps and the code can drift apart is the usual way tutorials rot, and this stops it.
+One script builds every lesson from an empty folder, step by step, and type-checks the project after every step. If a step is supposed to leave an error on screen for you to fix, the script expects exactly that error. Lessons where the steps and the code can drift apart is the usual way tutorials rot, and this stops it.
 
-It doesn't replace reading the course as a beginner. The script proved every step was correct. It couldn't tell me whether a step made sense.
+It doesn't replace reading the lessons as a beginner. The script proved every step was correct. It couldn't tell me whether a step made sense.
 
 ## What's next
 
@@ -59,4 +59,4 @@ Feedback from people who are new to TypeScript. If you try it and a step loses y
 
 ## What it taught us about AI
 
-The AI wrote a whole course in two days and checked its own code after every step. It still couldn't tell that step one was impossible to follow. That took a person trying it.
+The AI wrote all the lessons in two days and checked its own code after every step. It still couldn't tell that step one was impossible to follow. That took a person trying it.
