@@ -1,6 +1,36 @@
 {
   "posts": [
     {
+      "slug": "how-gold-layer-is-made-with-ai",
+      "title": "How Gold Layer is made: one AI in charge, a free one on my PC",
+      "date": "2026-11-27",
+      "category": "Lab",
+      "tags": [
+        "Lab",
+        "AI",
+        "Claude",
+        "Qwen",
+        "LM Studio",
+        "Local AI",
+        "Workflow"
+      ],
+      "excerpt": "Gold Layer isn't made by one AI. One model is in charge and checks everything, cheaper ones do routine work, and anything long to read goes to a free model on my own PC. Here's who does what, how they talk to each other, and where the free one went wrong.",
+      "readTime": 6,
+      "author": {
+        "name": "Jonathan Pap"
+      },
+      "image": "./assets/img/posts/how-gold-layer-is-made-with-ai.png",
+      "source": "drafts",
+      "drafted_with_ai": true,
+      "lane": "lab",
+      "kind": "Workflow",
+      "status": "Works",
+      "question": "Can a mix of AI models, one of them free on my own PC, make a blog and its videos without letting mistakes through?",
+      "tools": "Claude Code (Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.2), LM Studio, Qwen3 14B and 8B, ACE-Step",
+      "time": "Set up over a week, still changing",
+      "lesson": "A free local model is a good reader and a risky author. It copies quotes well, makes answers up when a page doesn't have them, and its finished-looking drafts were wrong in quiet places. So it reads, Claude writes, and a script checks."
+    },
+    {
       "slug": "typescript-for-power-bi-developers",
       "title": "TypeScript for Power BI developers: one 16:9 page",
       "date": "2026-11-22",

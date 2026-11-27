@@ -4,11 +4,20 @@
   <subtitle>Notes on DAX, Power BI, Fabric and AI: standards, patterns, and the reasoning behind them.</subtitle>
   <link href="https://goldlayerdata.com/feed.xml" rel="self" />
   <link href="https://goldlayerdata.com/" />
-  <updated>2026-11-22T00:00:00Z</updated>
+  <updated>2026-11-27T00:00:00Z</updated>
   <id>https://goldlayerdata.com/</id>
   <author>
     <name>Jonathan Papworth</name>
   </author>
+
+  <entry>
+    <title>Lab: How Gold Layer is made: one AI in charge, a free one on my PC</title>
+    <link href="https://goldlayerdata.com/post.html?slug=how-gold-layer-is-made-with-ai" />
+    <id>https://goldlayerdata.com/post.html?slug=how-gold-layer-is-made-with-ai</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>Gold Layer isn't made by one AI. One model is in charge and checks everything, cheaper ones do routine work, and anything long to read goes to a free model on my own PC. Here's who does what, how they talk to each other, and where the free one went wrong.</summary>
+    <category term="Lab" />
+  </entry>
 
   <entry>
     <title>TypeScript for Power BI developers: one 16:9 page</title>
